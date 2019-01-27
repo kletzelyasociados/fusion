@@ -1,8 +1,3 @@
-[submodule "OCA/web"]
-	path = OCA/web
-	url = git@github.com:tungnt11191/odoo-purchase-request.git
-	branch = 11.0
-
 [submodule "tungnt11191/odoo-purchase-request"]
 	path = tungnt11191/odoo-purchase-request
 	url = git@github.com:tungnt11191/odoo-purchase-request.git
