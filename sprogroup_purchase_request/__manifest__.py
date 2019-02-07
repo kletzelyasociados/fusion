@@ -3,7 +3,7 @@
 
 {
     'name': 'Purchase Request',
-    'version': '1.1',
+    'version': '1.2',
     'category': 'Purchases',
     'author':'tung.tung11191@gmail.com',
     'description': """

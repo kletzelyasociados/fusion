@@ -227,7 +227,6 @@ class SprogroupPurchaseRequest(models.Model):
                                    'date_planned' :  datetime.today().strftime(DEFAULT_SERVER_DATETIME_FORMAT),
                                    # 'taxes_id' : ((6,0,[taxes_id.id])),
                                    'product_qty' : line.product_qty,
-                                   'name' : line.product_id.name
                                    })
             order_line.append(product_line)
 
