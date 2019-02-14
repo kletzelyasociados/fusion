@@ -211,6 +211,7 @@ class SprogroupPurchaseRequest(models.Model):
         order_line = []
         for line in self.line_ids:
             product = line.product_id
+            description = line.name
             fpos = self.env['account.fiscal.position']
             if self.env.uid == SUPERUSER_ID:
                 company_id = self.env.user.company_id.id
@@ -219,13 +220,13 @@ class SprogroupPurchaseRequest(models.Model):
                 taxes_id = fpos.map_tax(line.product_id.supplier_taxes_id)
 
             product_line = (0, 0, {'product_id' : line.product_id.id,
+                                   'name' : line.name,
                                    'state' : 'draft',
                                    'product_uom' : line.product_id.uom_po_id.id,
                                     'price_unit' : 0,
                                    'date_planned' :  datetime.today().strftime(DEFAULT_SERVER_DATETIME_FORMAT),
                                    # 'taxes_id' : ((6,0,[taxes_id.id])),
                                    'product_qty' : line.product_qty,
-                                   'name' : line.product_id.name
                                    })
             order_line.append(product_line)
 
