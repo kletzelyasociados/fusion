@@ -1,10 +1,10 @@
 <odoo>
-  <data>
+  <!--<data>-->
     <!-- explicit list view definition -->
     <record model="ir.ui.view" id="account_invoice_form_view_inherit">
-      <field name="name">account.invoice.form.inherit</field>
+      <field name="name">account.invoice.custom.form.inherited</field>
       <field name="model">account.invoice</field>
-      <field name="inherit_id" ref="account.invoice_tree"/>
+      <field name="inherit_id" ref="account.invoice_supplier_form"/>
       <field name="arch" type="xml">
         <field name="reference" position="after">
           <field name="UUID"/>
@@ -53,5 +53,5 @@
     <menuitem name="Server to list" id="my_module" parent="my_module.menu_2"
               action="my_module.action_server"/>
     -->
-  </data>
+  <!-- </data>-->
 </odoo>
