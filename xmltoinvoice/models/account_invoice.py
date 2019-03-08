@@ -17,7 +17,7 @@ from odoo import models, fields, api
 from odoo import models, fields, api
 
 
-class Invoice(models.Model):
+class AccountInvoice(models.Model):
     _inherit_ = "account_invoice.py"
 
     UUID = fields.Text(string='Folio Fiscal')
