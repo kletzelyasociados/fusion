@@ -19,7 +19,7 @@
     'version': '0.2',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','purchase', 'account_accountant'],
+    'depends': ['base','purchase', 'account'],
 
     # always loaded
     'data': [
@@ -34,4 +34,5 @@
     ],
 
     'application': True,
+    'auto_install': True,
 }
