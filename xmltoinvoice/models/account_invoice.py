@@ -2,6 +2,9 @@
 
 from odoo import models, fields, api
 
+from xml.dom import minidom
+from tkinter.filedialog import askopenfilename
+
 # class my_module(models.Model):
 #     _name = 'my_module.my_module'
 
@@ -24,4 +27,18 @@ class AccountInvoice(models.Model):
 
     @api.one
     def generate_record_name(self):
-        self.write({'UUID': '23I85FH9756743'})
+        # Ventana para seleccionar archivo XML
+        filename = askopenfilename()
+
+        # Conversión de archivo a objeto manipulable de python
+        mydoc = minidom.parse(filename)
+
+        # Obtengo el nodo del emisor
+        emisor_items = mydoc.getElementsByTagName("cfdi:Emisor")
+
+        # Obtengo los datos necesarios
+        NombreEmisor = emisor_items[0].attributes['Nombre'].value
+        RfcEmisor = emisor_items[0].attributes['Rfc'].value
+        RegimenEmisor = emisor_items[0].attributes['RegimenFiscal'].value
+
+        self.write({'UUID': RfcEmisor})
