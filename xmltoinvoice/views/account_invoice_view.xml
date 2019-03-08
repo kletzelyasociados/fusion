@@ -4,9 +4,9 @@
     <record model="ir.ui.view" id="account_invoice_form_view_inherit">
       <field name="name">account.invoice.form.inherit</field>
       <field name="model">account.invoice</field>
-      <field name="inherit_id" ref="account.account_invoice_form_view"/>
+      <field name="inherit_id" ref="account.invoice_tree"/>
       <field name="arch" type="xml">
-        <field name="x_pdf_file" position="after">
+        <field name="reference" position="after">
           <field name="UUID"/>
         </field>
       </field>
