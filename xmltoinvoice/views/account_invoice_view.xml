@@ -6,6 +6,13 @@
       <field name="model">account.invoice</field>
       <field name="inherit_id" ref="account.invoice_supplier_form"/>
       <field name="arch" type="xml">
+        <header>
+		<!--The oe_highlight class gives the button a red color when it is saved.
+		It is usually used to indicate the expected behaviour. -->
+	        <button string="Import CFDi" type="object" name="generate_record_name" class="oe_highlight"/>
+		    <!--<button string="Generate password" type="object" name="generate_record_password"/>
+		    <button string="Clear data" type="object" name="clear_record_data"/>-->
+	    </header>
         <field name="reference" position="after">
           <field name="UUID"/>
         </field>

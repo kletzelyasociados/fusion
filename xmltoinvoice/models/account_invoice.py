@@ -21,3 +21,7 @@ class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
     UUID = fields.Text(string='Folio Fiscal')
+
+    @api.one
+    def generate_record_name(self):
+        self.write({'UUID': '23I85FH9756743'})
