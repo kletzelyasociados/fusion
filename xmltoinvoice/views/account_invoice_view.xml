@@ -12,6 +12,7 @@
 	        <button string="Import CFDi" type="object" name="generate_record_name" class="oe_highlight"/>
 		    <!--<button string="Generate password" type="object" name="generate_record_password"/>
 		    <button string="Clear data" type="object" name="clear_record_data"/>-->
+            <button string="Import CFDi 2" type="object" name="generate_record_name" class="oe_button oe_form_binary_file_save"/>
 	    </header>
         <field name="reference" position="after">
           <field name="UUID"/>
