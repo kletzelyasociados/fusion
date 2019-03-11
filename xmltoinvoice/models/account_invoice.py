@@ -30,13 +30,11 @@ class AccountInvoice(models.Model):
         #filename = askopenfilename()
         #filename = self.x_xml_file.decode('utf-8')
 
-        with open(self.x_xml_file, "rb") as f:
-            data = f.read()
 
         # Conversión de archivo a objeto manipulable de python
         #mydoc = minidom.parse(self.x_xml_file.decode('utf-8'))
         #mydoc = minidom.parseString(self.x_xml_file.decode('utf-8'))
-        mydoc = minidom.parseString(data)
+        mydoc = minidom.parseString(self.x_xml_file.encode('utf-8'))
 
 
         # Obtengo el nodo del emisor
