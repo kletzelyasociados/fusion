@@ -43,11 +43,11 @@ class AccountInvoice(models.Model):
                          (chr(0xd800), chr(0xdbff), chr(0xdc00), chr(0xdfff),
                           chr(0xd800), chr(0xdbff), chr(0xdc00), chr(0xdfff),
                           chr(0xd800), chr(0xdbff), chr(0xdc00), chr(0xdfff))
-        x = re.sub(RE_XML_ILLEGAL, "", self.x_xml_file)
+        x = re.sub(RE_XML_ILLEGAL, "", self.x_xml_file.decode('utf-8'))
 
         print(x)
 
-        mydoc = minidom.parseString(x.decode('utf-8'))
+        mydoc = minidom.parseString(x)
 
         print(mydoc)
 
