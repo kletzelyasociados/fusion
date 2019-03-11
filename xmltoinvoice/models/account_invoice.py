@@ -37,7 +37,6 @@ class AccountInvoice(models.Model):
         #mydoc = minidom.parseString(self.x_xml_file.decode('utf-8'))
         mydoc = minidom.parseString(re.sub(self.x_xml_file.decode('utf-8'), "?", ""))
 
-
         # Obtengo el nodo del emisor
         emisor_items = mydoc.getElementsByTagName("cfdi:Emisor")
 
