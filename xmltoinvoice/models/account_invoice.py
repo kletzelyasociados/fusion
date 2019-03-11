@@ -29,13 +29,27 @@ class AccountInvoice(models.Model):
     def generate_record_name(self):
         # Ventana para seleccionar archivo XML
         #filename = askopenfilename()
-        #filename = self.x_xml_file.decode('utf-8')
+        filename = self.x_xml_file.decode('utf-8')
 
+        print(filename)
 
         # Conversión de archivo a objeto manipulable de python
         #mydoc = minidom.parse(self.x_xml_file.decode('utf-8'))
         #mydoc = minidom.parseString(self.x_xml_file.decode('utf-8'))
-        mydoc = minidom.parseString(re.sub(self.x_xml_file.decode('utf-8'), "?", ""))
+
+        RE_XML_ILLEGAL = u'([\u0000-\u0008\u000b-\u000c\u000e-\u001f\ufffe-\uffff])' + \
+                         u'|' + \
+                         u'([%s-%s][^%s-%s])|([^%s-%s][%s-%s])|([%s-%s]$)|(^[%s-%s])' % \
+                         (unichr(0xd800), unichr(0xdbff), unichr(0xdc00), unichr(0xdfff),
+                          unichr(0xd800), unichr(0xdbff), unichr(0xdc00), unichr(0xdfff),
+                          unichr(0xd800), unichr(0xdbff), unichr(0xdc00), unichr(0xdfff))
+        x = re.sub(RE_XML_ILLEGAL, "", self.x_xml_file)
+
+        print(x)
+
+        mydoc = minidom.parseString(x.decode('utf-8'))
+
+        print(mydoc)
 
         # Obtengo el nodo del emisor
         emisor_items = mydoc.getElementsByTagName("cfdi:Emisor")
