@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
 
+from odoo import models, fields, api
+
+from xml.dom import minidom
+import base64
+
 # class my_module(models.Model):
 #     _name = 'my_module.my_module'
 
@@ -13,8 +18,7 @@
 #         self.value2 = float(self.value) / 100
 
 from odoo import models, fields, api
-from xml.dom import minidom
-from odoo.exceptions import AccessError, UserError, RedirectWarning, ValidationError, Warning
+
 
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
@@ -22,22 +26,19 @@ class AccountInvoice(models.Model):
     UUID = fields.Text(string='Folio Fiscal')
 
     @api.one
-    def import_xml_data(self):
+    def generate_record_name(self):
+        # Ventana para seleccionar archivo XML
+        #filename = askopenfilename()
+        decoded = base64.b64decode(self.x_xml_file)
 
-        if not self.x_xml_file:
-            raise Warning('NO hay ningún archivo XML adjunto!')
+        mydoc = minidom.parseString(decoded)
 
-        else:
-            # The file is stored in odoo encoded in base64 bytes column, in order to get the information in the original way
-            # It must have to be decoded in the same base.
-            xml = minidom.parseString(self.x_xml_file.decode('base64'))
+        # Obtengo el nodo del emisor
+        emisor_items = mydoc.getElementsByTagName("cfdi:Emisor")
 
-            # Obtengo el nodo del emisor
-            emisor_items = xml.getElementsByTagName("cfdi:Emisor")
+        # Obtengo los datos necesarios
+        NombreEmisor = emisor_items[0].attributes['Nombre'].value
+        RfcEmisor = emisor_items[0].attributes['Rfc'].value
+        RegimenEmisor = emisor_items[0].attributes['RegimenFiscal'].value
 
-            # Obtengo los datos necesarios
-            NombreEmisor = emisor_items[0].attributes['Nombre'].value
-            RfcEmisor = emisor_items[0].attributes['Rfc'].value
-            RegimenEmisor = emisor_items[0].attributes['RegimenFiscal'].value
-
-            self.write({'UUID': NombreEmisor})
+        self.write({'UUID': NombreEmisor})
