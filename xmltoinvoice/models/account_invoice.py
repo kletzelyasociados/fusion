@@ -28,10 +28,12 @@ class AccountInvoice(models.Model):
     def generate_record_name(self):
         # Ventana para seleccionar archivo XML
         #filename = askopenfilename()
-        filename = self.x_xml_file.decode('utf-8')
+        #filename = self.x_xml_file.decode('utf-8')
+
 
         # Conversión de archivo a objeto manipulable de python
-        mydoc = minidom.parse(self.x_xml_file.read())
+        #mydoc = minidom.parse(self.x_xml_file.decode('utf-8'))
+        mydoc = minidom.parseString(self.x_xml_file.decode('utf-8'))
 
 
 
