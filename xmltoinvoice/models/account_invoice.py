@@ -30,7 +30,7 @@ class AccountInvoice(models.Model):
         #filename = askopenfilename()
 
         # Conversión de archivo a objeto manipulable de python
-        mydoc = minidom.parse(self.x_xml_file)
+        mydoc = minidom.parse(self.x_xml_file.decode('utf-8'))
 
         # Obtengo el nodo del emisor
         emisor_items = mydoc.getElementsByTagName("cfdi:Emisor")
