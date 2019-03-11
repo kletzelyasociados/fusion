@@ -3,7 +3,7 @@
 from odoo import models, fields, api
 
 from xml.dom import minidom
-import re
+import base64
 
 # class my_module(models.Model):
 #     _name = 'my_module.my_module'
@@ -29,11 +29,9 @@ class AccountInvoice(models.Model):
     def generate_record_name(self):
         # Ventana para seleccionar archivo XML
         #filename = askopenfilename()
-        decoded = self.x_xml_file.decode('utf-8', errors='ignore')
+        decoded = base64.b64decode(self.x_xml_file)
 
-        goodXML = decoded.encode('utf-8')
-
-        mydoc = minidom.parseString(goodXML)
+        mydoc = minidom.parseString(decoded)
 
         # Obtengo el nodo del emisor
         emisor_items = mydoc.getElementsByTagName("cfdi:Emisor")
@@ -43,4 +41,4 @@ class AccountInvoice(models.Model):
         RfcEmisor = emisor_items[0].attributes['Rfc'].value
         RegimenEmisor = emisor_items[0].attributes['RegimenFiscal'].value
 
-        self.write({'UUID':NombreEmisor})
+        self.write({'UUID': NombreEmisor})
