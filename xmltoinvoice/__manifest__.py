@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "XMl to PO/Invoice",
+    'name': "XML to PO/Invoice",
 
     'summary': """
         Creation of Purchase Orders or Vendor Bill based on XML Data (Mexican CFDi)""",
