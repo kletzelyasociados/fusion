@@ -46,11 +46,13 @@ class AccountInvoice(models.Model):
             RfcEmisor = emisor_items[0].attributes['Rfc'].value
             RegimenEmisor = emisor_items[0].attributes['RegimenFiscal'].value
 
+            getters = Getters()
+
             # creo un objeto proveedor y le asigno los datos del emisor del XML
-            vendor = Partner(self.checkCompanyType(RegimenEmisor),
+            vendor = Partner(getters.checkCompanyType(RegimenEmisor),
                              NombreEmisor,
                              RfcEmisor,
-                             self.getFiscalPosition(RegimenEmisor),
+                             getters.getFiscalPosition(RegimenEmisor),
                              "85")
 
             # Valido que exista el proveedor
@@ -96,7 +98,30 @@ class AccountInvoice(models.Model):
             # Creo el Objeto interno líneas de pedido/factura
             lines = []
 
-            self.write({'partner_id': partner_id})
+            try:
+                self.write({'partner_id': partner_id})
+            except:
+                self.write({'partner_id': 2731})
+
+
+class AccountInvoiceLine(models.Model):
+    _inherit = "account.invoice.line"
+
+
+class Partner():
+
+    def __init__(self, company_type, name, vat, property_account_position_id, l10n_mx_type_of_operation):
+        self.partnerRow = [{
+            "company_type": company_type, #person or company
+            "name": name,
+            "vat": vat,
+            "country_id": 156, #México
+            "lang": "es_MX", #Español
+            "supplier": 1,
+            "customer": 0,
+            "property_account_position_id": property_account_position_id,
+            "l10n_mx_type_of_operation": l10n_mx_type_of_operation
+        }]
 
     @api.multi
     def createPartner(self):
@@ -122,108 +147,18 @@ class AccountInvoice(models.Model):
                 return 0
 
     @api.multi
-    def checkCompanyType(self,RegimenEmisor):
-        if RegimenEmisor == 612:
-            return "person"
-        else:
-            return "company"
-
-    @api.multi
     def getFiscalPosition(self, fiscal_position):
 
         try:
 
             print("Getting fiscal position")
-            fiscal_position_id = self.env['account.fiscal.position'].search([[("l10n_mx_edi_code", "=", fiscal_position),("company_id", "=", 1)]], limit=1)
+            fiscal_position_id = self.env['account.fiscal.position'].search(
+                [[("l10n_mx_edi_code", "=", fiscal_position), ("company_id", "=", 1)]], limit=1)
             return fiscal_position_id
 
         except:
 
             return 1
-
-    @api.multi
-    def getUnitOfMeasure(self, product_uom):#Falta de adaptar
-
-        try:
-
-            print("Getting SAT Unit of Measure Id")
-            odoo_filter = [[("code", "=", product_uom)]]
-            uom_sat_id = self.connection.ODOO_OBJECT.execute_kw(
-                self.connection.DATA
-                , self.connection.UID
-                , self.connection.PASS
-                , 'l10n_mx_edi.product.sat.code'
-                , 'search'
-                , odoo_filter)
-            print("Getting Odoo Unit of Measure Id")
-            odoo_filter = [[("l10n_mx_edi_code_sat_id", "=", uom_sat_id)]]
-            uom_id = self.connection.ODOO_OBJECT.execute_kw(
-                self.connection.DATA
-                , self.connection.UID
-                , self.connection.PASS
-                , 'product.uom'
-                , 'search'
-                , odoo_filter)
-
-            return uom_id[0]
-
-        except:
-
-            return 31#
-
-    @api.multi
-    def getTaxes(self,TasaoCuota, product_id):#Falta de adaptar
-        try:
-
-            print("Getting SAT Unit of Measure Id")
-            odoo_filter = [[("amount", "=", int(TasaoCuota*10)),("type_tax_use", "=", "Compras")]]
-            tax_id = self.connection.ODOO_OBJECT.execute_kw(
-                self.connection.DATA
-                , self.connection.UID
-                , self.connection.PASS
-                , 'account.tax'
-                , 'search'
-                , odoo_filter)
-
-            return tax_id
-
-        except:
-
-            return product_id.supplier_taxes_id
-
-    @api.multi
-    def getAccount(self, code):#Falta de adaptar
-
-        print("Getting Account Id")
-        odoo_filter = [[("code", "=", code),("company_id", "=", 1)]]
-        account_id = self.connection.ODOO_OBJECT.execute_kw(
-            self.connection.DATA
-            , self.connection.UID
-            , self.connection.PASS
-            , 'account.account'
-            , 'search'
-            , odoo_filter)
-
-        return account_id[0]
-
-class AccountInvoiceLine(models.Model):
-    _inherit = "account.invoice.line"
-
-
-class Partner():
-
-    def __init__(self, company_type, name, vat, property_account_position_id, l10n_mx_type_of_operation):
-        self.partnerRow = [{
-            "company_type": company_type, #person or company
-            "name": name,
-            "vat": vat,
-            "country_id": 156, #México
-            "lang": "es_MX", #Español
-            "supplier": 1,
-            "customer": 0,
-            "property_account_position_id": property_account_position_id,
-            "l10n_mx_type_of_operation": l10n_mx_type_of_operation
-        }]
 
 
 class OrderLine():
@@ -381,3 +316,78 @@ class Invoice():
             , 'create'
             , self.invoice)
         messagebox.showinfo(title="Invoice Creation", message="Invoice Created successfully!")
+
+
+class Getters():
+
+    @api.multi
+    def checkCompanyType(RegimenEmisor):
+        if RegimenEmisor == 612:
+            return "person"
+        else:
+            return "company"
+
+    @api.multi
+    def getUnitOfMeasure(self, product_uom):  # Falta de adaptar
+
+        try:
+
+            print("Getting SAT Unit of Measure Id")
+            odoo_filter = [[("code", "=", product_uom)]]
+            uom_sat_id = self.connection.ODOO_OBJECT.execute_kw(
+                self.connection.DATA
+                , self.connection.UID
+                , self.connection.PASS
+                , 'l10n_mx_edi.product.sat.code'
+                , 'search'
+                , odoo_filter)
+            print("Getting Odoo Unit of Measure Id")
+            odoo_filter = [[("l10n_mx_edi_code_sat_id", "=", uom_sat_id)]]
+            uom_id = self.connection.ODOO_OBJECT.execute_kw(
+                self.connection.DATA
+                , self.connection.UID
+                , self.connection.PASS
+                , 'product.uom'
+                , 'search'
+                , odoo_filter)
+
+            return uom_id[0]
+
+        except:
+
+            return 31
+
+    @api.multi
+    def getTaxes(self, TasaoCuota, product_id):  # Falta de adaptar
+        try:
+
+            print("Getting SAT Unit of Measure Id")
+            odoo_filter = [[("amount", "=", int(TasaoCuota * 10)), ("type_tax_use", "=", "Compras")]]
+            tax_id = self.connection.ODOO_OBJECT.execute_kw(
+                self.connection.DATA
+                , self.connection.UID
+                , self.connection.PASS
+                , 'account.tax'
+                , 'search'
+                , odoo_filter)
+
+            return tax_id
+
+        except:
+
+            return product_id.supplier_taxes_id
+
+    @api.multi
+    def getAccount(self, code):  # Falta de adaptar
+
+        print("Getting Account Id")
+        odoo_filter = [[("code", "=", code), ("company_id", "=", 1)]]
+        account_id = self.connection.ODOO_OBJECT.execute_kw(
+            self.connection.DATA
+            , self.connection.UID
+            , self.connection.PASS
+            , 'account.account'
+            , 'search'
+            , odoo_filter)
+
+        return account_id[0]
