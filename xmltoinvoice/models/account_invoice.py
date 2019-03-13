@@ -146,20 +146,6 @@ class Partner():
 
                 return 0
 
-    @api.multi
-    def getFiscalPosition(self, fiscal_position):
-
-        try:
-
-            print("Getting fiscal position")
-            fiscal_position_id = self.env['account.fiscal.position'].search(
-                [[("l10n_mx_edi_code", "=", fiscal_position), ("company_id", "=", 1)]], limit=1)
-            return fiscal_position_id
-
-        except:
-
-            return 1
-
 
 class OrderLine():
 
@@ -391,3 +377,17 @@ class Getters():
             , odoo_filter)
 
         return account_id[0]
+
+    @api.multi
+    def getFiscalPosition(self, fiscal_position):
+
+        try:
+
+            print("Getting fiscal position")
+            fiscal_position_id = self.env['account.fiscal.position'].search(
+                [[("l10n_mx_edi_code", "=", fiscal_position), ("company_id", "=", 1)]], limit=1)
+            return fiscal_position_id
+
+        except:
+
+            return 1
