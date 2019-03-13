@@ -49,11 +49,13 @@ class AccountInvoice(models.Model):
             getters = Getters()
 
             # creo un objeto proveedor y le asigno los datos del emisor del XML
-            vendor = Partner.createPartnerRow(company_type=getters.checkCompanyType(RegimenEmisor),
-                                              name=NombreEmisor,
-                                              vat=RfcEmisor,
-                                              property_account_position_id=getters.getFiscalPosition(RegimenEmisor),
-                                              l10n_mx_type_of_operation="85")
+            vendor = Partner()
+
+            vendor.createPartnerRow(ompany_type=getters.checkCompanyType(RegimenEmisor),
+                                    name=NombreEmisor,
+                                    vat=RfcEmisor,
+                                    property_account_position_id=getters.getFiscalPosition(RegimenEmisor),
+                                    l10n_mx_type_of_operation="85")
 
             # Valido que exista el proveedor
             partner_id = vendor.partnerCheck()
