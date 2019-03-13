@@ -82,7 +82,9 @@ class AccountInvoice(models.Model):
             # Creo el Objeto interno líneas de pedido/factura
             lines = []
 
-            self.create({'partner_id': 2731})
+            partner = self.env['res.partner'].search([["vat", "=", RfcEmisor]], limit=1)
+
+            self.write({'partner_id': partner.id})
 
 
 
