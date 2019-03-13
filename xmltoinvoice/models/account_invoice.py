@@ -108,8 +108,10 @@ class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
 
 
-class Partner():
+class Partner(models.Model):
+    _inherit = "res.partner"
 
+    @api.multi
     def __init__(self, company_type, name, vat, property_account_position_id, l10n_mx_type_of_operation):
         self.partnerRow = [{
             "company_type": company_type, #person or company
