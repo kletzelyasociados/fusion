@@ -31,7 +31,7 @@ class AccountInvoice(models.Model):
     def import_xml_data(self):
 
         if not self.x_xml_file:
-            raise Warning('No hay ningún archivo XML adjunto!')
+            raise ValidationError('No hay ningún archivo XML adjunto!')
 
         else:
             # The file is stored in odoo encoded in base64 bytes column, in order to get the information in the original way
@@ -82,7 +82,7 @@ class AccountInvoice(models.Model):
             # Creo el Objeto interno líneas de pedido/factura
             lines = []
 
-            self.write({'partner_id': 2731})
+            self.create({'partner_id': 2731})
 
 
 
