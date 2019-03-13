@@ -38,80 +38,93 @@ class AccountInvoice(models.Model):
             # It must have to be decoded in the same base.
             xml = minidom.parseString(base64.b64decode(self.x_xml_file))
 
-            # Obtengo el nodo del emisor
-            emisor_items = xml.getElementsByTagName("cfdi:Emisor")
-
-            # Obtengo los datos necesarios
-            NombreEmisor = emisor_items[0].attributes['Nombre'].value
-            RfcEmisor = emisor_items[0].attributes['Rfc'].value
-            RegimenEmisor = emisor_items[0].attributes['RegimenFiscal'].value
-
             # Obtengo el nodo del receptor
             receptor_items = xml.getElementsByTagName("cfdi:Receptor")
 
             # Obtengo los datos que necesito
             NombreReceptor = receptor_items[0].attributes['Nombre'].value
             RfcReceptor = receptor_items[0].attributes['Rfc'].value
-            UsoCfdi = receptor_items[0].attributes['UsoCFDI'].value
 
-            # Obtengo el nodo del comprobante
-            invoice_items = xml.getElementsByTagName("cfdi:Comprobante")
+            if RfcReceptor == self.env.user.company_id.vat:
 
-            # Obtengo los datos principales de la factura
-            try:
-                Serie = invoice_items[0].attributes['Serie'].value
 
-            except:
-                Serie = ""
+                # Obtengo el nodo del emisor
+                emisor_items = xml.getElementsByTagName("cfdi:Emisor")
 
-            try:
-                Folio = invoice_items[0].attributes['Folio'].value
+                # Obtengo los datos necesarios
+                NombreEmisor = emisor_items[0].attributes['Nombre'].value
+                RfcEmisor = emisor_items[0].attributes['Rfc'].value
+                RegimenEmisor = emisor_items[0].attributes['RegimenFiscal'].value
 
-            except:
-                Folio = xml.getElementsByTagName("tfd:TimbreFiscalDigital")[0].attributes['UUID'].value
+                # Obtengo el nodo del comprobante
+                invoice_items = xml.getElementsByTagName("cfdi:Comprobante")
 
-            Fecha = invoice_items[0].attributes['Fecha'].value
-            FormaPago = invoice_items[0].attributes['FormaPago'].value
-            SubTotal = invoice_items[0].attributes['SubTotal'].value
-            Moneda = invoice_items[0].attributes['Moneda'].value
-            Total = invoice_items[0].attributes['Total'].value
+                # Obtengo los datos principales de la factura
+                try:
+                    Serie = invoice_items[0].attributes['Serie'].value
 
-            # Obtengo los nodos con la información de las líneas de factura
-            invoice_line_items = xml.getElementsByTagName("cfdi:Concepto")
+                except:
+                    Serie = ""
 
-            # Creo el Objeto interno líneas de pedido/factura
-            lines = []
+                try:
+                    Folio = invoice_items[0].attributes['Folio'].value
 
-            partner = self.env['res.partner'].search([["vat", "=", RfcEmisor]], limit=1)
+                except:
+                    Folio = xml.getElementsByTagName("tfd:TimbreFiscalDigital")[0].attributes['UUID'].value
 
-            if partner:
-                self.write({'partner_id': partner.id})
+                Fecha = invoice_items[0].attributes['Fecha'].value
+                FormaPago = invoice_items[0].attributes['FormaPago'].value
+                SubTotal = invoice_items[0].attributes['SubTotal'].value
+                Moneda = invoice_items[0].attributes['Moneda'].value
+                Total = invoice_items[0].attributes['Total'].value
+
+                # Obtengo los nodos con la información de las líneas de factura
+                invoice_line_items = xml.getElementsByTagName("cfdi:Concepto")
+
+                # Creo el Objeto interno líneas de pedido/factura
+                lines = []
+
+                partner = self.env['res.partner'].search([["vat", "=", RfcEmisor]], limit=1)
+
+                if partner:
+                    self.write({'partner_id': partner.id})
+
+                else:
+
+                    if RegimenEmisor == 612:
+                        company_type = "person"
+                    else:
+                        company_type = "company"
+
+                    fiscal_position = self.env['account.fiscal.position'].search(
+                        [[("l10n_mx_edi_code", "=", RegimenEmisor), ("company_id", "=", 1)]], limit=1)
+
+                    if not fiscal_position:
+                        fiscal_position = 1
+
+                    partner = self.env['res.partner'].create([{
+                        "company_type": company_type, #person or company
+                        "name": NombreEmisor,
+                        "vat": RfcEmisor,
+                        "country_id": 156, #México
+                        "lang": "es_MX", #Español
+                        "supplier": 1,
+                        "customer": 0,
+                        "property_account_position_id": fiscal_position.id,
+                        "l10n_mx_type_of_operation": "85"
+                    }])
+
+                    self.write({'partner_id': partner.id})
             else:
 
-                if RegimenEmisor == 612:
-                    company_type = "person"
-                else:
-                    company_type = "company"
+                self.write({'x_xml_file': False})
 
-                fiscal_position = self.env['account.fiscal.position'].search(
-                    [[("l10n_mx_edi_code", "=", RegimenEmisor), ("company_id", "=", 1)]], limit=1)
+                raise ValidationError('La factura no corresponde a ' + self.env.user.company_id.name
+                                      + "\nLa factura está hecha a: "
+                                      + "\nRazón Social: " + NombreReceptor
+                                      + "\nRFC: " + RfcReceptor)
 
-                if not fiscal_position:
-                    fiscal_position = 1
 
-                partner = self.env['res.partner'].create([{
-                    "company_type": company_type, #person or company
-                    "name": NombreEmisor,
-                    "vat": RfcEmisor,
-                    "country_id": 156, #México
-                    "lang": "es_MX", #Español
-                    "supplier": 1,
-                    "customer": 0,
-                    "property_account_position_id": fiscal_position.id,
-                    "l10n_mx_type_of_operation": "85"
-                }])
-
-                self.write({'partner_id': partner.id})
 
 
 class AccountInvoiceLine(models.Model):
