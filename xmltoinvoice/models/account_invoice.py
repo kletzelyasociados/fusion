@@ -321,7 +321,7 @@ class Invoice():
 class Getters():
 
     @api.multi
-    def checkCompanyType(RegimenEmisor):
+    def checkCompanyType(self,RegimenEmisor):
         if RegimenEmisor == 612:
             return "person"
         else:
