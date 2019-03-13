@@ -49,11 +49,11 @@ class AccountInvoice(models.Model):
             getters = Getters()
 
             # creo un objeto proveedor y le asigno los datos del emisor del XML
-            vendor = Partner(getters.checkCompanyType(RegimenEmisor),
-                             NombreEmisor,
-                             RfcEmisor,
-                             getters.getFiscalPosition(RegimenEmisor),
-                             "85")
+            vendor = Partner.createPartnerRow(getters.checkCompanyType(RegimenEmisor),
+                                              NombreEmisor,
+                                              RfcEmisor,
+                                              getters.getFiscalPosition(RegimenEmisor),
+                                              "85")
 
             # Valido que exista el proveedor
             partner_id = vendor.partnerCheck()
@@ -112,7 +112,7 @@ class Partner(models.Model):
     _inherit = "res.partner"
 
     @api.multi
-    def __init__(self, company_type, name, vat, property_account_position_id, l10n_mx_type_of_operation):
+    def createPartnerRow(self, company_type, name, vat, property_account_position_id, l10n_mx_type_of_operation):
         self.partnerRow = [{
             "company_type": company_type, #person or company
             "name": name,
@@ -127,7 +127,7 @@ class Partner(models.Model):
 
     @api.multi
     def createPartner(self):
-        partner_id = self.env['res.partner'].create(self)
+        partner_id = self.env['res.partner'].create(self.partnerRow)
         return partner_id
 
     @api.multi
