@@ -46,24 +46,6 @@ class AccountInvoice(models.Model):
             RfcEmisor = emisor_items[0].attributes['Rfc'].value
             RegimenEmisor = emisor_items[0].attributes['RegimenFiscal'].value
 
-            getters = Getters()
-
-            # creo un objeto proveedor y le asigno los datos del emisor del XML
-            vendor = Partner()
-
-            vendor.createPartnerRow(ompany_type=getters.checkCompanyType(RegimenEmisor),
-                                    name=NombreEmisor,
-                                    vat=RfcEmisor,
-                                    property_account_position_id=getters.getFiscalPosition(RegimenEmisor),
-                                    l10n_mx_type_of_operation="85")
-
-            # Valido que exista el proveedor
-            partner_id = vendor.partnerCheck()
-
-            # Si no existe el proveedor lo creo con los datos del XML
-            if partner_id == 0:
-                partner_id = vendor.createPartner()
-
             # Obtengo el nodo del receptor
             receptor_items = xml.getElementsByTagName("cfdi:Receptor")
 
@@ -100,10 +82,8 @@ class AccountInvoice(models.Model):
             # Creo el Objeto interno líneas de pedido/factura
             lines = []
 
-            try:
-                self.write({'partner_id': partner_id})
-            except:
-                self.write({'partner_id': 2731})
+            self.write({'partner_id': 2731})
+
 
 
 class AccountInvoiceLine(models.Model):
