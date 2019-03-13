@@ -84,53 +84,38 @@ class AccountInvoice(models.Model):
 
             partner = self.env['res.partner'].search([["vat", "=", RfcEmisor]], limit=1)
 
-            self.write({'partner_id': partner.id})
+            if partner:
+                self.write({'partner_id': partner.id})
+            else:
 
+                if RegimenEmisor == 612:
+                    company_type = "person"
+                else:
+                    company_type = "company"
+
+                fiscal_position = self.env['account.fiscal.position'].search(
+                    [[("l10n_mx_edi_code", "=", RegimenEmisor), ("company_id", "=", 1)]], limit=1)
+
+                if not fiscal_position:
+                    fiscal_position = 1
+
+                partner = self.env['res.partner'].create([{
+                    "company_type": company_type, #person or company
+                    "name": NombreEmisor,
+                    "vat": RfcEmisor,
+                    "country_id": 156, #México
+                    "lang": "es_MX", #Español
+                    "supplier": 1,
+                    "customer": 0,
+                    "property_account_position_id": fiscal_position.id,
+                    "l10n_mx_type_of_operation": "85"
+                }])
+
+                self.write({'partner_id': partner.id})
 
 
 class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
-
-
-class Partner(models.Model):
-    _inherit = "res.partner"
-
-    @api.multi
-    def createPartnerRow(self, company_type, name, vat, property_account_position_id, l10n_mx_type_of_operation):
-        self.partnerRow = [{
-            "company_type": company_type, #person or company
-            "name": name,
-            "vat": vat,
-            "country_id": 156, #México
-            "lang": "es_MX", #Español
-            "supplier": 1,
-            "customer": 0,
-            "property_account_position_id": property_account_position_id,
-            "l10n_mx_type_of_operation": l10n_mx_type_of_operation
-        }]
-
-    @api.multi
-    def createPartner(self):
-        partner_id = self.env['res.partner'].create(self.partnerRow)
-        return partner_id
-
-    @api.multi
-    def partnerCheck(self):
-
-        try:
-            print("Looking for: " + self.partnerRow[0].get("name"))
-            partner_id = self.env['res.partner'].search([['name', '=', self.partnerRow[0].get("name")]], limit=1)
-            return partner_id
-
-        except:
-            print("Partner not found by name")
-            try:
-                print("Looking by RFC: " + self.partnerRow[0].get("vat"))
-                partner_id = self.env['res.partner'].search([["vat", "=", self.partnerRow[0].get("vat")]], limit=1)
-                return partner_id
-            except:
-
-                return 0
 
 
 class OrderLine():
@@ -293,13 +278,6 @@ class Invoice():
 class Getters():
 
     @api.multi
-    def checkCompanyType(self,RegimenEmisor):
-        if RegimenEmisor == 612:
-            return "person"
-        else:
-            return "company"
-
-    @api.multi
     def getUnitOfMeasure(self, product_uom):  # Falta de adaptar
 
         try:
@@ -363,17 +341,3 @@ class Getters():
             , odoo_filter)
 
         return account_id[0]
-
-    @api.multi
-    def getFiscalPosition(self, fiscal_position):
-
-        try:
-
-            print("Getting fiscal position")
-            fiscal_position_id = self.env['account.fiscal.position'].search(
-                [[("l10n_mx_edi_code", "=", fiscal_position), ("company_id", "=", 1)]], limit=1)
-            return fiscal_position_id
-
-        except:
-
-            return 1
