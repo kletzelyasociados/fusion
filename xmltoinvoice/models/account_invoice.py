@@ -130,13 +130,13 @@ class AccountInvoice(models.Model):
                         uom_id = 31
 
                     self.env['account.invoice.line'].create({
-                        "product_id": 921,
+                        'product_id': 921,
                         'name': line.attributes['Descripcion'].value,
-                        "account_id": 1977,
+                        'account_id': 1977,
                         'quantity': line.attributes['Cantidad'].value,
                         'uom_id': uom_id,
-                        'price_unit': float(line.attributes['ValorUnitario'].value)
-                        "type": "in_invoice"
+                        'price_unit': float(line.attributes['ValorUnitario'].value),
+                        'type': "in_invoice"
                     })
 
 
