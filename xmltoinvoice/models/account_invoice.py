@@ -136,6 +136,7 @@ class AccountInvoice(models.Model):
                         'price_unit': float(line.attributes['ValorUnitario'].value)
                     })
 
+
                     '''
                     if self.invoice_lines_ids:
                         for idx, line in enumerate(self.invoice_lines_ids):
