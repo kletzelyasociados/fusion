@@ -116,6 +116,7 @@ class AccountInvoice(models.Model):
                 self.write({'reference': Serie + " " + Folio})
                 self.write({'x_invoice_date_sat': Fecha})
 
+                '''
                 for line in invoice_line_items:
 
                     uom_sat_id = self.env['l10n_mx_edi.product.sat.code'].search(
@@ -134,7 +135,7 @@ class AccountInvoice(models.Model):
                         'price_unit': float(line.attributes['ValorUnitario'].value)
                     })
 
-                    '''
+                    
                     if self.invoice_lines_ids:
                         for idx, line in enumerate(self.invoice_lines_ids):
 
