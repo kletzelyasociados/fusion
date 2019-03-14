@@ -47,7 +47,6 @@ class AccountInvoice(models.Model):
 
             if RfcReceptor == self.env.user.company_id.vat:
 
-
                 # Obtengo el nodo del emisor
                 emisor_items = xml.getElementsByTagName("cfdi:Emisor")
 
@@ -73,7 +72,6 @@ class AccountInvoice(models.Model):
                     Folio = xml.getElementsByTagName("tfd:TimbreFiscalDigital")[0].attributes['UUID'].value
 
                 Fecha = invoice_items[0].attributes['Fecha'].value
-                FormaPago = invoice_items[0].attributes['FormaPago'].value
                 SubTotal = invoice_items[0].attributes['SubTotal'].value
                 Moneda = invoice_items[0].attributes['Moneda'].value
                 Total = invoice_items[0].attributes['Total'].value
@@ -97,7 +95,7 @@ class AccountInvoice(models.Model):
                         company_type = "company"
 
                     fiscal_position = self.env['account.fiscal.position'].search(
-                        [[("l10n_mx_edi_code", "=", RegimenEmisor), ("company_id", "=", 1)]], limit=1)
+                        [[("l10n_mx_edi_code", "=", RegimenEmisor), ("company_id", "=", self.env.user.company_id)]], limit=1)
 
                     if not fiscal_position:
                         fiscal_position = 1
@@ -114,15 +112,58 @@ class AccountInvoice(models.Model):
                         "l10n_mx_type_of_operation": "85"
                     }])
 
-                    self.write({'partner_id': partner.id})
+                    self.write({'partner_id': partner.id,
+                                'partner_ref': Serie + " " + Folio,
+                                'x_invoice_date_sat': Fecha})
+
+                    if self.invoice_lines_ids:
+                        for idx, line in enumerate(self.invoice_lines_ids):
+
+                            uom_sat_id = self.env['l10n_mx_edi.product.sat.code'].search(
+                                [[("code", "=", invoice_line_items[idx].attributes['ClaveUnidad'].value)]], limit=1)
+
+                            uom_id = self.env['product.uom'].search(
+                                [[("l10n_mx_edi_code_sat_id", "=", uom_sat_id)]], limit=1)
+
+                            if not uom_id:
+                                uom_id = 31
+
+                            line.write({
+                                'name': invoice_line_items[idx].attributes['Descripcion'].value,
+                                'quantity': invoice_line_items[idx].attributes['Cantidad'].value,
+                                'uom_id':uom_id,
+                                'price_unit':float(invoice_line_items[idx].attributes['ValorUnitario'].value)
+                            })
+
+                    else:
+
+                        for line in invoice_line_items:
+
+                            uom_sat_id = self.env['l10n_mx_edi.product.sat.code'].search(
+                                [[("code", "=", line.attributes['ClaveUnidad'].value)]], limit=1)
+
+                            uom_id = self.env['product.uom'].search(
+                                [[("l10n_mx_edi_code_sat_id", "=", uom_sat_id)]], limit=1)
+
+                            if not uom_id:
+                                uom_id = 31
+
+                            self.env['account.invoice.line'].create([{
+                                'name': line.attributes['Descripcion'].value,
+                                'quantity': line.attributes['Cantidad'].value,
+                                'uom_id': uom_id,
+                                'price_unit': float(line.attributes['ValorUnitario'].value)
+                            }])
+
+
+
             else:
 
                 self.write({'x_xml_file': False})
 
                 raise ValidationError('La factura no corresponde a ' + self.env.user.company_id.name
-                                      + "\nLa factura está hecha a: "
-                                      + "\nRazón Social: " + NombreReceptor
-                                      + "\nRFC: " + RfcReceptor)
+                                      + "\nLa factura está hecha a: " + NombreReceptor
+                                      + " RFC: " + RfcReceptor)
 
 
 
