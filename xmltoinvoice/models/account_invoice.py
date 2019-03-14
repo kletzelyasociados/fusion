@@ -118,7 +118,7 @@ class AccountInvoice(models.Model):
 
                 if self.invoice_line_ids:
 
-                    for idx, line in enumerate(self.invoice_lines_ids):
+                    for idx, line in enumerate(self.invoice_line_ids):
 
                         try:
 
