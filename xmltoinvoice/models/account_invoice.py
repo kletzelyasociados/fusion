@@ -112,67 +112,67 @@ class AccountInvoice(models.Model):
                         "l10n_mx_type_of_operation": "85"
                     }])
 
-                    self.env['account.invoice'].write({'partner_id': partner.id,
-                                                       'reference': Serie + " " + Folio,
-                                                       'x_invoice_date_sat': Fecha})
+                self.write({'partner_id': partner.id})
+                self.write({'reference': Serie + " " + Folio})
+                self.write({'x_invoice_date_sat': Fecha})
 
-                    for line in invoice_line_items:
+                for line in invoice_line_items:
 
-                        uom_sat_id = self.env['l10n_mx_edi.product.sat.code'].search(
-                            [[("code", "=", line.attributes['ClaveUnidad'].value)]], limit=1)
+                    uom_sat_id = self.env['l10n_mx_edi.product.sat.code'].search(
+                        [[("code", "=", line.attributes['ClaveUnidad'].value)]], limit=1)
 
-                        uom_id = self.env['product.uom'].search(
-                            [[("l10n_mx_edi_code_sat_id", "=", uom_sat_id)]], limit=1)
+                    uom_id = self.env['product.uom'].search(
+                        [[("l10n_mx_edi_code_sat_id", "=", uom_sat_id)]], limit=1)
 
-                        if not uom_id:
-                            uom_id = 31
+                    if not uom_id:
+                        uom_id = 31
 
-                        self.env['account.invoice.line'].create({
-                            'name': line.attributes['Descripcion'].value,
-                            'quantity': line.attributes['Cantidad'].value,
-                            'uom_id': uom_id,
-                            'price_unit': float(line.attributes['ValorUnitario'].value)
-                        })
-                    '''
-                    if self.invoice_lines_ids:
-                        for idx, line in enumerate(self.invoice_lines_ids):
-
-                            uom_sat_id = self.env['l10n_mx_edi.product.sat.code'].search(
-                                [[("code", "=", invoice_line_items[idx].attributes['ClaveUnidad'].value)]], limit=1)
-
-                            uom_id = self.env['product.uom'].search(
-                                [[("l10n_mx_edi_code_sat_id", "=", uom_sat_id)]], limit=1)
-
-                            if not uom_id:
-                                uom_id = 31
-
-                            line.write({
-                                'name': invoice_line_items[idx].attributes['Descripcion'].value,
-                                'quantity': invoice_line_items[idx].attributes['Cantidad'].value,
-                                'uom_id':uom_id,
-                                'price_unit':float(invoice_line_items[idx].attributes['ValorUnitario'].value)
-                            })
-
-                    else:
-
-                        for line in invoice_line_items:
-
-                            uom_sat_id = self.env['l10n_mx_edi.product.sat.code'].search(
-                                [[("code", "=", line.attributes['ClaveUnidad'].value)]], limit=1)
-
-                            uom_id = self.env['product.uom'].search(
-                                [[("l10n_mx_edi_code_sat_id", "=", uom_sat_id)]], limit=1)
-
-                            if not uom_id:
-                                uom_id = 31
-
-                            self.env['account.invoice.line'].create([{
-                                'name': line.attributes['Descripcion'].value,
-                                'quantity': line.attributes['Cantidad'].value,
-                                'uom_id': uom_id,
-                                'price_unit': float(line.attributes['ValorUnitario'].value)
-                            }])
-                    '''
+                    self.env['account.invoice.line'].create({
+                        'name': line.attributes['Descripcion'].value,
+                        'quantity': line.attributes['Cantidad'].value,
+                        'uom_id': uom_id,
+                        'price_unit': float(line.attributes['ValorUnitario'].value)
+                    })
+                        '''
+                        if self.invoice_lines_ids:
+                            for idx, line in enumerate(self.invoice_lines_ids):
+    
+                                uom_sat_id = self.env['l10n_mx_edi.product.sat.code'].search(
+                                    [[("code", "=", invoice_line_items[idx].attributes['ClaveUnidad'].value)]], limit=1)
+    
+                                uom_id = self.env['product.uom'].search(
+                                    [[("l10n_mx_edi_code_sat_id", "=", uom_sat_id)]], limit=1)
+    
+                                if not uom_id:
+                                    uom_id = 31
+    
+                                line.write({
+                                    'name': invoice_line_items[idx].attributes['Descripcion'].value,
+                                    'quantity': invoice_line_items[idx].attributes['Cantidad'].value,
+                                    'uom_id':uom_id,
+                                    'price_unit':float(invoice_line_items[idx].attributes['ValorUnitario'].value)
+                                })
+    
+                        else:
+    
+                            for line in invoice_line_items:
+    
+                                uom_sat_id = self.env['l10n_mx_edi.product.sat.code'].search(
+                                    [[("code", "=", line.attributes['ClaveUnidad'].value)]], limit=1)
+    
+                                uom_id = self.env['product.uom'].search(
+                                    [[("l10n_mx_edi_code_sat_id", "=", uom_sat_id)]], limit=1)
+    
+                                if not uom_id:
+                                    uom_id = 31
+    
+                                self.env['account.invoice.line'].create([{
+                                    'name': line.attributes['Descripcion'].value,
+                                    'quantity': line.attributes['Cantidad'].value,
+                                    'uom_id': uom_id,
+                                    'price_unit': float(line.attributes['ValorUnitario'].value)
+                                }])
+                        '''
 
 
             else:
