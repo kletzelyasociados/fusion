@@ -116,7 +116,7 @@ class AccountInvoice(models.Model):
                             'reference': Serie + " " + Folio,
                             'x_invoice_date_sat': Fecha})
 
-                if self.invoice_lines_ids:
+                if self.invoice_line_ids:
 
                     for idx, line in enumerate(self.invoice_lines_ids):
 
