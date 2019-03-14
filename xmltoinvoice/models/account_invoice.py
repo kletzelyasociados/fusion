@@ -130,6 +130,7 @@ class AccountInvoice(models.Model):
                         uom_id = 31
 
                     self.env['account.invoice.line'].create({
+                        'invoice_id': self.id,
                         'product_id': 921,
                         'name': line.attributes['Descripcion'].value,
                         'account_id': 1977,
