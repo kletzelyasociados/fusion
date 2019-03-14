@@ -112,9 +112,9 @@ class AccountInvoice(models.Model):
                         "l10n_mx_type_of_operation": "85"
                     }])
 
-                    self.write({'partner_id': partner.id})
-                    self.write({'reference': Serie + " " + Folio})
-                    self.write({'x_invoice_date_sat': Fecha})
+                    self.env['account.invoice'].write({'partner_id': partner.id,
+                                                       'reference': Serie + " " + Folio,
+                                                       'x_invoice_date_sat': Fecha})
 
                     for line in invoice_line_items:
 
