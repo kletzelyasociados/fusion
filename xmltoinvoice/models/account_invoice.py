@@ -41,10 +41,11 @@ class AccountInvoice(models.Model):
             # Obtengo el nodo del receptor
             receptor_items = xml.getElementsByTagName("cfdi:Receptor")
 
-            # Obtengo los datos que necesito
+            # Obtengo nombre y RFC del receptor
             NombreReceptor = receptor_items[0].attributes['Nombre'].value
             RfcReceptor = receptor_items[0].attributes['Rfc'].value
 
+            #Valido que la factura sea para la compañía actual
             if RfcReceptor == self.env.user.company_id.vat:
 
                 # Obtengo el nodo del emisor
@@ -79,15 +80,11 @@ class AccountInvoice(models.Model):
                 # Obtengo los nodos con la información de las líneas de factura
                 invoice_line_items = xml.getElementsByTagName("cfdi:Concepto")
 
-                # Creo el Objeto interno líneas de pedido/factura
-                lines = []
-
+                #Busco al proveedor
                 partner = self.env['res.partner'].search([["vat", "=", RfcEmisor]], limit=1)
 
-                if partner:
-                    self.write({'partner_id': partner.id})
-
-                else:
+                #Si no existe lo creo en odoo
+                if not partner:
 
                     if RegimenEmisor == 612:
                         company_type = "person"
@@ -95,10 +92,11 @@ class AccountInvoice(models.Model):
                         company_type = "company"
 
                     fiscal_position = self.env['account.fiscal.position'].search(
-                        [[("l10n_mx_edi_code", "=", RegimenEmisor), ("company_id", "=", self.env.user.company_id)]], limit=1)
+                        [[("l10n_mx_edi_code", "=", RegimenEmisor),
+                          ("company_id", "=", self.env.user.company_id)]], limit=1)
 
-                    if not fiscal_position:
-                        fiscal_position = 1
+                    if not fiscal_position.id:
+                        fiscal_position.id = 1
 
                     partner = self.env['res.partner'].create([{
                         "company_type": company_type, #person or company
@@ -112,121 +110,169 @@ class AccountInvoice(models.Model):
                         "l10n_mx_type_of_operation": "85"
                     }])
 
+                #Asigno los datos al documento
                 self.write({'partner_id': partner.id,
                             'reference': Serie + " " + Folio,
                             'x_invoice_date_sat': Fecha})
 
+                #Si tiene lineas de factura
                 if self.invoice_line_ids:
 
-                    for idx, line in enumerate(self.invoice_line_ids):
+                    odoo_lines = self.invoice_line_ids.count()
+                    xml_lines = invoice_line_items.count()
 
-                        try:
+                    if odoo_lines == xml_lines:
 
-                            uom_sat_id = self.env['l10n_mx_edi.product.sat.code'].search(
-                                [[("code", "=", invoice_line_items[idx].attributes['ClaveUnidad'].value)]], limit=1)
+                        for idx, line in enumerate(self.invoice_line_ids):
 
-                            uom_id = self.env['product.uom'].search(
-                                [[("l10n_mx_edi_code_sat_id", "=", uom_sat_id)]], limit=1)
+                            try:
 
-                        except:
+                                uom_sat = self.env['l10n_mx_edi.product.sat.code'].search(
+                                    [[("code", "=", invoice_line_items[idx].attributes['ClaveUnidad'].value)]], limit=1)
 
-                            uom_id = 31
+                                uom_odoo = self.env['product.uom'].search(
+                                    [[("l10n_mx_edi_code_sat_id", "=", uom_sat.id)]], limit=1)
 
-                        line.write({
-                            'name': invoice_line_items[idx].attributes['Descripcion'].value,
-                            'quantity': invoice_line_items[idx].attributes['Cantidad'].value,
-                            'uom_id': uom_id,
-                            'price_unit': float(invoice_line_items[idx].attributes['ValorUnitario'].value)
-                        })
+                            except:
+
+                                uom_odoo.id = 31
+
+                            line.write({
+                                'name': invoice_line_items[idx].attributes['Descripcion'].value,
+                                'quantity': invoice_line_items[idx].attributes['Cantidad'].value,
+                                'uom_id': uom_odoo.id,
+                                'price_unit': float(invoice_line_items[idx].attributes['ValorUnitario'].value)
+                            })
+                            line._set_taxes()
+
+                    elif odoo_lines > xml_lines:
+
+                        for idx, line in enumerate(self.invoice_line_ids):
+
+                            try:
+
+                                try:
+
+                                    uom_sat = self.env['l10n_mx_edi.product.sat.code'].search(
+                                        [[("code", "=", invoice_line_items[idx].attributes['ClaveUnidad'].value)]],
+                                        limit=1)
+
+                                    uom_odoo = self.env['product.uom'].search(
+                                        [[("l10n_mx_edi_code_sat_id", "=", uom_sat.id)]], limit=1)
+
+                                except:
+
+                                    uom_odoo.id = 31
+
+                                line.write({
+                                    'name': invoice_line_items[idx].attributes['Descripcion'].value,
+                                    'quantity': invoice_line_items[idx].attributes['Cantidad'].value,
+                                    'uom_id': uom_odoo.id,
+                                    'price_unit': float(invoice_line_items[idx].attributes['ValorUnitario'].value)
+                                })
+                                line._set_taxes()
+
+                            except:
+
+                                line.unlink()
+
+                    elif xml_lines > odoo_lines:
+
+                        difference = xml_lines-odoo_lines
+
+                        for idx, line in enumerate(self.invoice_line_ids):
+
+                            try:
+
+                                uom_sat = self.env['l10n_mx_edi.product.sat.code'].search(
+                                    [[("code", "=", invoice_line_items[idx].attributes['ClaveUnidad'].value)]],
+                                    limit=1)
+
+                                uom_odoo = self.env['product.uom'].search(
+                                    [[("l10n_mx_edi_code_sat_id", "=", uom_sat.id)]], limit=1)
+
+                            except:
+
+                                uom_odoo.id = 31
+
+                            line.write({
+                                'name': invoice_line_items[idx].attributes['Descripcion'].value,
+                                'quantity': invoice_line_items[idx].attributes['Cantidad'].value,
+                                'uom_id': uom_odoo.id,
+                                'price_unit': float(invoice_line_items[idx].attributes['ValorUnitario'].value)
+                            })
+                            line._set_taxes()
+
+                        for line in range(invoice_line_items-difference, invoice_line_items):
+                            # Obtengo el id de la unidad de medida de odoo correspondiente al que trae el XML
+                            try:
+
+                                uom_sat = self.env['l10n_mx_edi.product.sat.code'].search(
+                                    [[("code", "=", line.attributes['ClaveUnidad'].value)]], limit=1)
+
+                                uom_odoo = self.env['product.uom'].search(
+                                    [[("l10n_mx_edi_code_sat_id", "=", uom_sat.id)]], limit=1)
+                            # Sino lo encuentra asigno la unida de medida "Servicio" con el id 31
+                            except:
+
+                                uom_odoo.id = 31
+
+                            # Creación de la línea de factura
+                            self.env['account.invoice.line'].create({
+                                'invoice_id': self.id,
+                                'product_id': 921,
+                                'name': line.attributes['Descripcion'].value,
+                                'account_id': 1977,
+                                'quantity': line.attributes['Cantidad'].value,
+                                'uom_id': uom_odoo.id,
+                                'price_unit': float(line.attributes['ValorUnitario'].value),
+                                'type': "in_invoice"
+                            })
+
+                            line._set_taxes()
+
+                #Sino tiene lineas de factura
                 else:
-
+                    #Para cada concepto del XML creo una linea de factura en odoo
                     for line in invoice_line_items:
-
+                        #Obtengo el id de la unidad de medida de odoo correspondiente al que trae el XML
                         try:
 
-                            uom_sat_id = self.env['l10n_mx_edi.product.sat.code'].search(
+                            uom_sat = self.env['l10n_mx_edi.product.sat.code'].search(
                                 [[("code", "=", line.attributes['ClaveUnidad'].value)]], limit=1)
 
-                            uom_id = self.env['product.uom'].search(
-                                [[("l10n_mx_edi_code_sat_id", "=", uom_sat_id)]], limit=1)
-
+                            uom_odoo = self.env['product.uom'].search(
+                                [[("l10n_mx_edi_code_sat_id", "=", uom_sat.id)]], limit=1)
+                        #Sino lo encuentra asigno la unida de medida "Servicio" con el id 31
                         except:
-                            uom_id = 31
 
+                            uom_odoo.id = 31
+
+                        #Creación de la línea de factura
                         self.env['account.invoice.line'].create({
                             'invoice_id': self.id,
                             'product_id': 921,
                             'name': line.attributes['Descripcion'].value,
                             'account_id': 1977,
                             'quantity': line.attributes['Cantidad'].value,
-                            'uom_id': uom_id,
+                            'uom_id': uom_odoo.id,
                             'price_unit': float(line.attributes['ValorUnitario'].value),
                             'type': "in_invoice"
                         })
 
+                    self.compute_taxes()
+
+            #Si la factura no es de la compañia actual envío una alerta
             else:
 
-                self.write({'x_xml_file': False})
+                #Poner el valor en Null
 
                 raise ValidationError('La factura no corresponde a ' + self.env.user.company_id.name
                                       + "\nLa factura está hecha a: " + NombreReceptor
                                       + " RFC: " + RfcReceptor)
 
 
-class AccountInvoiceLine(models.Model):
-    _inherit = "account.invoice.line"
 
-    @api.onchange('product_id')
-    def _onchange_product_id(self):
-        domain = {}
-        if not self.invoice_id:
-            return
-
-        part = self.invoice_id.partner_id
-        fpos = self.invoice_id.fiscal_position_id
-        company = self.invoice_id.company_id
-        currency = self.invoice_id.currency_id
-        type = self.invoice_id.type
-
-        if not part:
-            warning = {
-                'title': _('Warning!'),
-                'message': _('You must first select a partner!'),
-            }
-            return {'warning': warning}
-
-        if not self.product_id:
-            if type not in ('in_invoice', 'in_refund'):
-                self.price_unit = 0.0
-            domain['uom_id'] = []
-        else:
-            if part.lang:
-                product = self.product_id.with_context(lang=part.lang)
-            else:
-                product = self.product_id
-
-            self.name = product.partner_ref
-            account = self.get_invoice_line_account(type, product, fpos, company)
-            if account:
-                self.account_id = account.id
-            self._set_taxes()
-
-            if type in ('in_invoice', 'in_refund'):
-                if not self.name:
-                    self.name = product.description_purchase
-            else:
-                if product.description_sale:
-                    self.name += '\n' + product.description_sale
-
-            if not self.uom_id or product.uom_id.category_id.id != self.uom_id.category_id.id:
-                self.uom_id = product.uom_id.id
-            domain['uom_id'] = [('category_id', '=', product.uom_id.category_id.id)]
-
-            if company and currency:
-
-                if self.uom_id and self.uom_id.id != product.uom_id.id:
-                    self.price_unit = product.uom_id._compute_price(self.price_unit, self.uom_id)
-        return {'domain': domain}
 
 class OrderLine():
 
