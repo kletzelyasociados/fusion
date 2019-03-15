@@ -125,22 +125,24 @@ class AccountInvoice(models.Model):
 
                         for idx, line in enumerate(self.invoice_line_ids):
 
+                            uom_odoo = []
+
                             try:
 
                                 uom_sat = self.env['l10n_mx_edi.product.sat.code'].search(
-                                    [[("code", "=", invoice_line_items[idx].attributes['ClaveUnidad'].value)]], limit=1)
+                                    [[("code", "=", invoice_line_items[idx].attributes['ClaveUnidad'].value)]])
 
                                 uom_odoo = self.env['product.uom'].search(
-                                    [[("l10n_mx_edi_code_sat_id", "=", uom_sat.id)]], limit=1)
+                                    [[("l10n_mx_edi_code_sat_id", "=", uom_sat[0].id)]])
 
                             except:
 
-                                uom_odoo.id = 31
+                                uom_odoo[0].id = 31
 
                             line.write({
                                 'name': invoice_line_items[idx].attributes['Descripcion'].value,
                                 'quantity': invoice_line_items[idx].attributes['Cantidad'].value,
-                                'uom_id': uom_odoo.id,
+                                'uom_id': uom_odoo[0].id,
                                 'price_unit': float(invoice_line_items[idx].attributes['ValorUnitario'].value)
                             })
                             line._set_taxes()
@@ -151,23 +153,24 @@ class AccountInvoice(models.Model):
 
                             try:
 
+                                uom_odoo = []
+
                                 try:
 
                                     uom_sat = self.env['l10n_mx_edi.product.sat.code'].search(
-                                        [[("code", "=", invoice_line_items[idx].attributes['ClaveUnidad'].value)]],
-                                        limit=1)
+                                        [[("code", "=", invoice_line_items[idx].attributes['ClaveUnidad'].value)]])
 
                                     uom_odoo = self.env['product.uom'].search(
-                                        [[("l10n_mx_edi_code_sat_id", "=", uom_sat.id)]], limit=1)
+                                        [[("l10n_mx_edi_code_sat_id", "=", uom_sat[0].id)]])
 
                                 except:
 
-                                    uom_odoo.id = 31
+                                    uom_odoo[0].id = 31
 
                                 line.write({
                                     'name': invoice_line_items[idx].attributes['Descripcion'].value,
                                     'quantity': invoice_line_items[idx].attributes['Cantidad'].value,
-                                    'uom_id': uom_odoo.id,
+                                    'uom_id': uom_odoo[0].id,
                                     'price_unit': float(invoice_line_items[idx].attributes['ValorUnitario'].value)
                                 })
                                 line._set_taxes()
@@ -182,23 +185,24 @@ class AccountInvoice(models.Model):
 
                         for idx, line in enumerate(self.invoice_line_ids):
 
+                            uom_odoo = []
+
                             try:
 
                                 uom_sat = self.env['l10n_mx_edi.product.sat.code'].search(
-                                    [[("code", "=", invoice_line_items[idx].attributes['ClaveUnidad'].value)]],
-                                    limit=1)
+                                    [[("code", "=", invoice_line_items[idx].attributes['ClaveUnidad'].value)]])
 
                                 uom_odoo = self.env['product.uom'].search(
-                                    [[("l10n_mx_edi_code_sat_id", "=", uom_sat.id)]], limit=1)
+                                    [[("l10n_mx_edi_code_sat_id", "=", uom_sat[0].id)]])
 
                             except:
 
-                                uom_odoo.id = 31
+                                uom_odoo[0].id = 31
 
                             line.write({
                                 'name': invoice_line_items[idx].attributes['Descripcion'].value,
                                 'quantity': invoice_line_items[idx].attributes['Cantidad'].value,
-                                'uom_id': uom_odoo.id,
+                                'uom_id': uom_odoo[0].id,
                                 'price_unit': float(invoice_line_items[idx].attributes['ValorUnitario'].value)
                             })
                             line._set_taxes()
@@ -236,17 +240,20 @@ class AccountInvoice(models.Model):
                     #Para cada concepto del XML creo una linea de factura en odoo
                     for line in invoice_line_items:
                         #Obtengo el id de la unidad de medida de odoo correspondiente al que trae el XML
+
+                        uom_odoo = []
+
                         try:
 
                             uom_sat = self.env['l10n_mx_edi.product.sat.code'].search(
-                                [[("code", "=", line.attributes['ClaveUnidad'].value)]], limit=1)
+                                [[("code", "=", line.attributes['ClaveUnidad'].value)]])
 
                             uom_odoo = self.env['product.uom'].search(
-                                [[("l10n_mx_edi_code_sat_id", "=", uom_sat.id)]], limit=1)
+                                [[("l10n_mx_edi_code_sat_id", "=", uom_sat[0].id)]])
                         #Sino lo encuentra asigno la unida de medida "Servicio" con el id 31
                         except:
 
-                            uom_odoo.id = 31
+                            uom_odoo[0].id = 31
 
                         #Creación de la línea de factura
                         self.env['account.invoice.line'].create({
@@ -255,7 +262,7 @@ class AccountInvoice(models.Model):
                             'name': line.attributes['Descripcion'].value,
                             'account_id': 1977,
                             'quantity': line.attributes['Cantidad'].value,
-                            'uom_id': uom_odoo.id,
+                            'uom_id': uom_odoo[0].id,
                             'price_unit': float(line.attributes['ValorUnitario'].value),
                             'type': "in_invoice"
                         })
