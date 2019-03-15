@@ -235,6 +235,8 @@ class AccountInvoice(models.Model):
 
             Warning('uom_odoo: ' + uom_odoo.id)
 
+            return uom_odoo.id
+
         # Sino lo encuentra asigno la unida de medida "Servicio" con el id 31
         except:
 
