@@ -253,7 +253,7 @@ class AccountInvoice(models.Model):
                         #Sino lo encuentra asigno la unida de medida "Servicio" con el id 31
                         except:
 
-                            uom_odoo[0].id = 31
+                            uom_odoo.id = 31
 
                         #Creación de la línea de factura
                         self.env['account.invoice.line'].create({
