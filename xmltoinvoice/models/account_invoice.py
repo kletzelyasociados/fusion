@@ -125,24 +125,10 @@ class AccountInvoice(models.Model):
 
                         for idx, line in enumerate(self.invoice_line_ids):
 
-                            uom_odoo = []
-
-                            try:
-
-                                uom_sat = self.env['l10n_mx_edi.product.sat.code'].search(
-                                    [[("code", "=", invoice_line_items[idx].attributes['ClaveUnidad'].value)]])
-
-                                uom_odoo = self.env['product.uom'].search(
-                                    [[("l10n_mx_edi_code_sat_id", "=", uom_sat[0].id)]])
-
-                            except:
-
-                                uom_odoo[0].id = 31
-
                             line.write({
                                 'name': invoice_line_items[idx].attributes['Descripcion'].value,
                                 'quantity': invoice_line_items[idx].attributes['Cantidad'].value,
-                                'uom_id': uom_odoo[0].id,
+                                'uom_id': self.getUOMID(invoice_line_items[idx].attributes['ClaveUnidad'].value),
                                 'price_unit': float(invoice_line_items[idx].attributes['ValorUnitario'].value)
                             })
                             line._set_taxes()
@@ -152,25 +138,10 @@ class AccountInvoice(models.Model):
                         for idx, line in enumerate(self.invoice_line_ids):
 
                             try:
-
-                                uom_odoo = []
-
-                                try:
-
-                                    uom_sat = self.env['l10n_mx_edi.product.sat.code'].search(
-                                        [[("code", "=", invoice_line_items[idx].attributes['ClaveUnidad'].value)]])
-
-                                    uom_odoo = self.env['product.uom'].search(
-                                        [[("l10n_mx_edi_code_sat_id", "=", uom_sat[0].id)]])
-
-                                except:
-
-                                    uom_odoo[0].id = 31
-
                                 line.write({
                                     'name': invoice_line_items[idx].attributes['Descripcion'].value,
                                     'quantity': invoice_line_items[idx].attributes['Cantidad'].value,
-                                    'uom_id': uom_odoo[0].id,
+                                    'uom_id': self.getUOMID(invoice_line_items[idx].attributes['ClaveUnidad'].value),
                                     'price_unit': float(invoice_line_items[idx].attributes['ValorUnitario'].value)
                                 })
                                 line._set_taxes()
@@ -185,24 +156,10 @@ class AccountInvoice(models.Model):
 
                         for idx, line in enumerate(self.invoice_line_ids):
 
-                            uom_odoo = []
-
-                            try:
-
-                                uom_sat = self.env['l10n_mx_edi.product.sat.code'].search(
-                                    [[("code", "=", invoice_line_items[idx].attributes['ClaveUnidad'].value)]])
-
-                                uom_odoo = self.env['product.uom'].search(
-                                    [[("l10n_mx_edi_code_sat_id", "=", uom_sat[0].id)]])
-
-                            except:
-
-                                uom_odoo[0].id = 31
-
                             line.write({
                                 'name': invoice_line_items[idx].attributes['Descripcion'].value,
                                 'quantity': invoice_line_items[idx].attributes['Cantidad'].value,
-                                'uom_id': uom_odoo[0].id,
+                                'uom_id': self.getUOMID(invoice_line_items[idx].attributes['ClaveUnidad'].value),
                                 'price_unit': float(invoice_line_items[idx].attributes['ValorUnitario'].value)
                             })
                             line._set_taxes()
@@ -239,21 +196,6 @@ class AccountInvoice(models.Model):
                 else:
                     #Para cada concepto del XML creo una linea de factura en odoo
                     for line in invoice_line_items:
-                        #Obtengo el id de la unidad de medida de odoo correspondiente al que trae el XML
-
-                        uom_odoo = []
-
-                        try:
-
-                            uom_sat = self.env['l10n_mx_edi.product.sat.code'].search(
-                                [[("code", "=", line.attributes['ClaveUnidad'].value)]])
-
-                            uom_odoo = self.env['product.uom'].search(
-                                [[("l10n_mx_edi_code_sat_id", "=", uom_sat[0].id)]])
-                        #Sino lo encuentra asigno la unida de medida "Servicio" con el id 31
-                        except:
-
-                            uom_odoo.id = 31
 
                         #Creación de la línea de factura
                         self.env['account.invoice.line'].create({
@@ -262,7 +204,7 @@ class AccountInvoice(models.Model):
                             'name': line.attributes['Descripcion'].value,
                             'account_id': 1977,
                             'quantity': line.attributes['Cantidad'].value,
-                            'uom_id': uom_odoo[0].id,
+                            'uom_id': self.getUOMID(line.attributes['ClaveUnidad'].value),
                             'price_unit': float(line.attributes['ValorUnitario'].value),
                             'type': "in_invoice"
                         })
@@ -278,6 +220,25 @@ class AccountInvoice(models.Model):
                                       + "\nLa factura está hecha a: " + NombreReceptor
                                       + " RFC: " + RfcReceptor)
 
+    @api.multi
+    def getUOMID(self, clave_unidad):
+
+        try:
+
+            uom_sat = self.env['l10n_mx_edi.product.sat.code'].search(
+                [[("code", "=", clave_unidad)]], limit=1)
+
+            Warning('uom_sat: ' + uom_sat.id)
+
+            uom_odoo = self.env['product.uom'].search(
+                [[("l10n_mx_edi_code_sat_id", "=", uom_sat.id)]], limit=1)
+
+            Warning('uom_odoo: ' + uom_odoo.id)
+
+        # Sino lo encuentra asigno la unida de medida "Servicio" con el id 31
+        except:
+
+            return 31
 
 
 
