@@ -118,7 +118,7 @@ class AccountInvoice(models.Model):
                 #Si tiene lineas de factura
                 if self.invoice_line_ids:
 
-                    odoo_lines = len(self.invoice_line_ids)
+                    odoo_lines = int(len(self.invoice_line_ids))
                     xml_lines = len(invoice_line_items)
 
                     if odoo_lines == xml_lines:
@@ -223,24 +223,20 @@ class AccountInvoice(models.Model):
     @api.multi
     def getUOMID(self, clave_unidad):
 
-        try:
+        #try:
 
-            uom_sat = self.env['l10n_mx_edi.product.sat.code'].search(
-                [[("code", "=", clave_unidad)]], limit=1)
+        uom_sat = self.env['l10n_mx_edi.product.sat.code'].search(
+            [[("code", "=", clave_unidad)]], limit=1)
 
-            Warning('uom_sat: ' + uom_sat.id)
+        uom_odoo = self.env['product.uom'].search(
+            [[("l10n_mx_edi_code_sat_id", "=", uom_sat.id)]], limit=1)
 
-            uom_odoo = self.env['product.uom'].search(
-                [[("l10n_mx_edi_code_sat_id", "=", uom_sat.id)]], limit=1)
-
-            Warning('uom_odoo: ' + uom_odoo.id)
-
-            return uom_odoo.id
+        return uom_odoo.id
 
         # Sino lo encuentra asigno la unida de medida "Servicio" con el id 31
-        except:
+        #except:
 
-            return 31
+        #return 31
 
 
 
