@@ -173,11 +173,60 @@ class AccountInvoice(models.Model):
                                       + " RFC: " + RfcReceptor)
 
 
-
-
 class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
 
+    @api.onchange('product_id')
+    def _onchange_product_id(self):
+        domain = {}
+        if not self.invoice_id:
+            return
+
+        part = self.invoice_id.partner_id
+        fpos = self.invoice_id.fiscal_position_id
+        company = self.invoice_id.company_id
+        currency = self.invoice_id.currency_id
+        type = self.invoice_id.type
+
+        if not part:
+            warning = {
+                'title': _('Warning!'),
+                'message': _('You must first select a partner!'),
+            }
+            return {'warning': warning}
+
+        if not self.product_id:
+            if type not in ('in_invoice', 'in_refund'):
+                self.price_unit = 0.0
+            domain['uom_id'] = []
+        else:
+            if part.lang:
+                product = self.product_id.with_context(lang=part.lang)
+            else:
+                product = self.product_id
+
+            self.name = product.partner_ref
+            account = self.get_invoice_line_account(type, product, fpos, company)
+            if account:
+                self.account_id = account.id
+            self._set_taxes()
+
+            if type in ('in_invoice', 'in_refund'):
+                if not self.name:
+                    self.name = product.description_purchase
+            else:
+                if product.description_sale:
+                    self.name += '\n' + product.description_sale
+
+            if not self.uom_id or product.uom_id.category_id.id != self.uom_id.category_id.id:
+                self.uom_id = product.uom_id.id
+            domain['uom_id'] = [('category_id', '=', product.uom_id.category_id.id)]
+
+            if company and currency:
+
+                if self.uom_id and self.uom_id.id != product.uom_id.id:
+                    self.price_unit = product.uom_id._compute_price(self.price_unit, self.uom_id)
+        return {'domain': domain}
 
 class OrderLine():
 
@@ -338,35 +387,6 @@ class Invoice():
 
 class Getters():
 
-    @api.multi
-    def getUnitOfMeasure(self, product_uom):  # Falta de adaptar
-
-        try:
-
-            print("Getting SAT Unit of Measure Id")
-            odoo_filter = [[("code", "=", product_uom)]]
-            uom_sat_id = self.connection.ODOO_OBJECT.execute_kw(
-                self.connection.DATA
-                , self.connection.UID
-                , self.connection.PASS
-                , 'l10n_mx_edi.product.sat.code'
-                , 'search'
-                , odoo_filter)
-            print("Getting Odoo Unit of Measure Id")
-            odoo_filter = [[("l10n_mx_edi_code_sat_id", "=", uom_sat_id)]]
-            uom_id = self.connection.ODOO_OBJECT.execute_kw(
-                self.connection.DATA
-                , self.connection.UID
-                , self.connection.PASS
-                , 'product.uom'
-                , 'search'
-                , odoo_filter)
-
-            return uom_id[0]
-
-        except:
-
-            return 31
 
     @api.multi
     def getTaxes(self, TasaoCuota, product_id):  # Falta de adaptar
