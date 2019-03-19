@@ -118,7 +118,11 @@ class AccountInvoice(models.Model):
                 #Si tiene lineas de factura
                 if self.invoice_line_ids:
 
-                    odoo_lines = int(len(self.invoice_line_ids))
+                    odoo_lines = 0
+
+                    for lines in self.invoice_line_ids:
+                        odoo_lines = odoo_lines + 1
+
                     xml_lines = len(invoice_line_items)
 
                     if odoo_lines == xml_lines:
