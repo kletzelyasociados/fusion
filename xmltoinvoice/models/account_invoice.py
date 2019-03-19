@@ -230,7 +230,7 @@ class AccountInvoice(models.Model):
         #try:
 
         uom_sat = self.env['l10n_mx_edi.product.sat.code'].search(
-            [[("code", "=", clave_unidad)]])
+            [[("code", "=", "XBJ")]])
 
         uom_odoo = self.env['product.uom'].search(
             [[("l10n_mx_edi_code_sat_id", "=", uom_sat[0].id)]])
@@ -241,7 +241,6 @@ class AccountInvoice(models.Model):
         #except:
 
         #return 31
-
 
 
 class OrderLine():
