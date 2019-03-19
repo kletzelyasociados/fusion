@@ -23,7 +23,7 @@ from odoo import models, fields, api
 
 
 class AccountInvoice(models.Model):
-    _inherit = "account.invoice"
+    _inherit = ['account.invoice', 'l10n_mx_edi.product.sat.code']
 
     UUID = fields.Text(string='Folio Fiscal')
 
