@@ -229,16 +229,13 @@ class AccountInvoice(models.Model):
 
         #try:
 
-        #uom_sat = self.env['l10n_mx_edi.product.sat.code'].search(
-        #    [[("code", "=", clave_unidad)]])
-
-        #uom_odoo = self.env['product.uom'].search(
-        #    [[("l10n_mx_edi_code_sat_id", "=", uom_sat.id)]])
+        uom_sat = self.env['l10n_mx_edi.product.sat.code'].search(
+            [[("code", "=", clave_unidad)]])
 
         uom_odoo = self.env['product.uom'].search(
-            [[("l10n_mx_edi_code_sat_id.code", "=", clave_unidad)]])
+            [[("l10n_mx_edi_code_sat_id", "=", uom_sat[0].id)]])
 
-        return uom_odoo.id
+        return uom_odoo[0].id
 
         # Sino lo encuentra asigno la unida de medida "Servicio" con el id 31
         #except:
