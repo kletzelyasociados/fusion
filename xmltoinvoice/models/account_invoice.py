@@ -23,7 +23,7 @@ from odoo import models, fields, api
 
 
 class AccountInvoice(models.Model):
-    _inherit = ['account.invoice', 'l10n_mx_edi.product.sat.code']
+    _inherit = ["account.invoice"]
 
     UUID = fields.Text(string='Folio Fiscal')
 
@@ -229,13 +229,16 @@ class AccountInvoice(models.Model):
 
         #try:
 
-        uom_sat = self.env['l10n_mx_edi.product.sat.code'].search(
-            [[("code", "=", "XBJ")]])
+        #uom_sat = self.env['l10n_mx_edi.product.sat.code'].search(
+        #    [[("code", "=", "XBJ")]])
+
+        #uom_odoo = self.env['product.uom'].search(
+        #    [[("l10n_mx_edi_code_sat_id", "=", uom_sat[0].id)]])
 
         uom_odoo = self.env['product.uom'].search(
-            [[("l10n_mx_edi_code_sat_id", "=", uom_sat[0].id)]])
+            [[("l10n_mx_edi_code_sat_id", "=", 53525)]])
 
-        return uom_odoo[0].id
+        return uom_odoo.id
 
         # Sino lo encuentra asigno la unida de medida "Servicio" con el id 31
         #except:
