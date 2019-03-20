@@ -46,7 +46,7 @@ class AccountInvoice(models.Model):
                               chr(0xd800), chr(0xdbff), chr(0xdc00), chr(0xdfff),
                               chr(0xd800), chr(0xdbff), chr(0xdc00), chr(0xdfff))
 
-            xmlfixed = re.sub(RE_XML_ILLEGAL, '', xmldecoded)
+            xmlfixed = re.sub(RE_XML_ILLEGAL, '', str(xmldecoded))
 
             xml = minidom.parseString(xmlfixed)
 
