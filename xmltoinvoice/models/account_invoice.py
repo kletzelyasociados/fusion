@@ -5,7 +5,7 @@ from odoo import models, fields, api
 from xml.dom import minidom
 import base64
 from odoo.exceptions import AccessError, UserError, RedirectWarning, ValidationError, Warning
-
+import re
 
 # class my_module(models.Model):
 #     _name = 'my_module.my_module'
@@ -25,7 +25,7 @@ from odoo import models, fields, api
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
-    UUID = fields.Text(string='Folio Fiscal')
+    #UUID = fields.Text(string='Folio Fiscal')
 
     @api.multi
     def import_xml_data(self):
@@ -36,7 +36,19 @@ class AccountInvoice(models.Model):
         else:
             # The file is stored in odoo encoded in base64 bytes column, in order to get the information in the original way
             # It must have to be decoded in the same base.
-            xml = minidom.parseString(base64.b64decode(self.x_xml_file))
+
+            xmldecoded = base64.b64decode(self.x_xml_file)
+
+            RE_XML_ILLEGAL = u'([\u0000-\u0008\u000b-\u000c\u000e-\u001f\ufffe-\uffff])' + \
+                             u'|' + \
+                             u'([%s-%s][^%s-%s])|([^%s-%s][%s-%s])|([%s-%s]$)|(^[%s-%s])' % \
+                             (chr(0xd800), chr(0xdbff), chr(0xdc00), chr(0xdfff),
+                              chr(0xd800), chr(0xdbff), chr(0xdc00), chr(0xdfff),
+                              chr(0xd800), chr(0xdbff), chr(0xdc00), chr(0xdfff))
+
+            xmlfixed = re.sub(RE_XML_ILLEGAL, '', xmldecoded)
+
+            xml = minidom.parseString(xmlfixed)
 
             # Obtengo el nodo del receptor
             receptor_items = xml.getElementsByTagName("cfdi:Receptor")
