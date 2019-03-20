@@ -168,19 +168,7 @@ class AccountInvoice(models.Model):
                             })
                             line._set_taxes()
 
-                        for line in range(invoice_line_items-difference, invoice_line_items):
-                            # Obtengo el id de la unidad de medida de odoo correspondiente al que trae el XML
-                            try:
-
-                                uom_sat = self.env['l10n_mx_edi.product.sat.code'].search(
-                                    [[("code", "=", line.attributes['ClaveUnidad'].value)]], limit=1)
-
-                                uom_odoo = self.env['product.uom'].search(
-                                    [[("l10n_mx_edi_code_sat_id", "=", uom_sat.id)]], limit=1)
-                            # Sino lo encuentra asigno la unida de medida "Servicio" con el id 31
-                            except:
-
-                                uom_odoo.id = 31
+                        for line in range(invoice_line_items[len(invoice_line_items)-difference], invoice_line_items):
 
                             # Creación de la línea de factura
                             self.env['account.invoice.line'].create({
@@ -189,7 +177,7 @@ class AccountInvoice(models.Model):
                                 'name': line.attributes['Descripcion'].value,
                                 'account_id': 1977,
                                 'quantity': line.attributes['Cantidad'].value,
-                                'uom_id': uom_odoo.id,
+                                'uom_id': self.getUOMID(line.attributes['ClaveUnidad'].value),
                                 'price_unit': float(line.attributes['ValorUnitario'].value),
                                 'type': "in_invoice"
                             })
