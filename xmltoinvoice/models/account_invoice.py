@@ -168,21 +168,26 @@ class AccountInvoice(models.Model):
                             })
                             line._set_taxes()
 
-                        for line in range(invoice_line_items[odoo_lines-1], invoice_line_items[xml_lines-1]):
+                        for idx, line in enumerate(invoice_line_items):
 
-                            # Creación de la línea de factura
-                            new_line = self.env['account.invoice.line'].create({
-                                'invoice_id': self.id,
-                                'product_id': 921,
-                                'name': line.attributes['Descripcion'].value,
-                                'account_id': 1977,
-                                'quantity': line.attributes['Cantidad'].value,
-                                'uom_id': self.getUOMID(line.attributes['ClaveUnidad'].value),
-                                'price_unit': float(line.attributes['ValorUnitario'].value),
-                                'type': "in_invoice"
-                            })
+                            if idx < xml_lines:
+                                return
 
-                            new_line._set_taxes()
+                            else:
+
+                                # Creación de la línea de factura
+                                new_line = self.env['account.invoice.line'].create({
+                                    'invoice_id': self.id,
+                                    'product_id': 921,
+                                    'name': line.attributes['Descripcion'].value,
+                                    'account_id': 1977,
+                                    'quantity': line.attributes['Cantidad'].value,
+                                    'uom_id': self.getUOMID(line.attributes['ClaveUnidad'].value),
+                                    'price_unit': float(line.attributes['ValorUnitario'].value),
+                                    'type': "in_invoice"
+                                })
+
+                                new_line._set_taxes()
 
                 #Sino tiene lineas de factura
                 else:
