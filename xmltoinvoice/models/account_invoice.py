@@ -156,8 +156,6 @@ class AccountInvoice(models.Model):
 
                     elif xml_lines > odoo_lines:
 
-                        difference = xml_lines-odoo_lines
-
                         for idx, line in enumerate(self.invoice_line_ids):
 
                             line.write({
@@ -170,7 +168,7 @@ class AccountInvoice(models.Model):
 
                         for idx, line in enumerate(invoice_line_items):
 
-                            if idx < xml_lines:
+                            if idx < odoo_lines:
                                 continue
 
                             else:
