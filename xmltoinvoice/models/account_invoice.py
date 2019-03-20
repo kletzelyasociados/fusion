@@ -171,7 +171,7 @@ class AccountInvoice(models.Model):
                         for idx, line in enumerate(invoice_line_items):
 
                             if idx < xml_lines:
-                                return
+                                continue
 
                             else:
 
