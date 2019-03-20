@@ -142,13 +142,13 @@ class AccountInvoice(models.Model):
                         for idx, line in enumerate(self.invoice_line_ids):
 
                             try:
-                                line.write({
+                                new_line = line.write({
                                     'name': invoice_line_items[idx].attributes['Descripcion'].value,
                                     'quantity': invoice_line_items[idx].attributes['Cantidad'].value,
                                     'uom_id': self.getUOMID(invoice_line_items[idx].attributes['ClaveUnidad'].value),
                                     'price_unit': float(invoice_line_items[idx].attributes['ValorUnitario'].value)
                                 })
-                                line._set_taxes()
+                                new_line._set_taxes()
 
                             except:
 
@@ -168,10 +168,10 @@ class AccountInvoice(models.Model):
                             })
                             line._set_taxes()
 
-                        for line in range(invoice_line_items[len(invoice_line_items)-difference], invoice_line_items):
+                        for line in range(invoice_line_items[odoo_lines-1], invoice_line_items[xml_lines-1]):
 
                             # Creación de la línea de factura
-                            self.env['account.invoice.line'].create({
+                            new_line = self.env['account.invoice.line'].create({
                                 'invoice_id': self.id,
                                 'product_id': 921,
                                 'name': line.attributes['Descripcion'].value,
@@ -182,7 +182,7 @@ class AccountInvoice(models.Model):
                                 'type': "in_invoice"
                             })
 
-                            line._set_taxes()
+                            new_line._set_taxes()
 
                 #Sino tiene lineas de factura
                 else:
@@ -190,7 +190,7 @@ class AccountInvoice(models.Model):
                     for line in invoice_line_items:
 
                         #Creación de la línea de factura
-                        self.env['account.invoice.line'].create({
+                        new_line = self.env['account.invoice.line'].create({
                             'invoice_id': self.id,
                             'product_id': 921,
                             'name': line.attributes['Descripcion'].value,
@@ -200,6 +200,7 @@ class AccountInvoice(models.Model):
                             'price_unit': float(line.attributes['ValorUnitario'].value),
                             'type': "in_invoice"
                         })
+                        new_line._set_taxes()
 
                     self.compute_taxes()
 
