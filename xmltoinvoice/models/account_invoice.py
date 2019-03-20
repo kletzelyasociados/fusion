@@ -138,7 +138,7 @@ class AccountInvoice(models.Model):
                                 try:
                                     ValorUnitario = ValorUnitario - float(invoice_line_items[idx].attributes['Descuento'].value)
                                 except:
-                                    continue
+                                    ValorUnitario = ValorUnitario
 
                                 line.write({
                                     'name': invoice_line_items[idx].attributes['Descripcion'].value,
@@ -159,7 +159,7 @@ class AccountInvoice(models.Model):
                                     try:
                                         ValorUnitario = ValorUnitario - float(invoice_line_items[idx].attributes['Descuento'].value)
                                     except:
-                                        continue
+                                        ValorUnitario = ValorUnitario
 
                                     line.write({
                                         'name': invoice_line_items[idx].attributes['Descripcion'].value,
@@ -183,7 +183,7 @@ class AccountInvoice(models.Model):
                                     ValorUnitario = ValorUnitario - float(
                                         invoice_line_items[idx].attributes['Descuento'].value)
                                 except:
-                                    continue
+                                    ValorUnitario = ValorUnitario
 
                                 line.write({
                                     'name': invoice_line_items[idx].attributes['Descripcion'].value,
@@ -205,7 +205,7 @@ class AccountInvoice(models.Model):
                                     try:
                                         ValorUnitario = ValorUnitario - float(line.attributes['Descuento'].value)
                                     except:
-                                        continue
+                                        ValorUnitario = ValorUnitario
 
                                     # Creación de la línea de factura
                                     new_line = self.env['account.invoice.line'].create({
@@ -231,7 +231,7 @@ class AccountInvoice(models.Model):
                             try:
                                 ValorUnitario = ValorUnitario - float(line.attributes['Descuento'].value)
                             except:
-                                continue
+                                ValorUnitario = ValorUnitario
 
                             #Creación de la línea de factura
                             new_line = self.env['account.invoice.line'].create({
@@ -278,200 +278,3 @@ class AccountInvoice(models.Model):
         except:
 
             return 31
-
-
-
-class OrderLine():
-
-    def __init__(self, product_id, name, date_planned, product_qty, product_uom, price_unit):
-
-        self.order_line_dictionary = {
-            "product_id": product_id,
-            "name": name,
-            "date_planned": date_planned,
-            "product_qty": product_qty,
-            "product_uom": product_uom,
-            "price_unit": price_unit,
-
-            #Automation in odoo to calculate taxes
-            #for order_line in records:
-                #order_line._compute_tax_id()
-        }
-
-        self.order_tuple = tuple((0, 1, self.order_line_dictionary))
-
-
-    #FInd taxes Id desptite I am not allowed to set it by this method.
-
-
-class PurchaseOrder():
-
-    def __init__(self, state, partner_id, partner_ref, date_order, order_lines):
-        self.purchase_order_dictionary = {
-            "state": state,
-            "partner_id": partner_id,
-            "partner_ref": partner_ref,
-            "date_order": date_order,
-            "order_line": order_lines
-        }
-
-        self.purchase_orders_list = []
-
-    def addPurchaseOrder(self):
-        self.purchase_orders_list.append(self.purchase_order_dictionary)
-
-    def createPurchaseOrder(self, connection):
-        connection.ODOO_OBJECT.execute_kw(
-            connection.DATA
-            , connection.UID
-            , connection.PASS
-            , "purchase.order"
-            , 'create'
-            , self.purchase_orders_list)
-        messagebox.showinfo(title="PO Creation", message="PO Created successfully!")
-
-    """
-       def _compute_tax_id(self):
-           for line in self:
-               fpos = line.order_id.fiscal_position_id or line.order_id.partner_id.property_account_position_id
-               # If company_id is set, always filter taxes by the company
-               taxes = line.product_id.supplier_taxes_id.filtered(
-                   lambda r: not line.company_id or r.company_id == line.company_id)
-               line.taxes_id = fpos.map_tax(taxes, line.product_id, line.order_id.partner_id) if fpos else taxes
-
-       def map_tax(self, taxes):
-           result = taxes.browse()
-           result = set()
-           for tax in taxes:
-               found = False
-               for t in self.tax_ids:
-                   if t.tax_src_id == tax:
-                       result |= t.tax_dest_id
-                       found = True
-               if not found:
-                   if t.tax_dest_id:
-                       result |= t.tax_dest_id
-                   break
-               else:
-                   result |= tax
-           return result
-
-       def onchange_product_id(self):
-           result = {}
-           if not self.product_id:
-               return result
-
-           # Reset date, price and quantity since _onchange_quantity will provide default values
-           self.date_planned = datetime.today().strftime(DEFAULT_SERVER_DATETIME_FORMAT)
-           self.price_unit = self.product_qty = 0.0
-           self.product_uom = self.product_id.uom_po_id or self.product_id.uom_id
-           result['domain'] = {'product_uom': [('category_id', '=', self.product_id.uom_id.category_id.id)]}
-
-           product_lang = self.product_id.with_context(
-               lang=self.partner_id.lang,
-               partner_id=self.partner_id.id,
-           )
-           self.name = product_lang.display_name
-           if product_lang.description_purchase:
-               self.name += '\n' + product_lang.description_purchase
-
-           fpos = self.order_id.fiscal_position_id
-           if self.env.uid == SUPERUSER_ID:
-               company_id = self.env.user.company_id.id
-               self.taxes_id = fpos.map_tax(self.product_id.supplier_taxes_id.filtered(lambda r: r.company_id.id == company_id))
-           else:
-               self.taxes_id = fpos.map_tax(self.product_id.supplier_taxes_id)
-
-           self._suggest_quantity()
-           self._onchange_quantity()
-
-           return result
-
-   """  # Métodos de odoo para asignación de impuestos a lineas de PO
-
-
-class InvoiceLine():
-
-    def __init__(self, product_id, name, account_id, quantity, uom_id, price_unit):
-
-        self.invoice_line_dictionary = {
-            "product_id": product_id,
-            "name": name,
-            "account_id": account_id,
-            "quantity": quantity,
-            "uom_id": uom_id,
-            "price_unit": price_unit,
-            "type": "in_invoice"
-
-        }
-
-        self.invoice_tuple = tuple((0, 0, self.invoice_line_dictionary))
-
-
-    #FInd taxes Id desptite I am not allowed to set it by this method.
-
-
-class Invoice():
-
-    def __init__(self, partner_id, reference, x_invoice_date_sat, invoice_line_ids):
-        self.invoice_dictionary = {
-            "partner_id": partner_id,
-            "reference": reference,
-            "x_invoice_date_sat": x_invoice_date_sat,
-            "invoice_line_ids": invoice_line_ids,
-            "type": "in_invoice"
-        }
-
-        self.invoice = []
-
-    def addInvoice(self):
-        self.invoice.append(self.invoice_dictionary)
-
-    def createInvoice(self, connection):
-        connection.ODOO_OBJECT.execute_kw(
-            connection.DATA
-            , connection.UID
-            , connection.PASS
-            , 'account.invoice'
-            , 'create'
-            , self.invoice)
-        messagebox.showinfo(title="Invoice Creation", message="Invoice Created successfully!")
-
-
-class Getters():
-
-
-    @api.multi
-    def getTaxes(self, TasaoCuota, product_id):  # Falta de adaptar
-        try:
-
-            print("Getting SAT Unit of Measure Id")
-            odoo_filter = [[("amount", "=", int(TasaoCuota * 10)), ("type_tax_use", "=", "Compras")]]
-            tax_id = self.connection.ODOO_OBJECT.execute_kw(
-                self.connection.DATA
-                , self.connection.UID
-                , self.connection.PASS
-                , 'account.tax'
-                , 'search'
-                , odoo_filter)
-
-            return tax_id
-
-        except:
-
-            return product_id.supplier_taxes_id
-
-    @api.multi
-    def getAccount(self, code):  # Falta de adaptar
-
-        print("Getting Account Id")
-        odoo_filter = [[("code", "=", code), ("company_id", "=", 1)]]
-        account_id = self.connection.ODOO_OBJECT.execute_kw(
-            self.connection.DATA
-            , self.connection.UID
-            , self.connection.PASS
-            , 'account.account'
-            , 'search'
-            , odoo_filter)
-
-        return account_id[0]
