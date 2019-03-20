@@ -11,9 +11,9 @@
 		It is usually used to indicate the expected behaviour. -->
 	        <button string="Importar Datos del XML" type="object" name="import_xml_data" class="oe_highlight"/>
 	    </header>
-        <field name="reference" position="after">
+        <!--<field name="reference" position="after">
           <field name="UUID"/>
-        </field>
+        </field>-->
       </field>
     </record>
 

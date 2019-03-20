@@ -25,7 +25,7 @@ from odoo import models, fields, api
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
-    UUID = fields.Text(string='Folio Fiscal')
+    #UUID = fields.Text(string='Folio Fiscal')
 
     @api.multi
     def import_xml_data(self):
