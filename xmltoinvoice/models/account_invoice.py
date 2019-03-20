@@ -142,13 +142,13 @@ class AccountInvoice(models.Model):
                         for idx, line in enumerate(self.invoice_line_ids):
 
                             try:
-                                new_line = line.write({
+                                line.write({
                                     'name': invoice_line_items[idx].attributes['Descripcion'].value,
                                     'quantity': invoice_line_items[idx].attributes['Cantidad'].value,
                                     'uom_id': self.getUOMID(invoice_line_items[idx].attributes['ClaveUnidad'].value),
                                     'price_unit': float(invoice_line_items[idx].attributes['ValorUnitario'].value)
                                 })
-                                new_line._set_taxes()
+                                line._set_taxes()
 
                             except:
 
