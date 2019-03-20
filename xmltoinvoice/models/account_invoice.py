@@ -235,7 +235,7 @@ class AccountInvoice(models.Model):
         #uom_odoo = self.env['product.uom'].search(
         #    [[("l10n_mx_edi_code_sat_id", "=", uom_sat[0].id)]])
 
-        uom_odoo = self.env['product.uom'].search(
+        uom_odoo = self.env['account.invoice.line.product.uom'].search(
             [[("l10n_mx_edi_code_sat_id", "=", 53525)]])
 
         return uom_odoo.id
