@@ -99,7 +99,7 @@ class AccountInvoice(models.Model):
                         No funciona
                         '''
 
-                    partner = self.env['res.partner'].create([{
+                    partner = self.env['res.partner'].create({
                         "company_type": company_type, #person or company
                         "name": NombreEmisor,
                         "vat": RfcEmisor,
@@ -108,8 +108,8 @@ class AccountInvoice(models.Model):
                         "supplier": 1,
                         "customer": 0,
                         "property_account_position_id": fiscal_position,
-                        "l10n_mx_type_of_operation": "85"
-                    }])
+                        "l10n_mx_type_of_operation": 85
+                    })
 
                 #Asigno los datos al documento
                 self.write({'partner_id': partner.id,
