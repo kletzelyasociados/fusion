@@ -101,7 +101,7 @@ class AccountInvoice(models.Model):
                         No funciona
                         '''
 
-                    partner = self.env['res.partner'].create({
+                    self.env['res.partner'].create({
                         "is_company": is_company,
                         "name": NombreEmisor,
                         "vat": RfcEmisor})
