@@ -89,14 +89,15 @@ class AccountInvoice(models.Model):
 
                     if RegimenEmisor == 612:
                         company_type = "person"
+                        fiscal_position = 10
                     else:
                         company_type = "company"
+                        fiscal_position = 1
 
-                    fiscal_position = self.env['account.fiscal.position'].search(
+                    '''fiscal_position = self.env['res.partner.account.fiscal.position'].search(
                         [[("l10n_mx_edi_code", "=", RegimenEmisor)]], limit=1)
-
-                    if not fiscal_position.id:
-                        fiscal_position.id = 1
+                        No funciona
+                        '''
 
                     partner = self.env['res.partner'].create([{
                         "company_type": company_type, #person or company
@@ -106,7 +107,7 @@ class AccountInvoice(models.Model):
                         "lang": "es_MX", #Español
                         "supplier": 1,
                         "customer": 0,
-                        "property_account_position_id": fiscal_position.id,
+                        "property_account_position_id": fiscal_position,
                         "l10n_mx_type_of_operation": "85"
                     }])
 
