@@ -109,8 +109,7 @@ class AccountInvoice(models.Model):
                         "lang": "es_MX", #Español
                         "supplier": 1,
                         "customer": 0,
-                        "property_account_position_id": fiscal_position,
-                        "l10n_mx_type_of_operation": '85'
+                        "property_account_position_id": fiscal_position
                     })
 
                 #Asigno los datos al documento
