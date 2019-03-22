@@ -103,7 +103,6 @@ class AccountInvoice(models.Model):
 
                     partner = self.env['res.partner'].create({
                         "is_company": is_company,
-                        "company_type": company_type, #person or company
                         "name": NombreEmisor,
                         "vat": RfcEmisor,
                         "country_id": 156, #México
