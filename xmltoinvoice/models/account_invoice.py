@@ -93,8 +93,7 @@ class AccountInvoice(models.Model):
                         company_type = "company"
 
                     fiscal_position = self.env['account.fiscal.position'].search(
-                        [[("l10n_mx_edi_code", "=", RegimenEmisor),
-                          ("company_id", "=", self.env.user.company_id)]], limit=1)
+                        [[("l10n_mx_edi_code", "=", RegimenEmisor)]], limit=1)
 
                     if not fiscal_position.id:
                         fiscal_position.id = 1
