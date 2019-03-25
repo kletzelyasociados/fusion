@@ -95,17 +95,7 @@ class AccountInvoice(models.Model):
                         fiscal_position = 1
 
                     partner = self.env['res.partner'].create({
-                        'company_type': company_type,
-                        'name': NombreEmisor,
-                        'vat': RfcEmisor,
-                        'country_id': 156,
-                        'lang': "es_MX",
-                        'supplier': 1,
-                        'customer': 0,
-                        'property_account_position_id': fiscal_position,
-                        'property_account_receivable_id': 3,
-                        'property_account_payable_id': 316,
-                        'l10n_mx_type_of_operation': "85"
+                        'name': NombreEmisor
                         })
 
                 #Asigno los datos al documento
