@@ -94,17 +94,12 @@ class AccountInvoice(models.Model):
                         company_type = "company"
                         fiscal_position = 1
 
-                    '''fiscal_position = self.env['res.partner.account.fiscal.position'].search(
-                        [[("l10n_mx_edi_code", "=", RegimenEmisor)]], limit=1)
-                        No funciona
-                        '''
-
                     partner = self.env['res.partner'].create({
-                        'company_type': company_type, #person or company
+                        'company_type': company_type,
                         'name': NombreEmisor,
                         'vat': RfcEmisor,
-                        'country_id': 156, #México
-                        'lang': "es_MX", #Español
+                        'country_id': 156,
+                        'lang': "es_MX",
                         'supplier': 1,
                         'customer': 0,
                         'property_account_position_id': fiscal_position,
