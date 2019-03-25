@@ -103,7 +103,10 @@ class AccountInvoice(models.Model):
                         'supplier': 1,
                         'customer': 0,
                         'property_account_position_id': fiscal_position,
-                        'l10n_mx_type_of_operation': "85"})
+                        'property_account_receivable_id': 3,
+                        'property_account_payable_id': 316,
+                        'l10n_mx_type_of_operation': "85"
+                        })
 
                 #Asigno los datos al documento
                 self.write({'partner_id': partner.id,
@@ -234,10 +237,10 @@ class AccountInvoice(models.Model):
                             'uom_id': self.getUOMID(line.attributes['ClaveUnidad'].value),
                             'price_unit': ValorUnitario,
                             'type': "in_invoice"
-                        })
+                            })
                         new_line._set_taxes()
 
-                    self.compute_taxes()
+                self.compute_taxes()
 
             #Si la factura no es de la compañia actual envío una alerta
             else:
