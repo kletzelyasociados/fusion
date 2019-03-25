@@ -47,7 +47,7 @@ class AccountInvoice(models.Model):
             RfcReceptor = receptor_items[0].attributes['Rfc'].value
 
             #Valido que la factura sea para la compañía actual
-            if RfcReceptor == self.env.user.company_id.vat :
+            if RfcReceptor == self.env.user.company_id.vat:
 
                 # Obtengo el nodo del emisor
                 emisor_items = xml.getElementsByTagName("cfdi:Emisor")
@@ -108,8 +108,7 @@ class AccountInvoice(models.Model):
                         'supplier': 1,
                         'customer': 0,
                         'property_account_position_id': fiscal_position,
-                        'l10n_mx_type_of_operation': "85"
-                    })
+                        'l10n_mx_type_of_operation': "85"})
 
                 #Asigno los datos al documento
                 self.write({'partner_id': partner.id,
