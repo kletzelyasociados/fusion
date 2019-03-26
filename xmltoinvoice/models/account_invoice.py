@@ -103,8 +103,6 @@ class AccountInvoice(models.Model):
                         'supplier': 1,
                         'customer': 0,
                         'property_account_position_id': fiscal_position,
-                        'property_account_receivable_id': 3,
-                        'property_account_payable_id': 316,
                         'l10n_mx_type_of_operation': "85",
                         'type': 'contact'
                         })
