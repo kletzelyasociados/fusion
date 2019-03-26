@@ -45,7 +45,11 @@ class AccountInvoice(models.Model):
 
                 except:
 
-                    xml = minidom.parseString(base64.b64decode(self.x_xml_file).replace('',''))
+                    decoded = base64.b64decode(self.x_xml_file)
+
+                    fixed_xml = str(decoded, "utf-8").replace('','')
+
+                    xml = minidom.parseString(fixed_xml)
 
                 # Obtengo el nodo del receptor
                 receptor_items = xml.getElementsByTagName("cfdi:Receptor")
