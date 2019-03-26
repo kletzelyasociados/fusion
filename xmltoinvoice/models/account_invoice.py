@@ -5,7 +5,7 @@ from odoo import models, fields, api
 from xml.dom import minidom
 import base64
 from odoo.exceptions import AccessError, UserError, RedirectWarning, ValidationError, Warning
-
+import re
 
 # class my_module(models.Model):
 #     _name = 'my_module.my_module'
@@ -47,9 +47,11 @@ class AccountInvoice(models.Model):
 
                     decoded = base64.b64decode(self.x_xml_file)
 
-                    #fixed_xml = str(decoded, "utf-8").replace('','')
+                    fixed_xml = str(decoded, "utf-8")
 
-                    fixed_xml = str(decoded, u"utf-8")
+                    _illegal_xml_chars_RE = re.compile(u'[\x00-\x08\x0b\x0c\x0e-\x1F\uD800-\uDFFF\uFFFE\uFFFF]')
+
+                    fixed_xml = _illegal_xml_chars_RE.sub('', fixed_xml)
 
                     xml = minidom.parseString(fixed_xml)
 
