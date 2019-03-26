@@ -5,7 +5,7 @@ from odoo import models, fields, api
 from xml.dom import minidom
 import base64
 from odoo.exceptions import AccessError, UserError, RedirectWarning, ValidationError, Warning
-
+import re
 
 # class my_module(models.Model):
 #     _name = 'my_module.my_module'
@@ -39,7 +39,21 @@ class AccountInvoice(models.Model):
                 # The file is stored in odoo encoded in base64 bytes column, in order to get the information in the original way
                 # It must have to be decoded in the same base.
 
-                xml = minidom.parseString(base64.b64decode(self.x_xml_file))
+
+                try:
+                    xml = minidom.parseString(base64.b64decode(self.x_xml_file))
+
+                except:
+
+                    decoded = base64.b64decode(self.x_xml_file)
+
+                    fixed_xml = str(decoded, "utf-8")
+
+                    _illegal_xml_chars_RE = re.compile(u'[\x00-\x08\x0b\x0c\x0e-\x1F\uD800-\uDFFF\uFFFE\uFFFF]')
+
+                    fixed_xml = _illegal_xml_chars_RE.sub('', fixed_xml)
+
+                    xml = minidom.parseString(fixed_xml)
 
                 # Obtengo el nodo del receptor
                 receptor_items = xml.getElementsByTagName("cfdi:Receptor")
