@@ -39,7 +39,13 @@ class AccountInvoice(models.Model):
                 # The file is stored in odoo encoded in base64 bytes column, in order to get the information in the original way
                 # It must have to be decoded in the same base.
 
-                xml = minidom.parseString(base64.b64decode(self.x_xml_file))
+
+                try:
+                    xml = minidom.parseString(base64.b64decode(self.x_xml_file))
+
+                except:
+
+                    xml = minidom.parseString(base64.b64decode(self.x_xml_file).replace('',''))
 
                 # Obtengo el nodo del receptor
                 receptor_items = xml.getElementsByTagName("cfdi:Receptor")
