@@ -47,7 +47,9 @@ class AccountInvoice(models.Model):
 
                     decoded = base64.b64decode(self.x_xml_file)
 
-                    fixed_xml = str(decoded, "utf-8").replace('','')
+                    #fixed_xml = str(decoded, "utf-8").replace('','')
+
+                    fixed_xml = str(decoded, u"utf-8")
 
                     xml = minidom.parseString(fixed_xml)
 
