@@ -16,10 +16,10 @@
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
     # for the full list
     'category': 'Purchases',
-    'version': '0.2.4',
+    'version': '1.0.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','purchase', 'account'],
+    'depends': ['base', 'purchase', 'account', 'l10n_mx_edi', 'l10n_mx_reports'],
 
     # always loaded
     'data': [
