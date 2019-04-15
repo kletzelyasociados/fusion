@@ -59,7 +59,14 @@ class AccountInvoice(models.Model):
                 receptor_items = xml.getElementsByTagName("cfdi:Receptor")
 
                 # Obtengo nombre y RFC del receptor
-                NombreReceptor = receptor_items[0].attributes['Nombre'].value
+                try:
+
+                    NombreReceptor = receptor_items[0].attributes['Nombre'].value
+
+                except:
+
+                    NombreReceptor = "FACTURA TIMBRADA SIN NOMBRE DE PROVEEDOR"
+
                 RfcReceptor = receptor_items[0].attributes['Rfc'].value
 
                 #Valido que la factura sea para la compañía actual
