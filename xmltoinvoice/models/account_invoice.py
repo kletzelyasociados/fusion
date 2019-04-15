@@ -64,14 +64,8 @@ class AccountInvoice(models.Model):
                 receptor_items = xml.getElementsByTagName("cfdi:Receptor")
 
                 # Obtengo nombre y RFC del receptor
-                try:
 
-                    NombreReceptor = receptor_items[0].attributes['Nombre'].value
-
-                except:
-
-                    NombreReceptor = "FACTURA SIN NOMBRE DE PROVEEDOR"
-
+                NombreReceptor = receptor_items[0].attributes['Nombre'].value
                 RfcReceptor = receptor_items[0].attributes['Rfc'].value
 
                 #Valido que la factura sea para la compañía actual
@@ -81,7 +75,12 @@ class AccountInvoice(models.Model):
                     emisor_items = xml.getElementsByTagName("cfdi:Emisor")
 
                     # Obtengo los datos necesarios
-                    NombreEmisor = emisor_items[0].attributes['Nombre'].value
+                    try:
+                        NombreEmisor = emisor_items[0].attributes['Nombre'].value
+
+                    except:
+                        NombreEmisor = "FACTURA TIMBRADA SIN NOMBRE DE PROVEEDOR"
+
                     RfcEmisor = emisor_items[0].attributes['Rfc'].value
                     RegimenEmisor = emisor_items[0].attributes['RegimenFiscal'].value
 
