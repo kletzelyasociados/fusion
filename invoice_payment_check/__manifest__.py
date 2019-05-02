@@ -1,26 +1,27 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "my_module",
+    'name': "invoice_payment_process",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        This module helps to determine if the requested payment proceeds.""",
 
     'description': """
-        Long description of module's purpose
+        This module adds a functionality to request invoice payments. 
+        It does an extra validation to check if the requested payment is approved by the corresponding manager and if 
+        it's amount is lower than the Purchase Order to which it is related.
     """,
 
-    'author': "My Company",
-    'website': "http://www.yourcompany.com",
+    'author': "Manuel Fabela",
+    'website': "https://www.linkedin.com/in/josemanuelvilchis/",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
     # for the full list
-    'category': 'Uncategorized',
-    'version': '0.1',
+    'category': 'Purchase',
+    'version': '0.0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base', 'purchase', 'account','account_3way_match'],
 
     # always loaded
     'data': [
