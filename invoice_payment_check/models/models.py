@@ -5,11 +5,6 @@ from odoo import models, fields, api
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
-#     name = fields.Char()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-
     state = fields.Selection([
             ('draft', 'Draft'),
             ('payment_request', 'Payment Request'),

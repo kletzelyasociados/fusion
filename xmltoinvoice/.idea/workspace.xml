@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="be005755-d7b2-43e6-8bdf-4c4e417e7dd5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../invoice_payment_check/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../invoice_payment_check/views/account_invoice_form_view.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../invoice_payment_check/__manifest__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../invoice_payment_check/__manifest__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../invoice_payment_check/models/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../invoice_payment_check/models/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../invoice_payment_check/views/account_invoice_form_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../invoice_payment_check/views/account_invoice_form_view.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -171,10 +169,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-158" y="-1058" width="1696" height="1026" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24909529" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.30729166" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />

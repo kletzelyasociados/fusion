@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "invoice_payment_process",
+    'name': "Payment check process",
 
     'summary': """
         This module helps to determine if the requested payment proceeds.""",
@@ -18,7 +18,7 @@
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
     # for the full list
     'category': 'Purchase',
-    'version': '0.0.1',
+    'version': '0.0.2',
 
     # any module necessary for this one to work correctly
     'depends': ['base', 'purchase', 'account','account_3way_match'],
@@ -26,6 +26,7 @@
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
+        'views/account_invoice_form_view.xml',
         'views/views.xml',
         'views/templates.xml',
     ],
