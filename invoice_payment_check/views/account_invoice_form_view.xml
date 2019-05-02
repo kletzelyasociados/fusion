@@ -8,7 +8,7 @@
       <field name="arch" type="xml">
           <header>
             <button name="action_invoice_open" position="replace">
-              <button name="action_invoice_open" type="object" states="draft,approved_by_manager" string="Validar" class="oe_highlight" modifiers="{'invisible':[['state','not in',['draft'.'approved_by_manager']]]}" options="{}"/>
+              <button name="action_invoice_open" type="object" states="draft,approved_by_manager" string="Validar" class="oe_highlight" modifiers="{'invisible':[['state','not in',['draft','approved_by_manager']]]}" options="{}"/>
             </button>
             <button name="181" position="replace">
               <button name="181" type="action" states="open" string="Registrar pago" class="oe_highlight" modifiers="{'invisible':[['state','not in',['open']]]}" options="{}"/>
