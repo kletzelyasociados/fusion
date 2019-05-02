@@ -7,31 +7,30 @@
       <field name="inherit_id" ref="account.invoice_supplier_form"/>
       <field name="arch" type="xml">
           <header>
-            <field name="action_invoice_open" position="replace">
+            <button name="action_invoice_open" position="replace">
               <button name="action_invoice_open" type="object" states="draft" string="Validar" class="oe_highlight" modifiers="{'invisible':[['state','not in',['draft']]]}" options="{}"/>
-            </field>
-            <field name="181" position="replace">
+            </button>
+            <button name="181" position="replace">
               <button name="181" type="action" states="open" string="Registrar pago" class="oe_highlight" modifiers="{'invisible':[['state','not in',['open']]]}" options="{}"/>
-            </field>
-            <field name="244" position="replace">
+            </button>
+            <button name="244" position="replace">
               <button name="244" type="action" string="Solicitar rectificativa" attrs="{'invisible': ['|',('type', 'in', ['in_refund','out_refund']),('state','not in',('open','paid'))]}" modifiers="{'invisible':['|',['type','in',['in_refund','out_refund']],['state','not in',['open','paid']]]}" options="{}"/>
-            </field>
-            <field name="action_invoice_cancel" position="replace">
+            </button>
+            <button name="action_invoice_cancel" position="replace">
               <button name="action_invoice_cancel" type="object" states="draft,open" string="Cancelar factura" modifiers="{'invisible':[['state','not in',['draft','open']]]}" options="{}"/>
-            </field>
-            <field name="action_invoice_draft" position="replace">
+            </button>
+            <button name="action_invoice_draft" position="replace">
               <button name="action_invoice_draft" states="cancel,payment_rejected" string="Cambiar a borrador" type="object" modifiers="{'invisible':[['state','not in',['cancel','payment_rejected']]]}" options="{}"/>
-            </field>
-            <field name="action_invoice_payment_request" position="replace">
+            </button>
+            <button name="action_invoice_payment_request" position="replace">
               <button name="action_invoice_payment_request" type="object" states="draft" string="Solicitar Pago" class="oe_highlight" modifiers="{'invisible':[['state','not in',['draft']]]}" options="{}"/>
-            </field>
-            <field name="action_invoice_approve" position="replace">
+            </button>
+            <button name="action_invoice_approve" position="replace">
               <button name="action_invoice_approve" type="object" states="payment_request,approved_by_leader" string="Autorizar Pago" class="oe_highlight" modifiers="{'invisible':[['state','not in',['open']]]}" options="{}"/>
-            </field>
-            <field name="action_invoice_reject" position="replace">
+            </button>
+            <button name="action_invoice_reject" position="replace">
               <button name="action_invoice_reject" type="object" states="payment_request,approved_by_leader,approved_by_manager" string="Rechazar Pago" class="oe_highlight" modifiers="{'invisible':[['state','not in',['open']]]}" options="{}"/>
-            </field>
-
+            </button>
           </header>
         <field name="state" position="replace">
           <field name="state" widget="statusbar" statusbar_visible="draft,payment_request,approved_by_leader,approved_by_manager,open,paid,payment_rejected" on_change="1" modifiers="{'readonly':true}"/>
