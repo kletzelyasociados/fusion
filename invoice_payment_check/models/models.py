@@ -7,10 +7,10 @@ class AccountInvoice(models.Model):
 
     state = fields.Selection([
             ('draft', 'Draft'),
-            ('payment_request', 'Payment Request'),
-            ('approved_by_leader', 'Approved by Leader'),
-            ('approved_by_manager', 'Approved by Manager'),
-            ('payment_rejected', 'Payment Rejected'),
+            ('payment_request', 'Solicitud de Pago'),
+            ('approved_by_leader', 'Aprobado por el Lider'),
+            ('approved_by_manager', 'Aprobado por el Gerente'),
+            ('payment_rejected', 'Pago Rechazado'),
             ('open', 'Open'),
             ('in_payment', 'In Payment'),
             ('paid', 'Paid'),
