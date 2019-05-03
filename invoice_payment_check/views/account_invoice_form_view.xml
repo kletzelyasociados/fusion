@@ -11,7 +11,7 @@
                 <button name="action_invoice_open" type="object" states="draft,approved_by_manager" string="Validar" class="oe_highlight" modifiers="{'invisible':[['state','not in',['draft','approved_by_manager']]]}" options="{}"/>
             </xpath>
             <xpath expr="//button[@name='action_invoice_draft']" position="replace">
-                <button name="action_invoice_draft" type="object" states="draft,open,payment_rejected" string="Cancelar factura" modifiers="{'invisible':[['state','not in',['draft','open','payment_rejected']]]}" options="{}"/>
+                <button name="action_invoice_draft" type="object" states="cancel,,payment_rejected" string="Cambiar a borrador" modifiers="{'invisible':[['state','not in',['cancel','payment_rejected']]]}" options="{}"/>
             </xpath>
 
             <button name="action_invoice_payment_request" type="object" states="draft" string="Solicitar Pago" class="oe_highlight" modifiers="{'invisible':[['state','not in',['draft']]]}" options="{}"/>
