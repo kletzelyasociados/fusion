@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
+from odoo.exceptions import UserError
+from odoo.tools import float_compare
 
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
@@ -26,11 +28,44 @@ class AccountInvoice(models.Model):
                      " * The 'Paid' status is set automatically when the invoice is paid. Its related journal entries may or may not be reconciled.\n"
                      " * The 'Cancelled' status is used when user cancel invoice.")
 
+    @api.multi
+    def action_invoice_open(self):
+        # lots of duplicate calls to action_invoice_open, so we remove those already open
+        to_open_invoices = self.filtered(lambda inv: inv.state != 'open')
+        if to_open_invoices.filtered(lambda inv: not inv.partner_id):
+            raise UserError(_("The field Vendor is required, please complete it to validate the Vendor Bill."))
+        if to_open_invoices.filtered(lambda inv: inv.state != 'draft' or inv.state != 'approved_by_manager'):
+            raise UserError(_("Invoice must be in draft state or approved by manager in order to validate it."))
+        if to_open_invoices.filtered(
+                lambda inv: float_compare(inv.amount_total, 0.0, precision_rounding=inv.currency_id.rounding) == -1):
+            raise UserError(_(
+                "You cannot validate an invoice with a negative total amount. You should create a credit note instead."))
+        if to_open_invoices.filtered(lambda inv: not inv.account_id):
+            raise UserError(
+                _('No account was found to create the invoice, be sure you have installed a chart of account.'))
+        to_open_invoices.action_date_assign()
+        to_open_invoices.action_move_create()
+        return to_open_invoices.invoice_validate()
 
     @api.multi
-    def action_invoice_payment_request(self):
-        self.write({'state': 'payment_request'})
-
+    def action_invoice_draft(self):
+        if self.filtered(lambda inv: inv.state != 'cancel' or inv.state != 'payment_rejected'):
+            raise UserError(_("Invoice must be cancelled or payment rejected in order to reset it to draft."))
+        # go from canceled state to draft state
+        self.write({'state': 'draft', 'date': False})
+        # Delete former printed invoice
+        try:
+            report_invoice = self.env['ir.actions.report']._get_report_from_name('account.report_invoice')
+        except IndexError:
+            report_invoice = False
+        if report_invoice and report_invoice.attachment:
+            for invoice in self:
+                with invoice.env.do_in_draft():
+                    invoice.number, invoice.state = invoice.move_name, 'open'
+                    attachment = self.env.ref('account.account_invoices').retrieve_attachment(invoice)
+                if attachment:
+                    attachment.unlink()
+        return True
 
     @api.multi
     def action_invoice_approve(self):
@@ -40,3 +75,8 @@ class AccountInvoice(models.Model):
     @api.multi
     def action_invoice_reject(self):
         self.write({'state': 'payment_rejected'})
+
+
+    @api.multi
+    def action_invoice_payment_request(self):
+        self.write({'state': 'payment_request'})

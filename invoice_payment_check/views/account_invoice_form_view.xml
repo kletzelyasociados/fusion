@@ -13,6 +13,7 @@
           <xpath expr="//button[@name='action_invoice_draft']" position="replace">
 
           </xpath>
+
           <header>
 
             <button name="action_invoice_open" type="object" states="draft,approved_by_manager" string="Validar" class="oe_highlight" modifiers="{'invisible':[['state','not in',['draft','approved_by_manager']]]}" options="{}"/>
