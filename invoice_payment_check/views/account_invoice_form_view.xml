@@ -6,13 +6,14 @@
       <field name="model">account.invoice</field>
       <field name="inherit_id" ref="account.invoice_supplier_form"/>
       <field name="arch" type="xml">
+
+          <xpath expr="//button[@name='action_invoice_open']" position="replace">
+
+          </xpath>
+          <xpath expr="//button[@name='action_invoice_draft']" position="replace">
+
+          </xpath>
           <header>
-            <xpath expr="//button[@name='action_invoice_open']" position="replace">
-
-            </xpath>
-            <xpath expr="//button[@name='action_invoice_draft']" position="replace">
-
-            </xpath>
 
             <button name="action_invoice_open" type="object" states="draft,approved_by_manager" string="Validar" class="oe_highlight" modifiers="{'invisible':[['state','not in',['draft','approved_by_manager']]]}" options="{}"/>
             <button name="action_invoice_draft" type="object" states="cancel,payment_rejected" string="Cambiar a borrador" class="oe_highlight" modifiers="{'invisible':[['state','not in',['cancel','payment_rejected']]]}" options="{}"/>
