@@ -33,16 +33,14 @@ class AccountInvoice(models.Model):
         # lots of duplicate calls to action_invoice_open, so we remove those already open
         to_open_invoices = self.filtered(lambda inv: inv.state != 'open')
         if to_open_invoices.filtered(lambda inv: not inv.partner_id):
-            raise UserError(_("The field Vendor is required, please complete it to validate the Vendor Bill."))
+            raise UserError("The field Vendor is required, please complete it to validate the Vendor Bill.")
         if to_open_invoices.filtered(lambda inv: inv.state != 'draft' or inv.state != 'approved_by_manager'):
-            raise UserError(_("Invoice must be in draft state or approved by manager in order to validate it."))
+            raise UserError("Invoice must be in draft state or approved by manager in order to validate it.")
         if to_open_invoices.filtered(
                 lambda inv: float_compare(inv.amount_total, 0.0, precision_rounding=inv.currency_id.rounding) == -1):
-            raise UserError(_(
-                "You cannot validate an invoice with a negative total amount. You should create a credit note instead."))
+            raise UserError("You cannot validate an invoice with a negative total amount. You should create a credit note instead.")
         if to_open_invoices.filtered(lambda inv: not inv.account_id):
-            raise UserError(
-                _('No account was found to create the invoice, be sure you have installed a chart of account.'))
+            raise UserError('No account was found to create the invoice, be sure you have installed a chart of account.')
         to_open_invoices.action_date_assign()
         to_open_invoices.action_move_create()
         return to_open_invoices.invoice_validate()
@@ -50,7 +48,7 @@ class AccountInvoice(models.Model):
     @api.multi
     def action_invoice_draft(self):
         if self.filtered(lambda inv: inv.state != 'cancel' or inv.state != 'payment_rejected'):
-            raise UserError(_("Invoice must be cancelled or payment rejected in order to reset it to draft."))
+            raise UserError("Invoice must be cancelled or payment rejected in order to reset it to draft.")
         # go from canceled state to draft state
         self.write({'state': 'draft', 'date': False})
         # Delete former printed invoice
