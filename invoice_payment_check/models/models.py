@@ -34,7 +34,7 @@ class AccountInvoice(models.Model):
         to_open_invoices = self.filtered(lambda inv: inv.state != 'open')
         if to_open_invoices.filtered(lambda inv: not inv.partner_id):
             raise UserError("The field Vendor is required, please complete it to validate the Vendor Bill.")
-        if to_open_invoices.filtered(lambda inv: inv.state != 'draft' or inv.state != 'approved_by_manager'):
+        if to_open_invoices.filtered(lambda inv: inv.state != 'draft') or to_open_invoices.filtered(lambda inv: inv.state != 'approved_by_manager'):
             raise UserError("Invoice must be in draft state or approved by manager in order to validate it.")
         if to_open_invoices.filtered(
                 lambda inv: float_compare(inv.amount_total, 0.0, precision_rounding=inv.currency_id.rounding) == -1):
