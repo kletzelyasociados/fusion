@@ -34,8 +34,8 @@ class AccountInvoice(models.Model):
         to_open_invoices = self.filtered(lambda inv: inv.state != 'open')
         if to_open_invoices.filtered(lambda inv: not inv.partner_id):
             raise UserError("The field Vendor is required, please complete it to validate the Vendor Bill.")
-        #if to_open_invoices.filtered(lambda inv: inv.state != 'draft') or to_open_invoices.filtered(lambda inv: inv.state != 'approved_by_manager'):
-            #raise UserError("Invoice must be in draft state or approved by manager in order to validate it.")
+        if to_open_invoices.filtered(lambda inv: inv.state not in ('draft','approved_by_manager')):
+            raise UserError("Invoice must be in draft state or approved by manager in order to validate it.")
         if to_open_invoices.filtered(
                 lambda inv: float_compare(inv.amount_total, 0.0, precision_rounding=inv.currency_id.rounding) == -1):
             raise UserError("You cannot validate an invoice with a negative total amount. You should create a credit note instead.")
@@ -47,7 +47,7 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def action_invoice_draft(self):
-        if self.filtered(lambda inv: inv.state != 'cancel' or inv.state != 'payment_rejected'):
+        if self.filtered(lambda inv: inv.state != ('cancel','payment_rejected')):
             raise UserError("Invoice must be cancelled or payment rejected in order to reset it to draft.")
         # go from canceled state to draft state
         self.write({'state': 'draft', 'date': False})
