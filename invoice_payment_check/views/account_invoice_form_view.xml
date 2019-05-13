@@ -27,6 +27,11 @@
         <field name="state" position="replace">
           <field name="state" widget="statusbar" statusbar_visible="draft,payment_request,approved_by_leader,approved_by_manager,open,paid,payment_rejected" on_change="1" modifiers="{'readonly':true}"/>
         </field>
+        <field name="purchase_id" position="after">
+            <field name="department_id"/>
+            <field name="account_analytic_id"/>
+            <field name="analytic_tag_ids"/>
+        </field>
       </field>
     </record>
 
