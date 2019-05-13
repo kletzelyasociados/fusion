@@ -35,7 +35,7 @@ class AccountInvoice(models.Model):
     department_id = fields.Many2one('hr.department',
                                     string='Departamento',
                                     track_visibility='onchange',
-                                    default='_compute_department',
+                                    compute='_compute_department',
                                     store=True)
 
     account_analytic_id = fields.Many2one('account.analytic.account',
@@ -45,6 +45,7 @@ class AccountInvoice(models.Model):
     analytic_tag_ids = fields.Many2many('account.analytic.tag', string='Etiquetas Analíticas')
 
     @api.multi
+    @api.depends('invoice_line_ids')
     def _compute_department(self):
         employee = self.env['hr.employee'].search([('work_email', '=', self.created_by.email)])
         if len(employee) > 0:
@@ -53,11 +54,13 @@ class AccountInvoice(models.Model):
             self.write({'department_id': None})
 
     @api.multi
+    @api.depends('invoice_line_ids')
     def _compute_analytic_account(self):
         if self.invoice_line_ids:
             self.write({'account_analytic_id': self.invoice_line_ids[0].account_analytic_id})
 
     @api.multi
+    @api.depends('invoice_line_ids')
     def _compute_analytic_tag(self):
         if self.invoice_line_ids:
             self.write({'analytic_tag_ids': self.invoice_line_ids[0].analytic_tag_ids})
@@ -241,9 +244,3 @@ class AccountInvoiceLine(models.Model):
         else:
             self.can_be_paid = 'exception'
 
-    can_be_paid = fields.Selection(
-        _release_to_pay_status_list,
-        compute='_can_be_paid',
-        copy=False,
-        store=True,
-        string='Release to Pay')
