@@ -42,7 +42,9 @@ class AccountInvoice(models.Model):
                                           string='Cuenta Analítica',
                                           compute='_compute_analytic_account')
 
-    analytic_tag_ids = fields.Many2many('account.analytic.tag', string='Etiquetas Analíticas')
+    analytic_tag_ids = fields.Many2many('account.analytic.tag',
+                                        string='Etiquetas Analíticas',
+                                        compute='_compute_analytic_tag')
 
     @api.multi
     @api.depends('invoice_line_ids')
@@ -145,102 +147,4 @@ class AccountInvoice(models.Model):
                 if attachment:
                     attachment.unlink()
         return True
-
-class AccountInvoiceLine(models.Model):
-    _inherit = 'account.invoice.line'
-
-    @api.depends('purchase_line_id.total')
-    def _can_be_paid(self):
-        """ Computes the 'release to pay' status of an invoice line, depending on
-        the invoicing policy of the product linked to it, by calling the dedicated
-        subfunctions. This function also ensures the line is linked to a purchase
-        order (otherwise, can_be_paid will be set as 'exception'), and the price
-        between this order and the invoice did not change (otherwise, again,
-        the line is put in exception).
-        """
-        precision = self.env['decimal.precision'].precision_get('Product Unit of Measure')
-
-        """
-        po_total_amount = 0
-        inv_total_amount = 0
-
-        po_line_size = 0
-        inv_line_size = 0
-
-        for invoice_line in self:
-            inv_line_size = inv_line_size + 1
-            inv_total_amount = inv_total_amount + invoice_line.price_total
-            if invoice_line.purchase_line_id:
-                po_line_size = po_line_size + 1
-                po_total_amount = po_total_amount + invoice_line.purchase_line_id.price_total
-
-        if po_line_size > inv_line_size:
-            if
-
-        if po_line_size < inv_line_size:
-
-
-        if po_line_size == inv_line_size:
-
-        """
-
-        for invoice_line in self:
-            po_line = invoice_line.purchase_line_id
-
-            if po_line:
-                #po_total = po_total + po_line.price_total
-                invoiced_qty = po_line.qty_invoiced
-                received_qty = po_line.qty_received
-                ordered_qty = po_line.product_qty
-
-                # A price difference between the original order and the invoice results in an exception
-                invoice_currency = invoice_line.currency_id
-                order_currency = po_line.currency_id
-                invoice_converted_price = invoice_currency.compute(invoice_line.price_unit, order_currency)
-                if order_currency.compare_amounts(po_line.price_unit, invoice_converted_price) != 0:
-                    invoice_line.can_be_paid = 'exception'
-                    continue
-
-                if po_line.product_id.purchase_method == 'purchase': # 'on ordered quantities'
-                    invoice_line._can_be_paid_ordered_qty(invoiced_qty, received_qty, ordered_qty, precision)
-                else: # 'on received quantities'
-                    invoice_line._can_be_paid_received_qty(invoiced_qty, received_qty, ordered_qty, precision)
-
-            else: # Serves as default if the line is not linked to any Purchase.
-                invoice_line.can_be_paid = 'exception'
-
-    def _can_be_paid_ordered_qty(self, invoiced_qty, received_qty, ordered_qty, precision):
-        """
-        Gives the release_to_pay status of an invoice line for 'on ordered
-        quantity' billing policy, if this line's invoice is related to a purchase order.
-
-        This function sets can_be_paid field to one of the following:
-        'yes': the content of the line has been ordered and can be invoiced
-        'no' : the content of the line hasn't been ordered at all, and cannot be invoiced
-        'exception' : only part of the invoice has been ordered
-        """
-        if float_compare(invoiced_qty - self.quantity, ordered_qty, precision_digits=precision) >= 0:
-            self.can_be_paid = 'no'
-        elif float_compare(invoiced_qty, ordered_qty, precision_digits=precision) <= 0:
-            self.can_be_paid = 'yes'
-        else:
-            self.can_be_paid = 'exception'
-
-
-    def _can_be_paid_received_qty(self, invoiced_qty, received_qty, ordered_qty, precision):
-        """
-        Gives the release_to_pay status of an invoice line for 'on received
-        quantity' billing policy, if this line's invoice is related to a purchase order.
-
-        This function sets can_be_paid field to one of the following:
-        'yes': the content of the line has been received and can be invoiced
-        'no' : the content of the line hasn't been received at all, and cannot be invoiced
-        'exception' : ordered and received quantities differ
-        """
-        if float_compare(invoiced_qty, received_qty, precision_digits=precision) <= 0:
-            self.can_be_paid = 'yes'
-        elif received_qty == 0 and float_compare(invoiced_qty, ordered_qty, precision_digits=precision) <= 0: # "and" part to ensure a too high billed quantity results in an exception:
-            self.can_be_paid = 'no'
-        else:
-            self.can_be_paid = 'exception'
 
