@@ -33,7 +33,7 @@ class AccountInvoice(models.Model):
                                               track_visibility='onchange')
 
     def compute_department(self):
-        employee = self.env['hr.employee'].search([('work_email', '=', self.create_uid.email)])
+        employee = self.env['hr.employee'].search([('user_id', '=', self.create_uid)])
         if len(employee) > 0:
             self.write({'department_id': employee[0].department_id.id})
         else:
@@ -43,7 +43,8 @@ class AccountInvoice(models.Model):
                                     string='Departamento',
                                     track_visibility='onchange',
                                     default=compute_department,
-                                    store=True)
+                                    store=True,
+                                    )
 
     account_analytic_id = fields.Many2one('account.analytic.account',
                                           string='Cuenta Analítica',
@@ -70,7 +71,7 @@ class AccountInvoice(models.Model):
     @api.multi
     def action_invoice_payment_request(self):
         self.write({'payment_requested_by': self.env.uid, 'state': 'payment_request'})
-        employee = self.env['hr.employee'].search([('work_email', '=', self.payment_requested_by_id.email)])
+        employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
         if len(employee) > 0:
             self.write({'department_id': employee[0].department_id.id})
         else:
@@ -78,7 +79,7 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def action_invoice_approve(self):
-        employee = self.env['hr.employee'].search([('work_email', '=', self.env.uid.email)])
+        employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
         if len(employee) > 0:
             if employee[0].job_id.name == 'Gerente de Urbanización':
                 if employee[0].department_id == self.department_id:
@@ -95,7 +96,7 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def action_invoice_reject(self):
-        employee = self.env['hr.employee'].search([('work_email', '=', self.env.uid.email)])
+        employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
         if len(employee) > 0:
             if employee[0].job_id.name == 'Gerente de Urbanización':
                 if employee[0].department_id == self.department_id:
