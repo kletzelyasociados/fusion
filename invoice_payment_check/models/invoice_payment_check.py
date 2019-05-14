@@ -35,7 +35,7 @@ class AccountInvoice(models.Model):
     department_id = fields.Many2one('hr.department',
                                     string='Departamento',
                                     track_visibility='onchange',
-                                    compute='_compute_department',
+                                    default='_compute_department',
                                     store=True)
 
     account_analytic_id = fields.Many2one('account.analytic.account',
@@ -46,16 +46,12 @@ class AccountInvoice(models.Model):
                                         string='Etiquetas Analíticas',
                                         compute='_compute_analytic_tag')
 
-    @api.one
-    @api.depends('create_uid')
     def _compute_department(self):
-        if not self.payment_requested_by_id:
-            employee = self.env['hr.employee'].search([('work_email', '=', self.create_uid.email)])
-            if len(employee) > 0:
-                self.write({'department_id': employee[0].department_id.id})
-            else:
-                self.write({'department_id': None})
-            return
+        employee = self.env['hr.employee'].search([('work_email', '=', self.create_uid.email)])
+        if len(employee) > 0:
+            self.write({'department_id': employee[0].department_id.id})
+        else:
+            raise ValidationError('El empleado no se encuentra dado de alta')
 
     @api.multi
     @api.depends('invoice_line_ids')
