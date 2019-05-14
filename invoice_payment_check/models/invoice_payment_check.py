@@ -47,7 +47,7 @@ class AccountInvoice(models.Model):
                                         string='Etiquetas Analíticas',
                                         compute='_compute_analytic_tag')
 
-    @api.depends('payment_requested_by')
+    @api.depends('payment_requested_by_id')
     def compute_department(self):
         for invoice in self:
             if not invoice.payment_requested_by_id:
