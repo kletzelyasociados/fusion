@@ -49,7 +49,7 @@ class AccountInvoice(models.Model):
     @api.one
     @api.depends('create_uid')
     def _compute_department(self):
-        if not self.requested_by.id:
+        if not self.payment_requested_by_id:
             employee = self.env['hr.employee'].search([('work_email', '=', self.create_uid.email)])
             if len(employee) > 0:
                 self.write({'department_id': employee[0].department_id.id})
