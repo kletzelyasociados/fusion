@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="be005755-d7b2-43e6-8bdf-4c4e417e7dd5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../invoice_payment_check/models/invoice_payment_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/../invoice_payment_check/models/invoice_payment_check.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../invoice_payment_check/views/account_invoice_form_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../invoice_payment_check/views/account_invoice_form_view.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

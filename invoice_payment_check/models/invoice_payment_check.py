@@ -32,17 +32,10 @@ class AccountInvoice(models.Model):
                                               string='Pago solicitado por',
                                               track_visibility='onchange')
 
-    def compute_department(self):
-        employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
-        if len(employee) > 0:
-            self.write({'department_id': employee[0].department_id.id})
-        else:
-            raise ValidationError('El empleado no se encuentra dado de alta')
-
     department_id = fields.Many2one('hr.department',
                                     string='Departamento',
                                     track_visibility='onchange',
-                                    default=compute_department,
+                                    compute='compute_department',
                                     store=True,
                                     )
 
@@ -54,19 +47,25 @@ class AccountInvoice(models.Model):
                                         string='Etiquetas Analíticas',
                                         compute='_compute_analytic_tag')
 
+    @api.depends('payment_requested_by')
+    def compute_department(self):
+        for invoice in self:
+            usr = self.env['res.users'].search([('id', '=', invoice.create_uid)])
+            employee = self.env['hr.employee'].search([('work_email', '=', usr[0].login)])
+            if len(employee) > 0:
+                self.write({'department_id': employee[0].department_id.id})
+            else:
+                raise ValidationError('El empleado no se encuentra dado de alta')
 
-
-    @api.multi
     @api.depends('invoice_line_ids')
     def _compute_analytic_account(self):
         if self.invoice_line_ids:
-            self.write({'account_analytic_id': self.invoice_line_ids[0].account_analytic_id})
+            self.write({'account_analytic_id': self.invoice_line_ids[0].account_analytic_id.id})
 
-    @api.multi
     @api.depends('invoice_line_ids')
     def _compute_analytic_tag(self):
         if self.invoice_line_ids:
-            self.write({'analytic_tag_ids': self.invoice_line_ids[0].analytic_tag_ids})
+            self.write({'analytic_tag_ids': self.invoice_line_ids[0].analytic_tag_ids.id})
 
     @api.multi
     def action_invoice_payment_request(self):
