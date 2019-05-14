@@ -51,7 +51,7 @@ class AccountInvoice(models.Model):
     def _compute_department(self):
         for invoice in self:
             if not invoice.payment_requested_by_id:
-                employee = self.env['hr.employee'].search([('user_id', '=', invoice.create_uid)])
+                employee = self.env['hr.employee'].search([('user_id', '=', invoice.create_uid.id)])
                 if len(employee) > 0:
                     self.write({'department_id': employee[0].department_id.id})
                 else:
