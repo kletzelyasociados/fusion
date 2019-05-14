@@ -33,8 +33,7 @@ class AccountInvoice(models.Model):
                                               track_visibility='onchange')
 
     def compute_department(self):
-        user = self.env['res.users'].search([('id', '=', self.create_uid)])
-        employee = self.env['hr.employee'].search([('work_email', '=', user.email)])
+        employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
         if len(employee) > 0:
             self.write({'department_id': employee[0].department_id.id})
         else:
