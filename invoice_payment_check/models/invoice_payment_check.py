@@ -53,7 +53,7 @@ class AccountInvoice(models.Model):
             if not invoice.payment_requested_by_id:
                 employee = self.env['hr.employee'].search([('user_id', '=', invoice.create_uid.id)])
                 if employee:
-                    self.write({'department_id': employee[0].department_id.id})
+                    invoice.department_id = employee[0].department_id.id
                 else:
                     raise ValidationError('El empleado ' + invoice.create_uid.name + ' no se encuentra dado de alta')
 
