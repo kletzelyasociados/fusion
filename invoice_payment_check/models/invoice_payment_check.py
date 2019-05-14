@@ -46,15 +46,16 @@ class AccountInvoice(models.Model):
                                         string='Etiquetas Analíticas',
                                         compute='_compute_analytic_tag')
 
-    @api.multi
-    @api.depends('invoice_line_ids')
+    @api.one
+    @api.depends('create_uid')
     def _compute_department(self):
-        for invoice in self:
-            employee = self.env['hr.employee'].search([('work_email', '=', invoice.create_uid.email)])
+        if not self.requested_by.id:
+            employee = self.env['hr.employee'].search([('work_email', '=', self.create_uid.email)])
             if len(employee) > 0:
                 self.write({'department_id': employee[0].department_id.id})
             else:
                 self.write({'department_id': None})
+            return
 
     @api.multi
     @api.depends('invoice_line_ids')
