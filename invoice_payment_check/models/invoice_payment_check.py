@@ -35,7 +35,7 @@ class AccountInvoice(models.Model):
     department_id = fields.Many2one('hr.department',
                                     string='Departamento',
                                     track_visibility='onchange',
-                                    compute='compute_department',
+                                    compute='_compute_department',
                                     store=True,
                                     )
 
@@ -48,10 +48,10 @@ class AccountInvoice(models.Model):
                                         compute='_compute_analytic_tag')
 
     @api.depends('payment_requested_by_id')
-    def compute_department(self):
+    def _compute_department(self):
         for invoice in self:
             if not invoice.payment_requested_by_id:
-                employee = self.env['hr.employee'].search([('user_id', '=', invoice.create_uid.id)])
+                employee = self.env['hr.employee'].search([('user_id', '=', invoice.create_uid)])
                 if len(employee) > 0:
                     self.write({'department_id': employee[0].department_id.id})
                 else:
