@@ -54,6 +54,8 @@ class AccountInvoice(models.Model):
                 employee = self.env['hr.employee'].search([('user_id', '=', invoice.create_uid.id)])
                 if employee:
                     self.write({'department_id': employee[0].department_id.id})
+                else:
+                    raise ValidationError('El empleado ' + invoice.create_uid.name + ' no se encuentra dado de alta')
 
     @api.depends('invoice_line_ids')
     def _compute_analytic_account(self):
