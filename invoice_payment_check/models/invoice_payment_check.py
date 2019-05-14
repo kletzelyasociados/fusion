@@ -55,17 +55,20 @@ class AccountInvoice(models.Model):
                 if employee:
                     invoice.department_id = employee[0].department_id.id
                 else:
-                    raise ValidationError('El empleado ' + invoice.create_uid.name + ' no se encuentra dado de alta')
+                    invoice.department_id = None
+
 
     @api.depends('invoice_line_ids')
     def _compute_analytic_account(self):
-        if self.invoice_line_ids:
-            self.write({'account_analytic_id': self.invoice_line_ids[0].account_analytic_id.id})
+        for invoice in self:
+            if invoice.invoice_line_ids:
+                invoice.account_analytic_id = invoice.invoice_line_ids[0].account_analytic_id.id
 
     @api.depends('invoice_line_ids')
     def _compute_analytic_tag(self):
-        if self.invoice_line_ids:
-            self.write({'analytic_tag_ids': self.invoice_line_ids[0].analytic_tag_ids.id})
+        for invoice in self:
+            if invoice.invoice_line_ids:
+                invoice.analytic_tag_ids = invoice.invoice_line_ids[0].analytic_tag_ids.id
 
     @api.multi
     def action_invoice_payment_request(self):
