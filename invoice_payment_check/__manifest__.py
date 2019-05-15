@@ -6,7 +6,7 @@
         This module helps to determine if the requested payment proceeds.""",
 
     'description': """
-        This module adds a functionality to request invoice payments. 
+        This module adds a functionality to request invoice payments.
         It does an extra validation to check if the requested payment is approved by the corresponding manager and if 
         it's amount is lower than the Purchase Order to which it is related.
     """,
