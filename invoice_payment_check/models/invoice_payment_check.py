@@ -116,19 +116,23 @@ class AccountInvoice(models.Model):
     @api.multi
     def action_invoice_open(self):
         # lots of duplicate calls to action_invoice_open, so we remove those already open
-        to_open_invoices = self.filtered(lambda inv: inv.state != 'open')
-        if to_open_invoices.filtered(lambda inv: not inv.partner_id):
-            raise UserError("The field Vendor is required, please complete it to validate the Vendor Bill.")
-        if to_open_invoices.filtered(lambda inv: inv.state not in ('draft','approved_by_manager')):
-            raise UserError("La factura tiene que estar en borrador o pago aprobado por el gerente para poder validarla.")
-        if to_open_invoices.filtered(
-                lambda inv: float_compare(inv.amount_total, 0.0, precision_rounding=inv.currency_id.rounding) == -1):
-            raise UserError("You cannot validate an invoice with a negative total amount. You should create a credit note instead.")
-        if to_open_invoices.filtered(lambda inv: not inv.account_id):
-            raise UserError('No account was found to create the invoice, be sure you have installed a chart of account.')
-        to_open_invoices.action_date_assign()
-        to_open_invoices.action_move_create()
-        return to_open_invoices.invoice_validate()
+        current_user = self.env['res.users'].browse(self.env.uid)
+        if current_user.has_group('account.invoice accountant') or current_user.has_group('account.invoice'):
+            to_open_invoices = self.filtered(lambda inv: inv.state != 'open')
+            if to_open_invoices.filtered(lambda inv: not inv.partner_id):
+                raise UserError("The field Vendor is required, please complete it to validate the Vendor Bill.")
+            if to_open_invoices.filtered(lambda inv: inv.state not in ('draft','approved_by_manager')):
+                raise UserError("La factura tiene que estar en borrador o pago aprobado por el gerente para poder validarla.")
+            if to_open_invoices.filtered(
+                    lambda inv: float_compare(inv.amount_total, 0.0, precision_rounding=inv.currency_id.rounding) == -1):
+                raise UserError("You cannot validate an invoice with a negative total amount. You should create a credit note instead.")
+            if to_open_invoices.filtered(lambda inv: not inv.account_id):
+                raise UserError('No account was found to create the invoice, be sure you have installed a chart of account.')
+            to_open_invoices.action_date_assign()
+            to_open_invoices.action_move_create()
+            return to_open_invoices.invoice_validate()
+        else:
+            raise ValidationError('No tienes los permisos necesarios para validar facturas')
 
     @api.multi
     def action_invoice_draft(self):
