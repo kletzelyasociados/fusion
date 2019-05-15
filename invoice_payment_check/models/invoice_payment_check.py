@@ -52,11 +52,8 @@ class AccountInvoice(models.Model):
         for invoice in self:
             if not invoice.payment_requested_by_id:
                 employee = self.env['hr.employee'].search([('user_id', '=', invoice.create_uid.id)])
-                department = self.env['hr.department'].search([('manager_id', '=', invoice.create_uid.id)])
                 if employee:
                     invoice.department_id = employee[0].department_id.id
-                elif department:
-                    invoice.department_id = department.id
                 else:
                     invoice.department_id = None
 
