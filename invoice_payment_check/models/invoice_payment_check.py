@@ -52,11 +52,13 @@ class AccountInvoice(models.Model):
         for invoice in self:
             if not invoice.payment_requested_by_id:
                 employee = self.env['hr.employee'].search([('user_id', '=', invoice.create_uid.id)])
+                department = self.env['hr.department'].search([('manager_id', '=', invoice.create_uid.id)])
                 if employee:
                     invoice.department_id = employee[0].department_id.id
+                elif department:
+                    invoice.department_id = department.id
                 else:
                     invoice.department_id = None
-
 
     @api.depends('invoice_line_ids')
     def _compute_analytic_account(self):
@@ -68,13 +70,13 @@ class AccountInvoice(models.Model):
     def _compute_analytic_tag(self):
         for invoice in self:
             if invoice.invoice_line_ids:
-                invoice.analytic_tag_ids = invoice.invoice_line_ids[0].analytic_tag_ids.id
+                invoice.write({'analytic_tag_ids': [(4, invoice.invoice_line_ids[0].analytic_tag_ids.id)]})
 
     @api.multi
     def action_invoice_payment_request(self):
         self.write({'payment_requested_by': self.env.uid, 'state': 'payment_request'})
         employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
-        if len(employee) > 0:
+        if employee:
             self.write({'department_id': employee[0].department_id.id})
         else:
             raise ValidationError('El empleado no se encuentra dado de alta')
@@ -82,7 +84,7 @@ class AccountInvoice(models.Model):
     @api.multi
     def action_invoice_approve(self):
         employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
-        if len(employee) > 0:
+        if employee:
             if employee[0].job_id.name == 'Gerente de Urbanización':
                 if employee[0].department_id == self.department_id:
                     self.write({'state': 'approved_by_leader'})
@@ -99,7 +101,7 @@ class AccountInvoice(models.Model):
     @api.multi
     def action_invoice_reject(self):
         employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
-        if len(employee) > 0:
+        if employee:
             if employee[0].job_id.name == 'Gerente de Urbanización':
                 if employee[0].department_id == self.department_id:
                     self.write({'state': 'payment_rejected'})
