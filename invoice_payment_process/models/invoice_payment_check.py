@@ -125,7 +125,7 @@ class AccountInvoice(models.Model):
                 else:
                     ref = ''
 
-                if invoice.invoice.invoice_line_ids[0]:
+                if invoice.invoice_line_ids[0]:
                     desc = invoice.invoice_line_ids[0].name
                 else:
                     desc = ''
