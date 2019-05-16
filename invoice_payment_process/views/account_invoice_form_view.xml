@@ -13,6 +13,9 @@
           <xpath expr="//button[@name='action_invoice_draft']" position="replace">
 
           </xpath>
+          <xpath expr="//field[@name='name']" position="replace">
+
+          </xpath>
 
           <header>
 
@@ -26,9 +29,6 @@
           </header>
           <field name="state" position="replace">
             <field name="state" widget="statusbar" statusbar_visible="draft,payment_request,approved_by_leader,approved_by_manager,open,paid,payment_rejected" on_change="1" modifiers="{'readonly':true}"/>
-          </field>
-          <field name="name" position="replace">
-
           </field>
           <field name="reference" position="after">
               <field name="name"/>
