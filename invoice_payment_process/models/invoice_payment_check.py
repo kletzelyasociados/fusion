@@ -47,6 +47,10 @@ class AccountInvoice(models.Model):
                                         string='Etiquetas Analíticas',
                                         compute='_compute_analytic_tag')
 
+    date_invoice = fields.Date(string='Fecha de Pago',
+                               readonly=True, states={'draft': [('readonly', False)]}, index=True,
+                               help="Fecha en la que se realizará el pago", copy=False, required=True)
+
     @api.depends('payment_requested_by_id')
     def _compute_department(self):
         for invoice in self:
@@ -67,7 +71,8 @@ class AccountInvoice(models.Model):
     def _compute_analytic_tag(self):
         for invoice in self:
             if invoice.invoice_line_ids:
-                invoice.analytic_tag_ids = [(4, invoice.invoice_line_ids[0].analytic_tag_ids.id)]
+                if invoice.invoice_line_ids[0].analytic_tag_ids:
+                    invoice.analytic_tag_ids = [(4, invoice.invoice_line_ids[0].analytic_tag_ids[0].id)]
 
     @api.multi
     def action_invoice_payment_request(self):
