@@ -84,19 +84,19 @@ class AccountInvoice(models.Model):
         for invoice in self:
             if invoice.account_analytic_id:
                 department = invoice.account_analytic_id.name
-                if department.find('Moralta'):
+                if 'Moralta' in department:
                     invoice.stp_company = 'MORALTA'
-                elif department.find('Querencia'):
+                elif 'Querencia' in department:
                     invoice.stp_company = 'QUERENCIA'
-                elif department.find('Fernando'):
+                elif 'Fernando' in department:
                     invoice.stp_company = 'SAN_FERNANDO'
-                elif department.find('Agua'):
+                elif 'Agua' in department:
                     invoice.stp_company = 'SIST_AGUA'
-                elif department.find('Terralta'):
+                elif 'Terralta' in department:
                     invoice.stp_company = 'TERRALTA'
-                elif department.find('Vistas'):
+                elif 'Vistas' in department:
                     invoice.stp_company = 'TRES VISTAS'
-                elif department.find('Corporativo'):
+                elif 'Corp' in department:
                     invoice.stp_company = 'GRUPO_FUSION'
                 else:
                     invoice.stp_company = 'GRUPO_FUSION'
@@ -104,7 +104,7 @@ class AccountInvoice(models.Model):
     @api.depends('stp_company')
     def _compute_track_id(self):
         for invoice in self:
-            invoice.stp_company = invoice.stp_company + str(random.randint(1000, 9999))
+            invoice.stp_company = invoice.stp_company + random.randint(1000, 9999).str()
 
     @api.depends('invoice_line_ids')
     def _compute_analytic_tag(self):
