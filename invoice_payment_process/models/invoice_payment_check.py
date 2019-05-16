@@ -67,7 +67,8 @@ class AccountInvoice(models.Model):
     def _compute_analytic_tag(self):
         for invoice in self:
             if invoice.invoice_line_ids:
-                invoice.analytic_tag_ids = [(4, invoice.invoice_line_ids[0].analytic_tag_ids.id)]
+                if invoice.invoice_line_ids[0].analytic_tag_ids:
+                    invoice.analytic_tag_ids = [(4, invoice.invoice_line_ids[0].analytic_tag_ids[0].id)]
 
     @api.multi
     def action_invoice_payment_request(self):
