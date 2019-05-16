@@ -13,9 +13,9 @@
           <xpath expr="//button[@name='action_invoice_draft']" position="replace">
 
           </xpath>
-          <xpath expr="field[@name='name']" position="replace">
-
-          </xpath>
+          <field name="name" position="attributes">
+              <attribute name="invisible">True</attribute>
+          </field>
 
           <header>
 
