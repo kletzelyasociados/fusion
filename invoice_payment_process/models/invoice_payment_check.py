@@ -47,6 +47,10 @@ class AccountInvoice(models.Model):
                                         string='Etiquetas Analíticas',
                                         compute='_compute_analytic_tag')
 
+    date_invoice = fields.Date(string='Fecha de Pago',
+                               readonly=True, states={'draft': [('readonly', False)]}, index=True,
+                               help="Fecha en la que se realizará el pago", copy=False, required=True)
+
     @api.depends('payment_requested_by_id')
     def _compute_department(self):
         for invoice in self:
