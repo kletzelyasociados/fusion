@@ -104,7 +104,8 @@ class AccountInvoice(models.Model):
     @api.depends('stp_company')
     def _compute_track_id(self):
         for invoice in self:
-            invoice.stp_company = invoice.stp_company + random.randint(1000, 9999).str()
+            rand_int = random.randint(1000, 9999)
+            invoice.track_id = invoice.stp_company + str(rand_int)
 
     @api.depends('invoice_line_ids')
     def _compute_analytic_tag(self):
@@ -133,7 +134,6 @@ class AccountInvoice(models.Model):
                 stp_desc = ref + desc
 
                 invoice.name = stp_desc[0:36].upper()
-
 
     @api.multi
     def action_invoice_payment_request(self):
