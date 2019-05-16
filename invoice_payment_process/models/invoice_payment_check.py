@@ -135,7 +135,6 @@ class AccountInvoice(models.Model):
 
                 invoice.name = stp_desc[0:36].upper()
 
-
     @api.multi
     def action_invoice_payment_request(self):
         self.write({'payment_requested_by': self.env.uid, 'state': 'payment_request'})
