@@ -3,6 +3,7 @@
 from odoo import models, fields, api
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import float_compare
+import random
 
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
@@ -36,8 +37,7 @@ class AccountInvoice(models.Model):
                                     string='Departamento',
                                     track_visibility='onchange',
                                     compute='_compute_department',
-                                    store=True,
-                                    )
+                                    store=True,)
 
     account_analytic_id = fields.Many2one('account.analytic.account',
                                           string='Cuenta Analítica',
@@ -55,6 +55,14 @@ class AccountInvoice(models.Model):
                        help='La descripción que saldrá en apuntes contables y template de pagos',
                        compute='_compute_payment_desc')
 
+    stp_company = fields.Char(string='Empresa en STP',
+                        readonly = True,
+                        compute='_compute_stp_account')
+
+    track_id = fields.Char(string='Clave de Rastreo',
+                        readonly = True,
+                        compute='_compute_track_id')
+
     @api.depends('payment_requested_by_id')
     def _compute_department(self):
         for invoice in self:
@@ -71,6 +79,33 @@ class AccountInvoice(models.Model):
             if invoice.invoice_line_ids:
                 invoice.account_analytic_id = invoice.invoice_line_ids[0].account_analytic_id.id
 
+    @api.depends('account_analytic_id')
+    def _compute_stp_account(self):
+        for invoice in self:
+            if invoice.account_analytic_id:
+                department = invoice.account_analytic_id.name
+                if department.find('Moralta'):
+                    invoice.stp_company = 'MORALTA'
+                elif department.find('Querencia'):
+                    invoice.stp_company = 'QUERENCIA'
+                elif department.find('Fernando'):
+                    invoice.stp_company = 'SAN_FERNANDO'
+                elif department.find('Agua'):
+                    invoice.stp_company = 'SIST_AGUA'
+                elif department.find('Terralta'):
+                    invoice.stp_company = 'TERRALTA'
+                elif department.find('Vistas'):
+                    invoice.stp_company = 'TRES VISTAS'
+                elif department.find('Corporativo'):
+                    invoice.stp_company = 'GRUPO_FUSION'
+                else:
+                    invoice.stp_company = 'GRUPO_FUSION'
+
+    @api.depends('stp_company')
+    def _compute_track_id(self):
+        for invoice in self:
+            invoice.stp_company = invoice.stp_company + str(random.randint(1000, 9999))
+
     @api.depends('invoice_line_ids')
     def _compute_analytic_tag(self):
         for invoice in self:
@@ -81,10 +116,24 @@ class AccountInvoice(models.Model):
     @api.depends('invoice_line_ids')
     def _compute_payment_desc(self):
         for invoice in self:
-            if not invoice.name:
-                if invoice.invoice_line_ids:
-                    stp_desc = invoice.invoice_line_ids[0].name
-                    invoice.name = stp_desc[1:17].upper()
+            if invoice.name:
+                invoice.name = invoice.name
+            else:
+                stp_desc = ''
+                if invoice.reference:
+                    ref = 'F ' + invoice.reference + ' '
+                else:
+                    ref = ''
+
+                if invoice.invoice.invoice_line_ids[0]:
+                    desc = invoice.invoice_line_ids[0].name
+                else:
+                    desc = ''
+
+                stp_desc = ref + desc
+
+                invoice.name = stp_desc[0:36].upper()
+
 
     @api.multi
     def action_invoice_payment_request(self):
