@@ -13,7 +13,7 @@
           <xpath expr="//button[@name='action_invoice_draft']" position="replace">
 
           </xpath>
-          <xpath expr="//field[@name='name']" position="replace">
+          <xpath expr="field[@name='name']" position="replace">
 
           </xpath>
 
