@@ -79,6 +79,7 @@ class AccountInvoice(models.Model):
                 if invoice.invoice_line_ids[0].analytic_tag_ids:
                     invoice.analytic_tag_ids = [(4, invoice.invoice_line_ids[0].analytic_tag_ids[0].id)]
 
+    @api.one
     @api.onchange('__last_update')
     def _compute_payment_desc(self):
         if not self.name:
