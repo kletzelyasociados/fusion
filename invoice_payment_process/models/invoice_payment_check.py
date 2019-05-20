@@ -30,9 +30,9 @@ class AccountInvoice(models.Model):
                      " * The 'Cancelled' status is used when user cancel invoice.")
 
     payment_requested_by_id = fields.Many2one('res.users',
-                                              store=True,
-                                              string='Pago solicitado por',
-                                              track_visibility='onchange')
+                                    store=True,
+                                    string='Pago solicitado por',
+                                    track_visibility='onchange')
 
     department_id = fields.Many2one('hr.department',
                                     string='Departamento',
@@ -81,21 +81,22 @@ class AccountInvoice(models.Model):
 
     @api.depends('invoice_line_ids')
     def _compute_payment_desc(self):
-        if not self.name:
-            stp_desc = ''
-            if self.reference:
-                ref = 'F ' + self.reference + ' '
-            else:
-                ref = ''
+        for invoice in self:
+            if not invoice.name:
+                stp_desc = ''
+                if invoice.reference:
+                    ref = 'F ' + invoice.reference + ' '
+                else:
+                    ref = ''
 
-            if self.invoice_line_ids[0]:
-                desc = self.invoice_line_ids[0].name
-            else:
-                desc = ''
+                if invoice.invoice_line_ids[0]:
+                    desc = invoice.invoice_line_ids[0].name
+                else:
+                    desc = ''
 
-            stp_desc = ref + desc
+                stp_desc = ref + desc
 
-            self.name = stp_desc[0:36].upper()
+                invoice.name = stp_desc[0:36].upper()
 
     @api.multi
     def action_invoice_payment_request(self):
