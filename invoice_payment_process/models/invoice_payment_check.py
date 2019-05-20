@@ -30,9 +30,9 @@ class AccountInvoice(models.Model):
                      " * The 'Cancelled' status is used when user cancel invoice.")
 
     payment_requested_by_id = fields.Many2one('res.users',
-                                    store=True,
-                                    string='Pago solicitado por',
-                                    track_visibility='onchange')
+                                              store=True,
+                                              string='Pago solicitado por',
+                                              track_visibility='onchange')
 
     department_id = fields.Many2one('hr.department',
                                     string='Departamento',
@@ -47,13 +47,6 @@ class AccountInvoice(models.Model):
     analytic_tag_ids = fields.Many2many('account.analytic.tag',
                                         string='Etiquetas Analíticas',
                                         compute='_compute_analytic_tag')
-
-    name = fields.Char(string='Referencia del Pago',
-                       index=True,
-                       readonly=True,
-                       states={'draft': [('readonly', False)]},
-                       copy=False,
-                       help='La descripción que saldrá en apuntes contables y template de pagos')
 
     @api.depends('payment_requested_by_id')
     def _compute_department(self):
@@ -77,25 +70,6 @@ class AccountInvoice(models.Model):
             if invoice.invoice_line_ids:
                 if invoice.invoice_line_ids[0].analytic_tag_ids:
                     invoice.analytic_tag_ids = [(4, invoice.invoice_line_ids[0].analytic_tag_ids[0].id)]
-
-    @api.one
-    @api.onchange('__last_update', 'invoice_line_ids')
-    def _compute_payment_desc(self):
-        if not self.name:
-            stp_desc = ''
-            if self.reference:
-                ref = 'F ' + self.reference + ' '
-            else:
-                ref = ''
-
-            if self.invoice_line_ids[0]:
-                desc = self.invoice_line_ids[0].name
-            else:
-                desc = ''
-
-            stp_desc = ref + desc
-
-            self.name = stp_desc[0:36].upper()
 
     @api.multi
     def action_invoice_payment_request(self):
