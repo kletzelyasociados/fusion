@@ -53,8 +53,7 @@ class AccountInvoice(models.Model):
                        readonly=True,
                        states={'draft': [('readonly', False)]},
                        copy=False,
-                       help='La descripción que saldrá en apuntes contables y template de pagos',
-                       compute='_compute_payment_desc')
+                       help='La descripción que saldrá en apuntes contables y template de pagos')
 
     @api.depends('payment_requested_by_id')
     def _compute_department(self):
@@ -80,7 +79,7 @@ class AccountInvoice(models.Model):
                     invoice.analytic_tag_ids = [(4, invoice.invoice_line_ids[0].analytic_tag_ids[0].id)]
 
     @api.one
-    @api.onchange('__last_update')
+    @api.onchange('__last_update', 'invoice_line_ids')
     def _compute_payment_desc(self):
         if not self.name:
             stp_desc = ''
