@@ -79,24 +79,24 @@ class AccountInvoice(models.Model):
                 if invoice.invoice_line_ids[0].analytic_tag_ids:
                     invoice.analytic_tag_ids = [(4, invoice.invoice_line_ids[0].analytic_tag_ids[0].id)]
 
-    @api.depends('invoice_line_ids')
+    @api.one
+    @api.depends('name')
     def _compute_payment_desc(self):
-        for invoice in self:
-            if not invoice.name:
-                stp_desc = ''
-                if invoice.reference:
-                    ref = 'F ' + invoice.reference + ' '
-                else:
-                    ref = ''
+        if not self.name:
+            stp_desc = ''
+            if self.reference:
+                ref = 'F ' + self.reference + ' '
+            else:
+                ref = ''
 
-                if invoice.invoice_line_ids[0]:
-                    desc = invoice.invoice_line_ids[0].name
-                else:
-                    desc = ''
+            if self.invoice_line_ids[0]:
+                desc = self.invoice_line_ids[0].name
+            else:
+                desc = ''
 
-                stp_desc = ref + desc
+            stp_desc = ref + desc
 
-                invoice.name = stp_desc[0:36].upper()
+            self.name = stp_desc[0:36].upper()
 
     @api.multi
     def action_invoice_payment_request(self):
