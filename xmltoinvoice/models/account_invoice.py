@@ -158,7 +158,7 @@ class AccountInvoice(models.Model):
 
                                 try:
 
-                                    descuento_unitario = float(invoice_line_items[idx].attributes['Descuento'].value) / invoice_line_items[idx].attributes['Cantidad'].value
+                                    descuento_unitario = float(invoice_line_items[idx].attributes['Descuento'].value) / float(invoice_line_items[idx].attributes['Cantidad'].value)
 
                                     ValorUnitario = ValorUnitario - descuento_unitario
 
@@ -184,7 +184,7 @@ class AccountInvoice(models.Model):
 
                                     try:
 
-                                        descuento_unitario = float(invoice_line_items[idx].attributes['Descuento'].value) / invoice_line_items[idx].attributes['Cantidad'].value
+                                        descuento_unitario = float(invoice_line_items[idx].attributes['Descuento'].value) / float(invoice_line_items[idx].attributes['Cantidad'].value)
 
                                         ValorUnitario = ValorUnitario - descuento_unitario
 
@@ -211,7 +211,7 @@ class AccountInvoice(models.Model):
                                 ValorUnitario = float(invoice_line_items[idx].attributes['ValorUnitario'].value)
 
                                 try:
-                                    descuento_unitario = float(invoice_line_items[idx].attributes['Descuento'].value)/invoice_line_items[idx].attributes['Cantidad'].value
+                                    descuento_unitario = float(invoice_line_items[idx].attributes['Descuento'].value)/float(invoice_line_items[idx].attributes['Cantidad'].value)
 
                                     ValorUnitario = ValorUnitario - descuento_unitario
                                 except:
@@ -236,7 +236,7 @@ class AccountInvoice(models.Model):
 
                                     try:
 
-                                        descuento_unitario = float(line.attributes['Descuento'].value)/line.attributes['Cantidad'].value
+                                        descuento_unitario = float(line.attributes['Descuento'].value)/float(line.attributes['Cantidad'].value)
 
                                         ValorUnitario = ValorUnitario - descuento_unitario
 
@@ -267,7 +267,7 @@ class AccountInvoice(models.Model):
 
                             try:
 
-                                descuento_unitario = float(line.attributes['Descuento'].value) / line.attributes['Cantidad'].value
+                                descuento_unitario = float(line.attributes['Descuento'].value) / float(line.attributes['Cantidad'].value)
 
                                 ValorUnitario = ValorUnitario - descuento_unitario
 
