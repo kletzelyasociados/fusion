@@ -154,23 +154,23 @@ class AccountInvoice(models.Model):
 
                             for idx, line in enumerate(self.invoice_line_ids):
 
-                                valor_unitario = float(invoice_line_items[idx].attributes['valor_unitario'].value)
+                                ValorUnitario = float(invoice_line_items[idx].attributes['ValorUnitario'].value)
 
                                 try:
 
                                     descuento_unitario = float(invoice_line_items[idx].attributes['Descuento'].value) / invoice_line_items[idx].attributes['Cantidad'].value
 
-                                    valor_unitario = valor_unitario - descuento_unitario
+                                    ValorUnitario = ValorUnitario - descuento_unitario
 
                                 except:
 
-                                    valor_unitario = valor_unitario
+                                    ValorUnitario = ValorUnitario
 
                                 line.write({
                                     'name': invoice_line_items[idx].attributes['Descripcion'].value,
                                     'quantity': invoice_line_items[idx].attributes['Cantidad'].value,
                                     'uom_id': self.getUOMID(invoice_line_items[idx].attributes['ClaveUnidad'].value),
-                                    'price_unit': valor_unitario
+                                    'price_unit': ValorUnitario
                                 })
                                 line._set_taxes()
 
@@ -180,23 +180,23 @@ class AccountInvoice(models.Model):
 
                                 try:
 
-                                    valor_unitario = float(invoice_line_items[idx].attributes['valor_unitario'].value)
+                                    ValorUnitario = float(invoice_line_items[idx].attributes['ValorUnitario'].value)
 
                                     try:
 
                                         descuento_unitario = float(invoice_line_items[idx].attributes['Descuento'].value) / invoice_line_items[idx].attributes['Cantidad'].value
 
-                                        valor_unitario = valor_unitario - descuento_unitario
+                                        ValorUnitario = ValorUnitario - descuento_unitario
 
                                     except:
 
-                                        valor_unitario = valor_unitario
+                                        ValorUnitario = ValorUnitario
 
                                     line.write({
                                         'name': invoice_line_items[idx].attributes['Descripcion'].value,
                                         'quantity': invoice_line_items[idx].attributes['Cantidad'].value,
                                         'uom_id': self.getUOMID(invoice_line_items[idx].attributes['ClaveUnidad'].value),
-                                        'price_unit': valor_unitario
+                                        'price_unit': ValorUnitario
                                     })
                                     line._set_taxes()
 
@@ -208,20 +208,20 @@ class AccountInvoice(models.Model):
 
                             for idx, line in enumerate(self.invoice_line_ids):
 
-                                valor_unitario = float(invoice_line_items[idx].attributes['valor_unitario'].value)
+                                ValorUnitario = float(invoice_line_items[idx].attributes['ValorUnitario'].value)
 
                                 try:
                                     descuento_unitario = float(invoice_line_items[idx].attributes['Descuento'].value)/invoice_line_items[idx].attributes['Cantidad'].value
 
-                                    valor_unitario = valor_unitario - descuento_unitario
+                                    ValorUnitario = ValorUnitario - descuento_unitario
                                 except:
-                                    valor_unitario = valor_unitario
+                                    ValorUnitario = ValorUnitario
 
                                 line.write({
                                     'name': invoice_line_items[idx].attributes['Descripcion'].value,
                                     'quantity': invoice_line_items[idx].attributes['Cantidad'].value,
                                     'uom_id': self.getUOMID(invoice_line_items[idx].attributes['ClaveUnidad'].value),
-                                    'price_unit': valor_unitario
+                                    'price_unit': ValorUnitario
                                 })
                                 line._set_taxes()
 
@@ -232,17 +232,17 @@ class AccountInvoice(models.Model):
 
                                 else:
 
-                                    valor_unitario = float(line.attributes['valor_unitario'].value)
+                                    ValorUnitario = float(line.attributes['ValorUnitario'].value)
 
                                     try:
 
                                         descuento_unitario = float(line.attributes['Descuento'].value)/line.attributes['Cantidad'].value
 
-                                        valor_unitario = valor_unitario - descuento_unitario
+                                        ValorUnitario = ValorUnitario - descuento_unitario
 
                                     except:
 
-                                        valor_unitario = valor_unitario
+                                        ValorUnitario = ValorUnitario
 
                                     # Creación de la línea de factura
                                     new_line = self.env['account.invoice.line'].create({
@@ -252,7 +252,7 @@ class AccountInvoice(models.Model):
                                         'account_id': 1977,
                                         'quantity': line.attributes['Cantidad'].value,
                                         'uom_id': self.getUOMID(line.attributes['ClaveUnidad'].value),
-                                        'price_unit': valor_unitario,
+                                        'price_unit': ValorUnitario,
                                         'type': "in_invoice"
                                     })
 
@@ -263,17 +263,17 @@ class AccountInvoice(models.Model):
                         #Para cada concepto del XML creo una linea de factura en odoo
                         for line in invoice_line_items:
 
-                            valor_unitario = float(line.attributes['valor_unitario'].value)
+                            ValorUnitario = float(line.attributes['ValorUnitario'].value)
 
                             try:
 
                                 descuento_unitario = float(line.attributes['Descuento'].value) / line.attributes['Cantidad'].value
 
-                                valor_unitario = valor_unitario - descuento_unitario
+                                ValorUnitario = ValorUnitario - descuento_unitario
 
                             except:
 
-                                valor_unitario = valor_unitario
+                                ValorUnitario = ValorUnitario
 
                             #Creación de la línea de factura
                             new_line = self.env['account.invoice.line'].create({
@@ -283,7 +283,7 @@ class AccountInvoice(models.Model):
                                 'account_id': 1977,
                                 'quantity': line.attributes['Cantidad'].value,
                                 'uom_id': self.getUOMID(line.attributes['ClaveUnidad'].value),
-                                'price_unit': valor_unitario,
+                                'price_unit': ValorUnitario,
                                 'type': "in_invoice"
                                 })
                             new_line._set_taxes()
