@@ -140,7 +140,7 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def action_invoice_draft(self):
-        if self.filtered(lambda inv: inv.state not in ('cancel','payment_rejected')):
+        if self.filtered(lambda inv: inv.state not in ('cancel','payment_request','approved_by_leader','approved_by_manager','payment_rejected')):
             raise UserError("La factura tiene que estar cancelada o el pago rechazado para poder cambiar a borrador.")
         # go from canceled state to draft state
         self.write({'state': 'draft', 'date': False})
