@@ -17,7 +17,7 @@
           <header>
 
             <button name="action_invoice_open" type="object" states="draft,approved_by_manager" string="Validar" class="oe_highlight" modifiers="{'invisible':[['state','not in',['draft','approved_by_manager']]]}" options="{}"/>
-            <button name="action_invoice_draft" type="object" states="cancel,payment_rejected" string="Cambiar a borrador" class="oe_highlight" modifiers="{'invisible':[['state','not in',['cancel','payment_rejected']]]}" options="{}"/>
+            <button name="action_invoice_draft" type="object" states="cancel,payment_request,approved_by_leader,approved_by_manager,payment_rejected" string="Cambiar a borrador" class="oe_highlight" modifiers="{'invisible':[['state','not in',['cancel','payment_request','approved_by_leader','approved_by_manager','payment_rejected']]]}" options="{}"/>
 
             <button name="action_invoice_payment_request" type="object" states="draft" string="Solicitar Pago" class="oe_highlight" modifiers="{'invisible':[['state','not in',['draft']]]}" options="{}"/>
             <button name="action_invoice_approve" type="object" states="payment_request,approved_by_leader" string="Autorizar Pago" class="oe_highlight" modifiers="{'invisible':[['state','not in',['open']]]}" options="{}"/>
