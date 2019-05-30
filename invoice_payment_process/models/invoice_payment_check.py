@@ -3,7 +3,6 @@
 from odoo import models, fields, api
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import float_compare
-import random
 
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
@@ -30,9 +29,9 @@ class AccountInvoice(models.Model):
                      " * The 'Cancelled' status is used when user cancel invoice.")
 
     payment_requested_by_id = fields.Many2one('res.users',
-                                              store=True,
                                               string='Pago solicitado por',
-                                              track_visibility='onchange')
+                                              track_visibility='onchange',
+                                              store=True)
 
     department_id = fields.Many2one('hr.department',
                                     string='Departamento',
