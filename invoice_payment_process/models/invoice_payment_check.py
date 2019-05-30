@@ -41,11 +41,13 @@ class AccountInvoice(models.Model):
 
     account_analytic_id = fields.Many2one('account.analytic.account',
                                           string='Cuenta Analítica',
-                                          compute='_compute_analytic_account')
+                                          compute='_compute_analytic_account',
+                                          store=True)
 
     analytic_tag_ids = fields.Many2many('account.analytic.tag',
                                         string='Etiquetas Analíticas',
-                                        compute='_compute_analytic_tag')
+                                        compute='_compute_analytic_tag',
+                                        store=True)
 
     @api.depends('payment_requested_by_id')
     def _compute_department(self):
@@ -77,24 +79,28 @@ class AccountInvoice(models.Model):
         if employee:
             self.write({'department_id': employee[0].department_id.id})
         else:
-            raise ValidationError('El empleado no se encuentra dado de alta')
+            raise ValidationError('El empleado no se encuentra dado de alta, o el correo electrónico en el empleado no es el mismo que el del usuario')
 
     @api.multi
     def action_invoice_approve(self):
-        employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
-        if employee:
-            if employee[0].job_id.name == 'Gerente de Urbanización':
-                if employee[0].department_id == self.department_id:
-                    self.write({'state': 'approved_by_leader'})
-                else:
-                    raise ValidationError('No estás autorizado a aprobar solicitudes del departamento: ' + self.department_id.name)
-            elif employee[0].department_id.manager_id == employee[0]:
-                if employee[0].department_id == self.department_id:
-                    self.write({'state': 'approved_by_manager'})
-                else:
-                    raise ValidationError('No estás autorizado a aprobar solicitudes del departamento: ' + self.department_id.name)
+        #obtengo el empledo
+        approver = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
+
+        requester = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
+        #si existe el empleado
+        if approver:
+            #Si el empleado es gerente de urbanización y la factura es de obra:
+            if approver[0].job_id.name == 'Gerente de Urbanización' and approver[0].department_id == self.department_id:
+                self.write({'state': 'approved_by_leader'})
+
+            elif self.department_id.manager_id == approver[0]:
+                self.write({'state': 'approved_by_manager'})
+
             else:
-                raise ValidationError('No estás autorizado para aprobar solicitudes de pago')
+                raise ValidationError('No estás autorizado a aprobar solicitudes del departamento: ' + self.department_id.name)
+
+        else:
+            raise ValidationError('El empleado no se encuentra dado de alta, o el correo electrónico en el empleado no es el mismo que el del usuario')
 
     @api.multi
     def action_invoice_reject(self):
