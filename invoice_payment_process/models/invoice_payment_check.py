@@ -30,22 +30,24 @@ class AccountInvoice(models.Model):
 
     payment_requested_by_id = fields.Many2one('res.users',
                                               string='Pago solicitado por',
-                                              track_visibility='onchange')
+                                              track_visibility='onchange',
+                                              store=True)
 
     department_id = fields.Many2one('hr.department',
                                     string='Departamento',
                                     track_visibility='onchange',
                                     compute='_compute_department',
-                                    store=True,
-                                    )
+                                    store=True)
 
     account_analytic_id = fields.Many2one('account.analytic.account',
                                           string='Cuenta Analítica',
-                                          compute='_compute_analytic_account')
+                                          compute='_compute_analytic_account',
+                                          store=True)
 
     analytic_tag_ids = fields.Many2many('account.analytic.tag',
                                         string='Etiquetas Analíticas',
-                                        compute='_compute_analytic_tag')
+                                        compute='_compute_analytic_tag',
+                                        store=True)
 
     @api.depends('payment_requested_by_id')
     def _compute_department(self):
@@ -77,42 +79,34 @@ class AccountInvoice(models.Model):
         if employee:
             self.write({'department_id': employee[0].department_id.id})
         else:
-            raise ValidationError('El empleado no se encuentra dado de alta')
+            raise ValidationError('El empleado no se encuentra dado de alta, o el correo electrónico en el empleado no es el mismo que el del usuario')
 
     @api.multi
     def action_invoice_approve(self):
-        employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
-        if employee:
-            if employee[0].job_id.name == 'Gerente de Urbanización':
-                if employee[0].department_id == self.department_id:
-                    self.write({'state': 'approved_by_leader'})
-                else:
-                    raise ValidationError('No estás autorizado a aprobar solicitudes del departamento: ' + self.department_id.name)
-            elif employee[0].department_id.manager_id == employee[0]:
-                if employee[0].department_id == self.department_id:
-                    self.write({'state': 'approved_by_manager'})
-                else:
-                    raise ValidationError('No estás autorizado a aprobar solicitudes del departamento: ' + self.department_id.name)
+        approver = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
+        if approver:
+            #Si el empleado es gerente de urbanización y la factura es de obra:
+            if approver[0].job_id.name == 'Gerente de Urbanización' and approver[0].department_id == self.department_id:
+                self.write({'state': 'approved_by_leader'})
+            elif self.department_id.manager_id == approver[0]:
+                self.write({'state': 'approved_by_manager'})
             else:
-                raise ValidationError('No estás autorizado para aprobar solicitudes de pago')
+                raise ValidationError('No estás autorizado a aprobar solicitudes del departamento: ' + self.department_id.name)
+        else:
+            raise ValidationError('El empleado no se encuentra dado de alta, o el correo electrónico en el empleado no es el mismo que el del usuario')
 
     @api.multi
     def action_invoice_reject(self):
         employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
         if employee:
-            if employee[0].job_id.name == 'Gerente de Urbanización':
-                if employee[0].department_id == self.department_id:
-                    self.write({'state': 'payment_rejected'})
-                else:
-                    raise ValidationError('No estás autorizado a rechazar solicitudes del departamento: ' + self.department_id.name)
-            elif employee[0].department_id.manager_id == employee[0]:
-                if employee[0].department_id == self.department_id:
-                    self.write({'state': 'payment_rejected'})
-                else:
-                    raise ValidationError(
-                        'No estás autorizado a rechazar solicitudes del departamento: ' + self.department_id.name)
+            if employee[0].job_id.name == 'Gerente de Urbanización' and employee[0].department_id == self.department_id:
+                self.write({'state': 'payment_rejected'})
+            elif self.department_id.manager_id == employee[0]:
+                self.write({'state': 'payment_rejected'})
             else:
-                raise ValidationError('No estás autorizado para rechazar solicitudes de pago')
+                raise ValidationError('No estás autorizado a rechazar solicitudes del departamento: ' + self.department_id.name)
+        else:
+            raise ValidationError('El empleado no se encuentra dado de alta, o el correo electrónico en el empleado no es el mismo que el del usuario')
 
     @api.multi
     def action_invoice_open(self):
@@ -123,7 +117,7 @@ class AccountInvoice(models.Model):
                 to_open_invoices = self.filtered(lambda inv: inv.state != 'open')
                 if to_open_invoices.filtered(lambda inv: not inv.partner_id):
                     raise UserError("The field Vendor is required, please complete it to validate the Vendor Bill.")
-                if to_open_invoices.filtered(lambda inv: inv.state not in ('draft','approved_by_manager')):
+                if to_open_invoices.filtered(lambda inv: inv.state not in ('draft', 'approved_by_manager')):
                     raise UserError("La factura tiene que estar en borrador o pago aprobado por el gerente para poder validarla.")
                 if to_open_invoices.filtered(
                         lambda inv: float_compare(inv.amount_total, 0.0, precision_rounding=inv.currency_id.rounding) == -1):
@@ -140,7 +134,7 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def action_invoice_draft(self):
-        if self.filtered(lambda inv: inv.state not in ('cancel','payment_rejected')):
+        if self.filtered(lambda inv: inv.state not in ('cancel', 'payment_request', 'approved_by_leader', 'approved_by_manager', 'payment_rejected')):
             raise UserError("La factura tiene que estar cancelada o el pago rechazado para poder cambiar a borrador.")
         # go from canceled state to draft state
         self.write({'state': 'draft', 'date': False})
