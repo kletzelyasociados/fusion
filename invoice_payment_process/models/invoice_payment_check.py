@@ -83,22 +83,15 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def action_invoice_approve(self):
-        #obtengo el empledo
         approver = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
-
-        requester = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
-
         if approver:
             #Si el empleado es gerente de urbanización y la factura es de obra:
             if approver[0].job_id.name == 'Gerente de Urbanización' and approver[0].department_id == self.department_id:
                 self.write({'state': 'approved_by_leader'})
-
             elif self.department_id.manager_id == approver[0]:
                 self.write({'state': 'approved_by_manager'})
-
             else:
                 raise ValidationError('No estás autorizado a aprobar solicitudes del departamento: ' + self.department_id.name)
-
         else:
             raise ValidationError('El empleado no se encuentra dado de alta, o el correo electrónico en el empleado no es el mismo que el del usuario')
 
@@ -108,13 +101,10 @@ class AccountInvoice(models.Model):
         if employee:
             if employee[0].job_id.name == 'Gerente de Urbanización' and employee[0].department_id == self.department_id:
                 self.write({'state': 'payment_rejected'})
-
             elif self.department_id.manager_id == employee[0]:
                 self.write({'state': 'payment_rejected'})
-
             else:
-                raise ValidationError('No estás autorizado a aprobar solicitudes del departamento: ' + self.department_id.name)
-
+                raise ValidationError('No estás autorizado a rechazar solicitudes del departamento: ' + self.department_id.name)
         else:
             raise ValidationError('El empleado no se encuentra dado de alta, o el correo electrónico en el empleado no es el mismo que el del usuario')
 
@@ -127,7 +117,7 @@ class AccountInvoice(models.Model):
                 to_open_invoices = self.filtered(lambda inv: inv.state != 'open')
                 if to_open_invoices.filtered(lambda inv: not inv.partner_id):
                     raise UserError("The field Vendor is required, please complete it to validate the Vendor Bill.")
-                if to_open_invoices.filtered(lambda inv: inv.state not in ('draft','approved_by_manager')):
+                if to_open_invoices.filtered(lambda inv: inv.state not in ('draft', 'approved_by_manager')):
                     raise UserError("La factura tiene que estar en borrador o pago aprobado por el gerente para poder validarla.")
                 if to_open_invoices.filtered(
                         lambda inv: float_compare(inv.amount_total, 0.0, precision_rounding=inv.currency_id.rounding) == -1):
