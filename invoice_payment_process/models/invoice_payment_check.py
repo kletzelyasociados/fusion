@@ -50,7 +50,8 @@ class AccountInvoice(models.Model):
                                         store=True)
 
     amount_authorized = fields.Monetary(string='Monto Autorizado de Pago',
-                                   store=True)
+                                        track_visibility = 'onchange',
+                                        store=True)
 
     @api.depends('payment_requested_by_id')
     def _compute_department(self):
