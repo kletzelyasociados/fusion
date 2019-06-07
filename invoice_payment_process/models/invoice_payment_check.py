@@ -49,6 +49,10 @@ class AccountInvoice(models.Model):
                                         compute='_compute_analytic_tag',
                                         store=True)
 
+    amount_authorized = fields.Monetary(string='Monto Autorizado de Pago',
+                                        track_visibility = 'onchange',
+                                        store=True)
+
     @api.depends('payment_requested_by_id')
     def _compute_department(self):
         for invoice in self:
