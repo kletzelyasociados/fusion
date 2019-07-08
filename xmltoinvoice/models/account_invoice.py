@@ -6,7 +6,6 @@ from xml.dom import minidom
 import base64
 from odoo.exceptions import AccessError, UserError, RedirectWarning, ValidationError, Warning
 import re
-import locale
 
 # class my_module(models.Model):
 #     _name = 'my_module.my_module'
@@ -145,12 +144,11 @@ class AccountInvoice(models.Model):
                                     ('company_id', '=', self.company_id.id),
                                     ('commercial_partner_id', '=', self.commercial_partner_id.id),
                                     ('id', '!=', self.id)]):
-                        locale.setlocale(locale.LC_ALL, 'en_US')
                         raise ValidationError("Se ha detectado una referencia de " + NombreEmisor +
                                               " duplicada: " + self.reference +
                                               " timbrada el " + Fecha +
                                               " en el SAT por un monto de " +
-                                              str(locale.currency(Total, grouping=True)))
+                                              '${}'.format(Total))
 
                     #Si tiene lineas de factura
                     if self.invoice_line_ids:
