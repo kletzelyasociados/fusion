@@ -145,6 +145,7 @@ class AccountInvoice(models.Model):
                                     ('company_id', '=', self.company_id.id),
                                     ('commercial_partner_id', '=', self.commercial_partner_id.id),
                                     ('id', '!=', self.id)]):
+                        locale.setlocale(locale.LC_ALL, 'en_US')
                         raise ValidationError("Se ha detectado una referencia de " + NombreEmisor +
                                               " duplicada: " + self.reference +
                                               " timbrada el " + Fecha +

@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="47bb8b36-2dc0-47cf-b447-fe577a2c9883" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/account_invoice.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/account_invoice.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="33" column="33" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="33" />
+            <state relative-caret-position="459">
+              <caret line="147" column="47" selection-start-line="147" selection-start-column="47" selection-end-line="147" selection-end-column="47" />
               <folding>
                 <element signature="e#25#61#0" expanded="true" />
                 <element signature="e#12678#13129#0" />
@@ -132,7 +133,21 @@
       <option name="project" value="LOCAL" />
       <updated>1562621583137</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="The last commit does not work.">
+      <created>1562622307908</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1562622307908</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Rasing validation error showing relevant information of the XML file">
+      <created>1562622891880</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1562622891880</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -213,13 +228,15 @@
     <MESSAGE value="Validating that the invoice is not duplicated." />
     <MESSAGE value="Printing reference on validation error of duplicated invoice." />
     <MESSAGE value="Deleting draft invoice when duplicated document is found" />
-    <option name="LAST_COMMIT_MESSAGE" value="Deleting draft invoice when duplicated document is found" />
+    <MESSAGE value="The last commit does not work." />
+    <MESSAGE value="Rasing validation error showing relevant information of the XML file" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rasing validation error showing relevant information of the XML file" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="33" column="33" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="33" />
+        <state relative-caret-position="459">
+          <caret line="147" column="47" selection-start-line="147" selection-start-column="47" selection-end-line="147" selection-end-column="47" />
           <folding>
             <element signature="e#25#61#0" expanded="true" />
             <element signature="e#12678#13129#0" />
