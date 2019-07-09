@@ -140,6 +140,16 @@ class AccountInvoice(models.Model):
                                 'reference': Serie + " " + Folio,
                                 'x_invoice_date_sat': Fecha})
 
+                    if self.search([('type', '=', self.type), ('reference', '=', self.reference),
+                                    ('company_id', '=', self.company_id.id),
+                                    ('commercial_partner_id', '=', self.commercial_partner_id.id),
+                                    ('id', '!=', self.id)]):
+                        raise ValidationError("Se ha detectado una referencia de " + NombreEmisor +
+                                              " duplicada: " + self.reference +
+                                              " timbrada el " + Fecha +
+                                              " en el SAT por un monto de " +
+                                              '${}'.format(Total))
+
                     #Si tiene lineas de factura
                     if self.invoice_line_ids:
                         #Cuento las lineas de factura de odoo y del XML
