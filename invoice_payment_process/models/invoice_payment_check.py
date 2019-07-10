@@ -51,6 +51,7 @@ class AccountInvoice(models.Model):
                                         store=True)
 
     amount_authorized = fields.Monetary(string='Monto Autorizado de Pago',
+
                                         track_visibility='onchange',
                                         store=True)
 
@@ -209,4 +210,3 @@ class AccountInvoice(models.Model):
                 raise ValidationError('Monto mayor al de la Orden de Compra!!!')
 
             # contract = self.get_purchase_contract(purchase_order)
-
