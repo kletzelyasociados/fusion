@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f15fe529-153d-4685-80c9-7ff2206f9b74" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/invoice_payment_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/invoice_payment_check.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/invoice_payment_check.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="97">
-              <caret line="26" column="55" selection-start-line="26" selection-start-column="55" selection-end-line="26" selection-end-column="55" />
+            <state relative-caret-position="277">
+              <caret line="201" lean-forward="true" selection-start-line="201" selection-end-line="201" />
               <folding>
                 <element signature="e#25#61#0" expanded="true" />
               </folding>
@@ -165,7 +166,21 @@
       <option name="project" value="LOCAL" />
       <updated>1562801573406</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Creating method to validate that the invoice amount is not greater than the PO amount">
+      <created>1562801827178</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1562801827178</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Fixing Error &quot;psycopg2.ProgrammingError: can't adapt type 'account.invoice'&quot;">
+      <created>1562802400894</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1562802400894</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TodoView">
@@ -260,7 +275,8 @@
     <MESSAGE value="Creation of amount_authorized field to be able to authorize parcial ammounts" />
     <MESSAGE value="Track visibility of amount_authorized field" />
     <MESSAGE value="Creating method to validate that the invoice amount is not greater than the PO amount" />
-    <option name="LAST_COMMIT_MESSAGE" value="Creating method to validate that the invoice amount is not greater than the PO amount" />
+    <MESSAGE value="Fixing Error &quot;psycopg2.ProgrammingError: can't adapt type 'account.invoice'&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixing Error &quot;psycopg2.ProgrammingError: can't adapt type 'account.invoice'&quot;" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/views/account_invoice_form_view.xml" />
@@ -274,8 +290,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models/invoice_payment_check.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="97">
-          <caret line="26" column="55" selection-start-line="26" selection-start-column="55" selection-end-line="26" selection-end-column="55" />
+        <state relative-caret-position="277">
+          <caret line="201" lean-forward="true" selection-start-line="201" selection-end-line="201" />
           <folding>
             <element signature="e#25#61#0" expanded="true" />
           </folding>
