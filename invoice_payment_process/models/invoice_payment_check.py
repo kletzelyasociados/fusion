@@ -4,6 +4,7 @@ from odoo import models, fields, api
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import float_compare
 
+
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
@@ -50,7 +51,12 @@ class AccountInvoice(models.Model):
                                         store=True)
 
     amount_authorized = fields.Monetary(string='Monto Autorizado de Pago',
+<<<<<<< HEAD
+                                        track_visibility='onchange',
+                                        store=True)
+=======
                                    store=True)
+>>>>>>> parent of 947b1a5... Track visibility of amount_authorized field
 
     @api.depends('payment_requested_by_id')
     def _compute_department(self):
@@ -77,6 +83,7 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def action_invoice_payment_request(self):
+        self.verify_invoice_match_brute_force()
         self.write({'payment_requested_by': self.env.uid, 'state': 'payment_request'})
         employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
         if employee:
@@ -127,6 +134,7 @@ class AccountInvoice(models.Model):
                     raise UserError("You cannot validate an invoice with a negative total amount. You should create a credit note instead.")
                 if to_open_invoices.filtered(lambda inv: not inv.account_id):
                     raise UserError('No account was found to create the invoice, be sure you have installed a chart of account.')
+                self.verify_invoice_match_brute_force()
                 to_open_invoices.action_date_assign()
                 to_open_invoices.action_move_create()
                 return to_open_invoices.invoice_validate()
@@ -154,4 +162,55 @@ class AccountInvoice(models.Model):
                 if attachment:
                     attachment.unlink()
         return True
+
+    @api.multi
+    def get_purchase_order(self):
+
+        if self.invoice_line_ids:
+            purchase_order_line = self.env['purchase.order.line'].search([('id', '=', self.invoice_line_ids[0].purchase_line_id.id)])
+            if purchase_order_line:
+                purchase_order = self.env['purchase.order'].search([('id', '=', purchase_order_line.order_id.id)])
+                if purchase_order:
+                    return purchase_order
+                else:
+                    return 'no hay orden de compra'
+            else:
+                return 'no hay linea de pedido de compra'
+        else:
+            return 'no hay lineas de factura'
+
+    @api.multi
+    def get_purchase_contract(self, purchase_order):
+
+        if purchase_order.requisition_id:
+            purchase_requisition = self.env['purchase.requisition'].search([('id', '=', purchase_order.requisition_id.id)])
+            if purchase_requisition:
+                return purchase_requisition
+            else:
+                return 'no hay contrato'
+        else:
+            return 'no esta relacionada a algún contrato'
+
+    @api.multi
+    def verify_invoice_match_brute_force(self):
+        purchase_order = self.get_purchase_order()
+
+        if purchase_order.id:
+
+            invoices = self.browse(purchase_order.invoice_ids)
+
+            inv_total_amount = 0
+            inv_paid_amount = 0
+            inv_residual_amount = 0
+
+            for invoice in invoices:
+                if invoice.state not in ['draft', 'canceled']:
+                    inv_total_amount = invoice.amount_total
+                    inv_residual_amount = invoice.residual
+                    inv_paid_amount = inv_total_amount-inv_residual_amount
+
+            if inv_total_amount + self.amount_total > purchase_order.amount_total:
+                raise ValidationError('Monto mayor al de la Orden de Compra!!!')
+
+            # contract = self.get_purchase_contract(purchase_order)
 
