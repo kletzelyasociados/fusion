@@ -139,6 +139,12 @@ class AccountInvoice(models.Model):
                                 'reference': Serie + " " + Folio,
                                 'x_invoice_date_sat': Fecha})
 
+                    if self.search([('type', '=', self.type), ('reference', '=', self.reference),
+                                    ('company_id', '=', self.company_id.id),
+                                    ('commercial_partner_id', '=', self.commercial_partner_id.id),
+                                    ('id', '!=', self.id)]):
+                        raise UserError("Se ha detectado una referencia de proveedor duplicada. Probablemente haya codificado dos veces la misma factura / nota de crédito del proveedor.")
+
                     #Si tiene lineas de factura
                     if self.invoice_line_ids:
                         #Cuento las lineas de factura de odoo y del XML
