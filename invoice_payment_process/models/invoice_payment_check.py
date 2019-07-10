@@ -51,12 +51,8 @@ class AccountInvoice(models.Model):
                                         store=True)
 
     amount_authorized = fields.Monetary(string='Monto Autorizado de Pago',
-<<<<<<< HEAD
                                         track_visibility='onchange',
                                         store=True)
-=======
-                                   store=True)
->>>>>>> parent of 947b1a5... Track visibility of amount_authorized field
 
     @api.depends('payment_requested_by_id')
     def _compute_department(self):
