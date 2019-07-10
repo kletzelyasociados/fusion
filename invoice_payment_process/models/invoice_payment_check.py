@@ -201,7 +201,7 @@ class AccountInvoice(models.Model):
             inv_residual_amount = 0
 
             for invoice in invoices:
-                if invoice.state not in ['draft', 'canceled']:
+                if self.filtered(lambda inv: inv.state not in ('draft', 'cancel', 'payment_rejected')):
                     inv_total_amount = invoice.amount_total
                     inv_residual_amount = invoice.residual
                     inv_paid_amount = inv_total_amount-inv_residual_amount
