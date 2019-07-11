@@ -195,7 +195,7 @@ class AccountInvoice(models.Model):
         if purchase_order.id:
 
             invoices = self.browse(purchase_order.invoice_ids)
-            raise ValidationError(str(invoices))
+            raise ValidationError(str(invoices[0].amount_total))
 
             inv_total_amount = 0
             inv_paid_amount = 0
