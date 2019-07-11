@@ -204,9 +204,12 @@ class AccountInvoice(models.Model):
                     inv_residual_amount = inv_residual_amount + invoice.residual
                 inv_paid_amount = inv_total_amount - inv_residual_amount
 
-            raise ValidationError(str(inv_total_amount))
-
             if inv_total_amount + self.amount_total > purchase_order.amount_total:
-                raise ValidationError('Monto mayor al de la Orden de Compra!!!')
+                raise ValidationError('Monto mayor al de la Orden de Compra!!!' +
+                                      '\nTotal de Orden de Compra: $' + str(purchase_order.amount_total) +
+                                      '\nTotal de Facturas: $' + str(inv_total_amount) +
+                                      '\nTotal Pagado: $' + str(inv_paid_amount) +
+                                      '\nExcedente con esta Factura: $' + str((purchase_order.amount_total-(inv_total_amount + self.amount_total)*-1))
+                                      )
 
             # contract = self.get_purchase_contract(purchase_order)
