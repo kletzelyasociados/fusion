@@ -194,28 +194,17 @@ class AccountInvoice(models.Model):
 
         if purchase_order.id:
 
-            invoices = self.browse(purchase_order.invoice_ids)
-
-            #raise ValidationError(str(invoice.amount_total))
-
-            #invoice = self.search([['id', '=', purchase_order.invoice_ids[0].id]])
-
-            #raise ValidationError(str(invoice.amount_total))
-
             inv_total_amount = 0
             inv_paid_amount = 0
             inv_residual_amount = 0
 
             for invoice in purchase_order.invoice_ids:
-                inv_total_amount = inv_total_amount + invoice.amount_total
+                if invoice.filtered(lambda inv: inv.state not in ('draft', 'cancel', 'payment_rejected')):
+                    inv_total_amount = inv_total_amount + invoice.amount_total
+                    inv_residual_amount = inv_residual_amount + invoice.residual
+                inv_paid_amount = inv_total_amount - inv_residual_amount
 
             raise ValidationError(str(inv_total_amount))
-
-            for invoice in invoices:
-                if invoice.filtered(lambda inv: inv.state not in ('draft', 'cancel', 'payment_rejected')):
-                    inv_total_amount = invoice.amount_total
-                    inv_residual_amount = invoice.residual
-                    inv_paid_amount = inv_total_amount-inv_residual_amount
 
             if inv_total_amount + self.amount_total > purchase_order.amount_total:
                 raise ValidationError('Monto mayor al de la Orden de Compra!!!')
