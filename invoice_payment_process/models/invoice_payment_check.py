@@ -194,15 +194,22 @@ class AccountInvoice(models.Model):
 
         if purchase_order.id:
 
-            #invoices = self.browse(purchase_order.invoice_ids)
+            invoices = self.browse(purchase_order.invoice_ids)
 
-            invoice = self.search([['id', '=', purchase_order.invoice_ids[0].id]])
+            #raise ValidationError(str(invoice.amount_total))
 
-            raise ValidationError(str(invoice.amount_total))
+            #invoice = self.search([['id', '=', purchase_order.invoice_ids[0].id]])
+
+            #raise ValidationError(str(invoice.amount_total))
 
             inv_total_amount = 0
             inv_paid_amount = 0
             inv_residual_amount = 0
+
+            for invoice in purchase_order.invoice_ids:
+                inv_total_amount = inv_total_amount + invoice.amount_total
+
+            raise ValidationError(str(inv_total_amount))
 
             for invoice in invoices:
                 if invoice.filtered(lambda inv: inv.state not in ('draft', 'cancel', 'payment_rejected')):
