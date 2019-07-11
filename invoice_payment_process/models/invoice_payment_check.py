@@ -196,7 +196,7 @@ class AccountInvoice(models.Model):
 
             #invoices = self.browse(purchase_order.invoice_ids)
 
-            invoice = self.search([['id', '=', purchase_order.invoice_ids[0]]])
+            invoice = self.search([['id', '=', purchase_order.invoice_ids[0][0]]])
 
             raise ValidationError(str(invoice.amount_total))
 
