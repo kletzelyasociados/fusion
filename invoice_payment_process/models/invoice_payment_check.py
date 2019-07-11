@@ -209,7 +209,7 @@ class AccountInvoice(models.Model):
                                       '\nTotal de Orden de Compra: $' + str(purchase_order.amount_total) +
                                       '\nTotal de Facturas: $' + str(inv_total_amount) +
                                       '\nTotal Pagado: $' + str(inv_paid_amount) +
-                                      '\nExcedente con esta Factura: $' + str((purchase_order.amount_total-(inv_total_amount + self.amount_total)*-1))
+                                      '\nExcedente con esta Factura: $' + str((purchase_order.amount_total - inv_total_amount - self.amount_total)*-1)
                                       )
 
             # contract = self.get_purchase_contract(purchase_order)
