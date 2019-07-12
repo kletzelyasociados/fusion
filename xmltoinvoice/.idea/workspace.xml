@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="47bb8b36-2dc0-47cf-b447-fe577a2c9883" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../invoice_payment_process/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../invoice_payment_process/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../invoice_payment_process/models/invoice_payment_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/../invoice_payment_process/models/invoice_payment_check.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
