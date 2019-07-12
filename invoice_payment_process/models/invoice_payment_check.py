@@ -240,4 +240,4 @@ class AccountInvoice(models.Model):
                                       ':- Monto de la Línea en Orden de Compra ' + purchase_line.name + ' $' + str(purchase_line_total_amount) +
                                       'Excedente con esta Factura: $' + str((purchase_line_total_amount - inv_total_amount - invoice_line.price_total)*-1))
             if Error:
-                raise ValidationError(*Error, sep='\n')
+                raise ValidationError(Error)
