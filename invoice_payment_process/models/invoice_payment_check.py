@@ -200,10 +200,10 @@ class AccountInvoice(models.Model):
 
             if inv_total_amount + self.amount_total > purchase_order.amount_total:
                 raise ValidationError('Monto mayor al de la Orden de Compra!!!' +
-                                      '\nTotal de Orden de Compra: $' + str(purchase_order.amount_total) +
-                                      '\nTotal de Facturas: $' + str(inv_total_amount) +
-                                      '\nTotal Pagado: $' + str(inv_paid_amount) +
-                                      '\nExcedente con esta Factura: $' + str((purchase_order.amount_total - inv_total_amount - self.amount_total)*-1)
+                                      '\nTotal de Orden de Compra: ' + '${:,.2f}'.format(purchase_order.amount_total) +
+                                      '\nTotal de Facturas: ' + '${:,.2f}'.format(inv_total_amount) +
+                                      '\nTotal Pagado: ' + '${:,.2f}'.format(inv_paid_amount) +
+                                      '\nExcedente con esta Factura: ' + '${:,.2f}'.format((purchase_order.amount_total - inv_total_amount - self.amount_total)*-1)
                                       )
 
             # contract = self.get_purchase_contract(purchase_order)
@@ -236,9 +236,9 @@ class AccountInvoice(models.Model):
 
                     # Comparar con el monto de la línea de orden de compra, si es mayor asignar error al arreglo
                     if inv_total_amount + invoice_line.price_total > purchase_line_total_amount:
-                        Error.append('ERROR EN LÍNEA DE FACTURA NO. ' + str(i+1) +
+                        Error.append('\nERROR EN LÍNEA DE FACTURA NO. ' + str(i+1) +
                                      ':- Orden de Compra Origen: ' + purchase_line.order_id.name +
-                                     '\nMonto de Línea de Orden de Compra: $' + str(purchase_line_total_amount) +
-                                      ' Excedente con esta Línea de Factura: $' + str((purchase_line_total_amount - inv_total_amount - invoice_line.price_total)*-1))
+                                     '\nMonto de Línea de Orden de Compra: ' + '${:,.2f}'.format(purchase_line_total_amount) +
+                                      ' Excedente con esta Línea de Factura: ' + '${:,.2f}'.format((purchase_line_total_amount - inv_total_amount - invoice_line.price_total)*-1))
             if Error:
                 raise ValidationError(Error)
