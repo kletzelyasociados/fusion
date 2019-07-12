@@ -4,7 +4,6 @@
     <list default="true" id="f15fe529-153d-4685-80c9-7ff2206f9b74" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/invoice_payment_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/invoice_payment_check.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../xmltoinvoice/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../xmltoinvoice/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/invoice_payment_check.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="417">
-              <caret line="232" column="298" selection-start-line="232" selection-start-column="298" selection-end-line="232" selection-end-column="298" />
+            <state relative-caret-position="396">
+              <caret line="240" column="74" selection-start-line="240" selection-start-column="74" selection-end-line="240" selection-end-column="74" />
               <folding>
                 <element signature="e#25#61#0" expanded="true" />
                 <element signature="e#10269#10638#0" />
@@ -273,7 +272,21 @@
       <option name="project" value="LOCAL" />
       <updated>1562945334314</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Method to validate that the invoice line amount is lower than the purchase order line amount.">
+      <created>1562945652435</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1562945652435</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Method to validate that the invoice line amount is lower than the purchase order line amount.">
+      <created>1562945890104</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1562945890104</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TodoView">
@@ -388,8 +401,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models/invoice_payment_check.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="232" column="298" selection-start-line="232" selection-start-column="298" selection-end-line="232" selection-end-column="298" />
+        <state relative-caret-position="396">
+          <caret line="240" column="74" selection-start-line="240" selection-start-column="74" selection-end-line="240" selection-end-column="74" />
           <folding>
             <element signature="e#25#61#0" expanded="true" />
             <element signature="e#10269#10638#0" />
