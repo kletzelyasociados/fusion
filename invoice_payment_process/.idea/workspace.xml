@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/invoice_payment_check.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="240" column="74" selection-start-line="240" selection-start-column="74" selection-end-line="240" selection-end-column="74" />
+            <state relative-caret-position="413">
+              <caret line="242" column="37" selection-start-line="242" selection-start-column="37" selection-end-line="242" selection-end-column="37" />
               <folding>
                 <element signature="e#25#61#0" expanded="true" />
                 <element signature="e#10269#10638#0" />
@@ -286,7 +286,21 @@
       <option name="project" value="LOCAL" />
       <updated>1562945890104</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Method to validate that the invoice line amount is lower than the purchase order line amount.">
+      <created>1562947994298</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1562947994298</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Formating Amounts to Monetary Values in rase Messages">
+      <created>1562948441505</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1562948441505</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TodoView">
@@ -387,7 +401,8 @@
     <MESSAGE value="Testing to get the invoice object and get the amount_total" />
     <MESSAGE value="Testing to get the invoice object and get the amount_total trough the purchase_order.invoice_ids" />
     <MESSAGE value="Method to validate that the invoice line amount is lower than the purchase order line amount." />
-    <option name="LAST_COMMIT_MESSAGE" value="Method to validate that the invoice line amount is lower than the purchase order line amount." />
+    <MESSAGE value="Formating Amounts to Monetary Values in rase Messages" />
+    <option name="LAST_COMMIT_MESSAGE" value="Formating Amounts to Monetary Values in rase Messages" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/views/account_invoice_form_view.xml" />
@@ -401,8 +416,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models/invoice_payment_check.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="240" column="74" selection-start-line="240" selection-start-column="74" selection-end-line="240" selection-end-column="74" />
+        <state relative-caret-position="413">
+          <caret line="242" column="37" selection-start-line="242" selection-start-column="37" selection-end-line="242" selection-end-column="37" />
           <folding>
             <element signature="e#25#61#0" expanded="true" />
             <element signature="e#10269#10638#0" />
