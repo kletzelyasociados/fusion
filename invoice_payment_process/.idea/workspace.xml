@@ -15,10 +15,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/invoice_payment_check.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="464">
-              <caret line="211" column="148" selection-start-line="211" selection-start-column="148" selection-end-line="211" selection-end-column="148" />
+            <state relative-caret-position="-2018">
+              <caret line="85" column="20" lean-forward="true" selection-start-line="85" selection-start-column="20" selection-end-line="85" selection-end-column="20" />
               <folding>
                 <element signature="e#25#61#0" expanded="true" />
+                <element signature="e#10269#10638#0" />
               </folding>
             </state>
           </provider>
@@ -249,7 +250,21 @@
       <option name="project" value="LOCAL" />
       <updated>1562808240005</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Testing to get the invoice object and get the amount_total trough the purchase_order.invoice_ids">
+      <created>1562808664028</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1562808664028</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Method to validate that the invoice line amount is lower than the purchase order line amount.">
+      <created>1562944964263</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1562944964263</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TodoView">
@@ -349,7 +364,8 @@
     <MESSAGE value="After testing returns account.invoice(account.invoice(2470,)), trying to get amount_total of the first object" />
     <MESSAGE value="Testing to get the invoice object and get the amount_total" />
     <MESSAGE value="Testing to get the invoice object and get the amount_total trough the purchase_order.invoice_ids" />
-    <option name="LAST_COMMIT_MESSAGE" value="Testing to get the invoice object and get the amount_total trough the purchase_order.invoice_ids" />
+    <MESSAGE value="Method to validate that the invoice line amount is lower than the purchase order line amount." />
+    <option name="LAST_COMMIT_MESSAGE" value="Method to validate that the invoice line amount is lower than the purchase order line amount." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/views/account_invoice_form_view.xml" />
@@ -363,10 +379,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models/invoice_payment_check.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
-          <caret line="211" column="148" selection-start-line="211" selection-start-column="148" selection-end-line="211" selection-end-column="148" />
+        <state relative-caret-position="-2018">
+          <caret line="85" column="20" lean-forward="true" selection-start-line="85" selection-start-column="20" selection-end-line="85" selection-end-column="20" />
           <folding>
             <element signature="e#25#61#0" expanded="true" />
+            <element signature="e#10269#10638#0" />
           </folding>
         </state>
       </provider>
