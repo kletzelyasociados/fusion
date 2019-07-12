@@ -80,7 +80,7 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def action_invoice_payment_request(self):
-        self.verify_invoice_match_brute_force()
+        self.verify_invoice_line_match_brute_force()
         self.write({'payment_requested_by': self.env.uid, 'state': 'payment_request'})
         employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
         if employee:
@@ -161,7 +161,7 @@ class AccountInvoice(models.Model):
         return True
 
     @api.multi
-    def get_purchase_order(self):
+    def get_purchase_orders(self):
 
         if self.invoice_line_ids:
             purchase_order_line = self.env['purchase.order.line'].search([('id', '=', self.invoice_line_ids[0].purchase_line_id.id)])
@@ -169,12 +169,6 @@ class AccountInvoice(models.Model):
                 purchase_order = self.env['purchase.order'].search([('id', '=', purchase_order_line.order_id.id)])
                 if purchase_order:
                     return purchase_order
-                else:
-                    return 'no hay orden de compra'
-            else:
-                return 'no hay linea de pedido de compra'
-        else:
-            return 'no hay lineas de factura'
 
     @api.multi
     def get_purchase_contract(self, purchase_order):
@@ -190,7 +184,7 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def verify_invoice_match_brute_force(self):
-        purchase_order = self.get_purchase_order()
+        purchase_order = self.get_purchase_orders()
 
         if purchase_order.id:
 
@@ -213,3 +207,42 @@ class AccountInvoice(models.Model):
                                       )
 
             # contract = self.get_purchase_contract(purchase_order)
+
+    @api.multi
+    def verify_invoice_line_match_brute_force(self):
+
+        #Si la factura tiene lineas
+        if self.invoice_line_ids:
+            #Para cada línea de la factura
+            Error = []
+            for i, invoice_line in enumerate(self.invoice_line_ids):
+                #Si viene de una PO
+                if invoice_line.purchase_line_id:
+                    # Obtener la línea de la PO
+                    purchase_line = invoice_line.purchase_line_id
+                    # Extraer el monto total
+                    purchase_line_total_amount = purchase_line.price_total
+                    # Obtener las líneas de factura
+                    purchase_line_invoice_lines = purchase_line.invoice_lines
+
+                    # Para cada línea de factura
+                    for linea_de_factura in purchase_line_invoice_lines:
+                        # Asignar el estado de la factura a la línea de factura
+                        linea_de_factura['state'] = linea_de_factura.invoice_id.state
+
+                    inv_total_amount = 0
+
+                    # Para cada linea de factura
+                    for linea_de_factura in purchase_line_invoice_lines:
+                        # Filtrar donde el estado sea diferente de borrador, cancelado o pago rechazado
+                        if linea_de_factura.filtered(lambda inv: inv.state not in ('draft', 'cancel', 'payment_rejected')):
+                            # Sumar el monto total
+                            inv_total_amount = inv_total_amount + linea_de_factura.price_total
+
+                    # Comparar con el monto de la línea de orden de compra, si es mayor asignar error al arreglo
+                    if inv_total_amount + invoice_line.price_total > purchase_line_total_amount:
+                        Error.append('Error en línea de factura ' + str(i) +
+                                      ':- Monto de la Línea en Orden de Compra ' + purchase_line.name + ' $' + str(purchase_line_total_amount) +
+                                      'Excedente con esta Factura: $' + str((purchase_line_total_amount - inv_total_amount - invoice_line.price_total)*-1))
+            if Error:
+                raise ValidationError(*Error, sep='\n')
