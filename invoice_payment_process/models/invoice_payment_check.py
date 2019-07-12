@@ -238,9 +238,9 @@ class AccountInvoice(models.Model):
                     if inv_total_amount + invoice_line.price_total > purchase_line_total_amount:
                         Error.append('\nError en Línea de Factura No. ' + str(i+1) +
                                      ':- Orden de Compra Origen: ' + purchase_line.order_id.name +
-                                     '\n\tMonto de Línea de Orden de Compra: ' + '${:,.2f}'.format(purchase_line_total_amount) +
-                                     '\n\tMonto de Lineas de Factura: ' + '${:,.2f}'.format(inv_total_amount) +
-                                     '\n\tExcedente con esta Línea de Factura: ' + '${:,.2f}'.format((purchase_line_total_amount - inv_total_amount - invoice_line.price_total)*-1) +
+                                     '\n********Monto de Línea de Orden de Compra: ' + '${:,.2f}'.format(purchase_line_total_amount) +
+                                     '\n********Monto de Lineas de Factura: ' + '${:,.2f}'.format(inv_total_amount) +
+                                     '\n********Excedente con esta Línea de Factura: ' + '${:,.2f}'.format((purchase_line_total_amount - inv_total_amount - invoice_line.price_total)*-1) +
                                      '\n')
             if Error:
                 raise ValidationError(Error)
