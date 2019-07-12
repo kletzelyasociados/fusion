@@ -230,7 +230,7 @@ class AccountInvoice(models.Model):
                     # Para cada linea de factura
                     for linea_de_factura in purchase_line_invoice_lines:
                         # Filtrar donde el estado sea diferente de borrador, cancelado o pago rechazado
-                        if linea_de_factura.invoice_id.state.filtered(lambda inv: inv.state not in ('draft', 'cancel', 'payment_rejected')):
+                        if linea_de_factura.invoice_id.state == 'payment_rejected' or linea_de_factura.invoice_id.state == 'approved_by_leader' or linea_de_factura.invoice_id.state == 'approved_by_manager' or linea_de_factura.invoice_id.state == 'open' or linea_de_factura.invoice_id.state == 'paid':
                             # Sumar el monto total
                             inv_total_amount = inv_total_amount + linea_de_factura.price_total
 
