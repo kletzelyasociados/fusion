@@ -211,12 +211,12 @@ class AccountInvoice(models.Model):
     @api.multi
     def verify_invoice_line_match_brute_force(self):
 
-        #Si la factura tiene lineas
+        # Si la factura tiene lineas
         if self.invoice_line_ids:
-            #Para cada línea de la factura
+            # Para cada línea de la factura
             Error = []
             for i, invoice_line in enumerate(self.invoice_line_ids):
-                #Si viene de una PO
+                # Si viene de una PO
                 if invoice_line.purchase_line_id:
                     # Obtener la línea de la PO
                     purchase_line = invoice_line.purchase_line_id
@@ -240,7 +240,7 @@ class AccountInvoice(models.Model):
                                      ':- Orden de Compra Origen: ' + purchase_line.order_id.name +
                                      '\n********Monto de Línea de Orden de Compra: ' + '${:,.2f}'.format(purchase_line_total_amount) +
                                      '\n********Monto de Lineas de Factura Registradas: ' + '${:,.2f}'.format(inv_total_amount) +
-                                     '\n********Monto de Linea de Factura No. ' + str(i+1) + ': ' + '${:,.2f}'.format(inv_total_amount) +
+                                     '\n********Monto de Linea de Factura No. ' + str(i+1) + ': ' + '${:,.2f}'.format(invoice_line.price_total) +
                                      '\n********Excedente con esta Línea de Factura: ' + '${:,.2f}'.format((purchase_line_total_amount - inv_total_amount - invoice_line.price_total)*-1) +
                                      '\n')
             if Error:
