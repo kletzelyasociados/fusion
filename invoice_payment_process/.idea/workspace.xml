@@ -16,11 +16,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/invoice_payment_check.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="379">
-              <caret line="242" column="90" selection-start-line="242" selection-start-column="90" selection-end-line="242" selection-end-column="90" />
+            <state relative-caret-position="124">
+              <caret line="122" column="207" selection-start-line="122" selection-start-column="207" selection-end-line="122" selection-end-column="207" />
               <folding>
                 <element signature="e#25#61#0" expanded="true" />
                 <element signature="e#10269#10638#0" />
+                <element signature="e#12026#13774#0" />
               </folding>
             </state>
           </provider>
@@ -314,7 +315,21 @@
       <option name="project" value="LOCAL" />
       <updated>1562949955198</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Complementing validation message (indentation)">
+      <created>1563208639622</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1563208639623</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Correcting message in invoice line amount">
+      <created>1563208997349</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1563208997349</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TodoView">
@@ -417,7 +432,9 @@
     <MESSAGE value="Method to validate that the invoice line amount is lower than the purchase order line amount." />
     <MESSAGE value="Formating Amounts to Monetary Values in rase Messages" />
     <MESSAGE value="Complementing validation message" />
-    <option name="LAST_COMMIT_MESSAGE" value="Complementing validation message" />
+    <MESSAGE value="Complementing validation message (indentation)" />
+    <MESSAGE value="Correcting message in invoice line amount" />
+    <option name="LAST_COMMIT_MESSAGE" value="Correcting message in invoice line amount" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/views/account_invoice_form_view.xml" />
@@ -431,11 +448,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models/invoice_payment_check.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="379">
-          <caret line="242" column="90" selection-start-line="242" selection-start-column="90" selection-end-line="242" selection-end-column="90" />
+        <state relative-caret-position="124">
+          <caret line="122" column="207" selection-start-line="122" selection-start-column="207" selection-end-line="122" selection-end-column="207" />
           <folding>
             <element signature="e#25#61#0" expanded="true" />
             <element signature="e#10269#10638#0" />
+            <element signature="e#12026#13774#0" />
           </folding>
         </state>
       </provider>
