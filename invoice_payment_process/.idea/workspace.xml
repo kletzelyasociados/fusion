@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f15fe529-153d-4685-80c9-7ff2206f9b74" name="Default Changelist" comment="Track visibility of amount_authorized field">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -100,6 +101,22 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="invoice_payment_process" type="b2602c69:ProjectViewProjectNode" />
+              <item name="invoice_payment_process" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="invoice_payment_process" type="b2602c69:ProjectViewProjectNode" />
+              <item name="invoice_payment_process" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -185,8 +202,178 @@
       <option name="project" value="LOCAL" />
       <updated>1559935753088</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Creating method to validate that the invoice amount is not greater than the PO amount">
+      <created>1562795239737</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1562795239738</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Creating method to validate that the invoice amount is not greater than the PO amount">
+      <created>1562801573406</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1562801573406</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Creating method to validate that the invoice amount is not greater than the PO amount">
+      <created>1562801827178</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1562801827178</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Fixing Error &quot;psycopg2.ProgrammingError: can't adapt type 'account.invoice'&quot;">
+      <created>1562802400894</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1562802400894</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Fixing Error &quot;psycopg2.ProgrammingError: can't adapt type 'account.invoice'&quot;">
+      <created>1562802624616</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1562802624616</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Testing Error &quot;psycopg2.ProgrammingError: can't adapt type 'account.invoice'&quot;">
+      <created>1562805004282</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1562805004282</updated>
+    </task>
+    <task id="LOCAL-00015" summary="After testing returns account.invoice(account.invoice(2470,)), trying to get amount_total of the first object">
+      <created>1562805428820</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1562805428820</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Testing to get the invoice object and get the amount_total">
+      <created>1562806111784</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1562806111784</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Testing to get the invoice object and get the amount_total">
+      <created>1562806265874</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1562806265874</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Testing to get the invoice object and get the amount_total">
+      <created>1562806404278</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1562806404278</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Testing to get the invoice object and get the amount_total">
+      <created>1562806552051</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1562806552051</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Testing to get the invoice object and get the amount_total">
+      <created>1562807285255</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1562807285255</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Testing to get the invoice object and get the amount_total trough the purchase_order.invoice_ids">
+      <created>1562807608817</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1562807608817</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Testing to get the invoice object and get the amount_total trough the purchase_order.invoice_ids">
+      <created>1562808240005</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1562808240005</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Testing to get the invoice object and get the amount_total trough the purchase_order.invoice_ids">
+      <created>1562808664028</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1562808664028</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Method to validate that the invoice line amount is lower than the purchase order line amount.">
+      <created>1562944964263</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1562944964263</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Method to validate that the invoice line amount is lower than the purchase order line amount.">
+      <created>1562945334314</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1562945334314</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Method to validate that the invoice line amount is lower than the purchase order line amount.">
+      <created>1562945652435</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1562945652435</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Method to validate that the invoice line amount is lower than the purchase order line amount.">
+      <created>1562945890104</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1562945890104</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Method to validate that the invoice line amount is lower than the purchase order line amount.">
+      <created>1562947994298</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1562947994298</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Formating Amounts to Monetary Values in rase Messages">
+      <created>1562948441505</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1562948441505</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Complementing validation message">
+      <created>1562949494757</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1562949494757</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Complementing validation message">
+      <created>1562949955198</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1562949955198</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -201,7 +388,7 @@
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.59410805" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4985119" weight="0.44517186" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5014881" side_tool="true" weight="0.44517186" />
@@ -270,7 +457,16 @@
     <MESSAGE value="Fixing error when manager of the requester is in the parent department (reject method)" />
     <MESSAGE value="Creation of amount_authorized field to be able to authorize parcial ammounts" />
     <MESSAGE value="Track visibility of amount_authorized field" />
-    <option name="LAST_COMMIT_MESSAGE" value="Track visibility of amount_authorized field" />
+    <MESSAGE value="Creating method to validate that the invoice amount is not greater than the PO amount" />
+    <MESSAGE value="Fixing Error &quot;psycopg2.ProgrammingError: can't adapt type 'account.invoice'&quot;" />
+    <MESSAGE value="Testing Error &quot;psycopg2.ProgrammingError: can't adapt type 'account.invoice'&quot;" />
+    <MESSAGE value="After testing returns account.invoice(account.invoice(2470,)), trying to get amount_total of the first object" />
+    <MESSAGE value="Testing to get the invoice object and get the amount_total" />
+    <MESSAGE value="Testing to get the invoice object and get the amount_total trough the purchase_order.invoice_ids" />
+    <MESSAGE value="Method to validate that the invoice line amount is lower than the purchase order line amount." />
+    <MESSAGE value="Formating Amounts to Monetary Values in rase Messages" />
+    <MESSAGE value="Complementing validation message" />
+    <option name="LAST_COMMIT_MESSAGE" value="Complementing validation message" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/__manifest__.py">
