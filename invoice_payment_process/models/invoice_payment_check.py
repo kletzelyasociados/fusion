@@ -4,7 +4,6 @@ from odoo import models, fields, api
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import float_compare
 
-
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
@@ -51,8 +50,7 @@ class AccountInvoice(models.Model):
                                         store=True)
 
     amount_authorized = fields.Monetary(string='Monto Autorizado de Pago',
-
-                                        track_visibility='onchange',
+                                        track_visibility = 'onchange',
                                         store=True)
 
     @api.depends('payment_requested_by_id')
