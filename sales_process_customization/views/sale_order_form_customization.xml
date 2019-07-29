@@ -8,10 +8,24 @@
         <field name="arch" type="xml">
             <xpath expr="//page[1]" position="after">
                 <page string="Pagos">
+                    <br>
+                    Plan de pgos
+                    </br>
                     <field name="payment_plan_id" mode="tree" attrs="{'readonly': [('state', 'in', ('done','cancel'))]}">
                         <tree string="Plan de Pagos" editable="bottom" >
                             <field name="payment_date"/>
                             <field name="payment_amount" widget="monetary"/>
+                            <field name="note"/>
+                        </tree>
+                    </field>
+                    <br>
+                    Pagos Recibidos
+                    </br>
+                    <field name="payments_ids" mode="tree" attrs="{'readonly': [('state', 'in', ('done','cancel'))]}">
+                        <tree string="Pagos Recibidos" editable="bottom" >
+                            <field name="payment_date"/>
+                            <field name="amount" widget="monetary"/>
+                            <field name="communication"/>
                         </tree>
                     </field>
                 </page>
