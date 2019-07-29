@@ -285,7 +285,6 @@ class SaleOrder(models.Model):
         return True
     '''
 
-
 class PaymentPlan(models.Model):
     _name = "payment.plan"
     _inherit = ['mail.thread', 'mail.activity.mixin', 'portal.mixin']
