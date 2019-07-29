@@ -8,15 +8,11 @@
         <field name="arch" type="xml">
             <xpath expr="//page[1]" position="after">
                 <page string="Pagos">
-                    <field name="payment_plan_id" mode="tree,kanban" attrs="{'readonly': [('state', 'in', ('done','cancel'))]}">
+                    <field name="payment_plan_id" mode="tree" attrs="{'readonly': [('state', 'in', ('done','cancel'))]}">
                         <tree string="Plan de Pagos" editable="bottom" >
                             <field name="payment_date"/>
                             <field name="payment_amount" widget="monetary"/>
                         </tree>
-                        <kanban class="o_kanban_mobile">
-                            <field name="payment_date"/>
-                            <field name="payment_amount"/>
-                        </kanban>
                     </field>
                 </page>
             </xpath>
