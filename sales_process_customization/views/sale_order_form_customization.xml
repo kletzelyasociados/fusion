@@ -65,4 +65,5 @@
               action="my_module.action_server"/>
     -->
   <!-- </data>-->
+
 </odoo>
