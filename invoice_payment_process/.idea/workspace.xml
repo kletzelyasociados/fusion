@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f15fe529-153d-4685-80c9-7ff2206f9b74" name="Default Changelist" comment="Track visibility of amount_authorized field">
-      <change beforePath="$PROJECT_DIR$/../sales_process_customization/views/sale_order_form_customization.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../sales_process_customization/views/sale_order_form_customization.xml" afterDir="false" />
-    </list>
+    <list default="true" id="f15fe529-153d-4685-80c9-7ff2206f9b74" name="Default Changelist" comment="Track visibility of amount_authorized field" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
