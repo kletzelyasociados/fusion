@@ -292,12 +292,13 @@ class PaymentPlan(models.Model):
     _description = "Customer Payment Plan"
 
     payment_date = fields.Date(string='Fecha de Pago',
-        readonly=True, states={'draft': [('readonly', False)]}, index=True, copy=False)
+                               required=True,
+                               index=True,
+                               copy=False)
 
-    payment_amount = fields.Monetary(string='Monto',
-                                     readonly=True,
-                                     states={'draft': [('readonly', False)]},
-                                     copy=False)
+    payment_amount = fields.Float(string='Monto',
+                                  required=True,
+                                  digits=(16, 2))
 
     sale_order_id = fields.Many2one('sale.order',
                                     string='Orden de Venta',
