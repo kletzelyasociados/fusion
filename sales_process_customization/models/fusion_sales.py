@@ -22,19 +22,24 @@ class SaleOrder(models.Model):
     state = fields.Selection([
         ('draft', 'Cotización'),
         ('leader_approved', 'Autorización del Lider'),
-        ('sent', 'Cotización Enviada'),
+        ('sent', 'Cotización Enviada'), # Verificación de Monto
         ('sale_request', 'Solicitud de Venta'),
-        ('sale', 'Venta'),
-        ('folder_integration', 'Integración'),
-        ('entitlement', 'Titulación'),
-        ('deed', 'Escrituración'),
-        ('done', 'Entregada'),
-        ('cancel', 'Cancelled'),
+        ('sale', 'Venta'), # Autorización de Alejandro
+        ('folder_integration', 'Integración'), # Verificación de Pablo
+        ('entitlement', 'Titulación'), # Verificación de Manuel Belman
+        ('house_finished', 'Casa Terminada'), # Autorización de Luis Antonio
+        ('house_paid', 'Casa Pagada'), # Verificación de Fernando
+        ('deed', 'Escrituración'), # Autorización de Liliana
+        ('done', 'Entregada'), # Verificación de Pablo Guerrero
+        ('cancel', 'Cancelled'), # Autorización de Alejandro
     ], string='Estado', readonly=True, copy=False, index=True, track_visibility='onchange', track_sequence=3,
         default='draft')
 
     payment_plan_id = fields.One2many('payment.plan', 'sale_order_id', string='Plan de Pagos',
         readonly=True, states={'draft': [('readonly', False)]})
+
+    payments_ids = fields.One2many('account.payment', 'sale_order_id', string='Pagos Recibidos')
+
     '''
     
     payment_received_id = fields.One2many('account.invoice.tax', 'invoice_id', string='Tax Lines', oldname='tax_line',
@@ -294,13 +299,29 @@ class PaymentPlan(models.Model):
     payment_date = fields.Date(string='Fecha de Pago',
                                required=True,
                                index=True,
-                               copy=False)
+                               copy=False,
+                               track_visibility='onchange')
 
     payment_amount = fields.Float(string='Monto',
                                   required=True,
-                                  digits=(16, 2))
+                                  digits=(16, 2),
+                                  track_visibility='onchange')
+
+    note = fields.Char(string='Nota',
+                       copy=False,
+                       track_visibility='onchange')
 
     sale_order_id = fields.Many2one('sale.order',
                                     string='Orden de Venta',
-                                    ondelete='cascade',
+                                    ondelete='restrict',
                                     index=True)
+
+
+class account_payment(models.Model):
+    _inherit = 'account.payment'
+
+    sale_order_id = fields.Many2one('sale.order',
+                                    string='Orden de Venta',
+                                    ondelete='restrict',
+                                    index=True)
+
