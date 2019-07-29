@@ -14,21 +14,17 @@
                             <field name="payment_amount" widget="monetary"/>
                         </tree>
                         <kanban class="o_kanban_mobile">
-                            <templates>
-                                <t t-name="payments-plan-kanban-box">
-                                    <div t-attf-class="oe_kanban_card oe_kanban_global_click">
-                                        <div class="row">
-                                            <div class="col-xs-6">
-                                                <strong><span><t t-esc="record.payment_date.value"/></span></strong>
-                                            </div>
-                                            <div class="col-xs-6">
-                                                <strong><span class="pull-right text-right">
-                                                <t t-esc="record.payment_amount.value"/></span></strong>
-                                            </div>
-                                        </div>
+                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <strong><span><t t-esc="record.payment_date.value"/></span></strong>
                                     </div>
-                                </t>
-                            </templates>
+                                    <div class="col-xs-6">
+                                        <strong><span class="pull-right text-right">
+                                        <t t-esc="record.payment_amount.value"/></span></strong>
+                                    </div>
+                                </div>
+                            </div>
                         </kanban>
                     </field>
                 </page>
