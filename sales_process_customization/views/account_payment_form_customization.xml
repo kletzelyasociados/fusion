@@ -1,0 +1,58 @@
+<odoo>
+  <!--<data>-->
+    <!-- Overriding base view to change default behaviour -->
+    <record model="ir.ui.view" id="account_payment_form_customization">
+        <field name="name">account.payment.custom.form</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <field name="communication" position="after">
+                <field name="sale_order_id" attrs="{'invisible': [('payment_type', '!=', 'inbound')]}"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="my_module.action_window">
+      <field name="name">my_module window</field>
+      <field name="res_model">my_module.my_module</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="my_module.action_server">
+      <field name="name">my_module server</field>
+      <field name="model_id" ref="model_my_module_my_module"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="my_module" id="my_module.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="my_module.menu_1" parent="my_module.menu_root"/>
+    <menuitem name="Menu 2" id="my_module.menu_2" parent="my_module.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="my_module.menu_1_list" parent="my_module.menu_1"
+              action="my_module.action_window"/>
+    <menuitem name="Server to list" id="my_module" parent="my_module.menu_2"
+              action="my_module.action_server"/>
+    -->
+  <!-- </data>-->
+
+</odoo>

@@ -32,13 +32,42 @@ class SaleOrder(models.Model):
         ('deed', 'Escrituración'), # Autorización de Liliana
         ('done', 'Entregada'), # Verificación de Pablo Guerrero
         ('cancel', 'Cancelled'), # Autorización de Alejandro
-    ], string='Estado', readonly=True, copy=False, index=True, track_visibility='onchange', track_sequence=3,
+    ], string='Estado',
+        readonly=True,
+        copy=False,
+        index=True,
+        track_visibility='onchange',
+        track_sequence=3,
         default='draft')
 
     payment_plan_id = fields.One2many('payment.plan', 'sale_order_id', string='Plan de Pagos',
         readonly=True, states={'draft': [('readonly', False)]})
 
-    payments_ids = fields.One2many('account.payment', 'sale_order_id', string='Pagos Recibidos')
+    payments_ids = fields.One2many('account.payment', 'sale_order_id', readonly=True, string='Pagos Recibidos')
+
+    plan_total = fields.Float(string='Total Plan',
+                              store=True,
+                              readonly=True,
+                              digits=(16, 2),
+                              compute='_compute_plan_total')
+
+    paid_total = fields.Float(string='Total Recibido',
+                              store=True,
+                              readonly=True,
+                              digits=(16, 2),
+                              compute='_compute_paid_total')
+
+    @api.depends('payment_plan_id')
+    def _compute_plan_total(self):
+        self.plan_total = 0
+        for plan_line in self.payment_plan_id:
+            self.plan_total = self.plan_total + plan_line.payment_amount
+
+    @api.depends('payments_ids')
+    def _compute_paid_total(self):
+        self.paid_total = 0
+        for paid_line in self.payments_ids:
+            self.paid_total = self.paid_total + paid_line.amount
 
     '''
     
@@ -314,7 +343,8 @@ class PaymentPlan(models.Model):
     sale_order_id = fields.Many2one('sale.order',
                                     string='Orden de Venta',
                                     ondelete='restrict',
-                                    index=True)
+                                    index=True,
+                                    track_visibility='onchange')
 
 
 class account_payment(models.Model):
@@ -323,5 +353,6 @@ class account_payment(models.Model):
     sale_order_id = fields.Many2one('sale.order',
                                     string='Orden de Venta',
                                     ondelete='restrict',
-                                    index=True)
+                                    index=True,
+                                    track_visibility='onchange')
 
