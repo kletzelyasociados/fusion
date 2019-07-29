@@ -6,7 +6,7 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//page[@string='Order Lines']" position="after">
+            <xpath expr="//page[1]" position="after">
                 <page string="Pagos">
                     <field name="payment_plan_id" mode="tree,kanban" attrs="{'readonly': [('state', 'in', ('done','cancel'))]}">
                         <tree string="Sales Order Lines" editable="bottom" decoration-info="invoice_status=='to invoice'">
