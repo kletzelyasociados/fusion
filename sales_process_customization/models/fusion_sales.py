@@ -34,7 +34,7 @@ class SaleOrder(models.Model):
         default='draft')
 
     payment_plan_id = fields.One2many('payment.plan', 'sale_order_id', string='Plan de Pagos',
-        readonly=True, states={'draft': [('readonly', False)]}, copy=True)
+        readonly=True, states={'draft': [('readonly', False)]})
     '''
     
     payment_received_id = fields.One2many('account.invoice.tax', 'invoice_id', string='Tax Lines', oldname='tax_line',
