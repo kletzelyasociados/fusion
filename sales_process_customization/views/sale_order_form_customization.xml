@@ -15,7 +15,7 @@
                         </tree>
                         <kanban class="o_kanban_mobile">
                             <templates>
-                                <t t-name="kanban-box">
+                                <t t-name="payments-plan-kanban-box">
                                     <div t-attf-class="oe_kanban_card oe_kanban_global_click">
                                         <div class="row">
                                             <div class="col-xs-6">
