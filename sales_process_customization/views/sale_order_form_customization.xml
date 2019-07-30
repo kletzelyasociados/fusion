@@ -56,7 +56,7 @@
                             <field name="payment_amount" widget="monetary"/>
                             <field name="note"/>
                             <field name="state"/>
-                            <field name="voicher" widget="binary"/>
+                            <field name="voucher" widget="binary"/>
                         </tree>
                     </field>
                     <!--
