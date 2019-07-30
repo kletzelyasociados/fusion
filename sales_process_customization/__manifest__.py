@@ -28,7 +28,7 @@
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/sale_order_form_customization.xml'
+        'views/sale_order_form_customization.xml',
         'views/account_payment_form_customization.xml'
     ],
     # only loaded in demonstration mode
