@@ -57,6 +57,12 @@ class SaleOrder(models.Model):
                               digits=(16, 2),
                               compute='_compute_paid_total')
 
+    open_total = fields.Float(string='Saldo Pendiente',
+                              store=True,
+                              readonly=True,
+                              digits=(16, 2),
+                              compute='_compute_open_total')
+
     @api.one
     @api.depends('payment_plan_id.payment_amount')
     def _compute_plan_total(self):
@@ -65,7 +71,10 @@ class SaleOrder(models.Model):
     @api.one
     @api.depends('payments_ids.amount')
     def _compute_paid_total(self):
-        self.paid_total = sum(paid_line.amount for paid_line in self.payments_ids)
+        if self.plan_total == 0:
+            self.open_total = self.amount_total - self.paid_total
+        else:
+            self.open_total = self.plan_total - self.paid_total
 
     '''
     

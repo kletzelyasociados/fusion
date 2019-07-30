@@ -11,6 +11,7 @@
                     <br>
 
                     </br>
+                    <h4>Plan de Pagos</h4>
                     <field name="payment_plan_id" mode="tree" attrs="{'readonly': [('state', 'in', ('done','cancel'))]}">
                         <tree string="Plan de Pagos" editable="bottom" >
                             <field name="payment_date"/>
@@ -19,11 +20,15 @@
                         </tree>
                     </field>
                     <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                        <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                            <label for="plan_total"/>
+                        </div>
                         <field name="plan_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary"/>
                     </group>
                     <br>
 
                     </br>
+                    <h4>Pagos Recibidos</h4>
                     <field name="payments_ids" mode="tree">
                         <tree string="Pagos Recibidos" editable="bottom" >
                             <field name="payment_date"/>
@@ -33,7 +38,14 @@
                         </tree>
                     </field>
                     <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                        <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                            <label for="paid_total"/>
+                        </div>
                         <field name="paid_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary"/>
+                        <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                            <label for="open_total"/>
+                        </div>
+                        <field name="open_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary"/>
                     </group>
                 </page>
             </xpath>
