@@ -51,7 +51,7 @@
                 <page string="Comisiones">
                     <field name="commissions_ids" mode="tree">
                         <tree string="Plan de Pagos">
-                            <field name="employee_id.name"/>
+                            <field name="employee_id"/>
                             <field name="payment_date"/>
                             <field name="payment_amount" widget="monetary"/>
                             <field name="note"/>
