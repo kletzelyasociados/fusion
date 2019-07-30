@@ -19,7 +19,7 @@
                         </tree>
                     </field>
                     <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
-                        <field name="plan_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="plan_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary""/>
                     </group>
                     <br>
 
@@ -33,7 +33,7 @@
                         </tree>
                     </field>
                     <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
-                        <field name="paid_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="paid_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary""/>
                     </group>
                 </page>
             </xpath>

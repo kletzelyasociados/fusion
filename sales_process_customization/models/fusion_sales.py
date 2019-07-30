@@ -57,17 +57,15 @@ class SaleOrder(models.Model):
                               digits=(16, 2),
                               compute='_compute_paid_total')
 
-    @api.depends('payment_plan_id')
+    @api.one
+    @api.depends('payment_plan_id.payment_amount')
     def _compute_plan_total(self):
-        self.plan_total = 0
-        for plan_line in self.payment_plan_id:
-            self.plan_total = self.plan_total + plan_line.payment_amount
+        self.plan_total = sum(plan_line.payment_amount for plan_line in self.payment_plan_id)
 
-    @api.depends('payments_ids')
+    @api.one
+    @api.depends('payments_ids.amount')
     def _compute_paid_total(self):
-        self.paid_total = 0
-        for paid_line in self.payments_ids:
-            self.paid_total = self.paid_total + paid_line.amount
+        self.paid_total = sum(paid_line.amount for paid_line in self.payments_ids)
 
     '''
     
