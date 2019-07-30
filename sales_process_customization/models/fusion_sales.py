@@ -71,7 +71,12 @@ class SaleOrder(models.Model):
     @api.one
     @api.depends('payments_ids.amount')
     def _compute_paid_total(self):
-        if self.plan_total == 0:
+        self.paid_total = sum(paid_line.amount for paid_line in self.payments_ids)
+
+    @api.one
+    @api.depends('plan_total', 'paid_total')
+    def _compute_open_total(self):
+        if self.plan_total == 0 and self.amount_total > 0:
             self.open_total = self.amount_total - self.paid_total
         else:
             self.open_total = self.plan_total - self.paid_total
