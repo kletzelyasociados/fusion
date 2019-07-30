@@ -45,6 +45,8 @@ class SaleOrder(models.Model):
 
     payments_ids = fields.One2many('account.payment', 'sale_order_id', readonly=True, string='Pagos Recibidos')
 
+    commissions_ids = fields.One2many('sale.commissions', 'sale_order_id', readonly=True, string='Comisiones')
+
     plan_total = fields.Float(string='Total Plan',
                               store=True,
                               readonly=True,
@@ -368,3 +370,60 @@ class account_payment(models.Model):
                                     index=True,
                                     track_visibility='onchange')
 
+
+class Employee(models.Model):
+    _inherit = 'hr.employee'
+
+    commission_rate = fields.Float(string='Tarifa de Comisión',
+                                   store=True,
+                                   digits=(1, 3))
+
+    commissions_ids = fields.One2many('sale.commissions', 'employee_id', readonly=True, string='Comisiones')
+
+
+class Commissions(models.Model):
+    _name = "sale.commissions"
+    _inherit = ['mail.thread', 'mail.activity.mixin', 'portal.mixin']
+    _description = "Calculo de Comisiones de Ventas"
+
+    sale_order_id = fields.Many2one('sale.order',
+                                    string='Orden de Venta',
+                                    ondelete='restrict',
+                                    index=True,
+                                    track_visibility='onchange')
+
+    employee_id = fields.Many2one('hr.employee',
+                                  string='Empleado',
+                                  ondelete='restrict',
+                                  index=True,
+                                  track_visibility='onchange')
+
+    payment_date = fields.Date(string='Fecha de Pago',
+                               required=True,
+                               index=True,
+                               copy=False,
+                               track_visibility='onchange')
+
+    payment_amount = fields.Float(string='Monto',
+                                  required=True,
+                                  digits=(16, 2),
+                                  track_visibility='onchange')
+
+    note = fields.Char(string='Nota',
+                       copy=False,
+                       track_visibility='onchange')
+
+    state = fields.Selection([
+        ('draft', 'Borrador'),
+        ('paid', 'Pagado'),
+        ('cancel', 'Cancelled'),
+    ], string='Estado',
+        readonly=True,
+        copy=False,
+        index=True,
+        track_visibility='onchange',
+        default='draft')
+
+    voucher = fields.Binary(string='Comprobante',
+                            copy=False,
+                            track_visibility='onchange')

@@ -8,9 +8,6 @@
         <field name="arch" type="xml">
             <xpath expr="//page[1]" position="after">
                 <page string="Pagos">
-                    <br>
-
-                    </br>
                     <h4>Plan de Pagos</h4>
                     <field name="payment_plan_id" mode="tree" attrs="{'readonly': [('state', 'in', ('done','cancel'))]}">
                         <tree string="Plan de Pagos" editable="bottom" >
@@ -25,6 +22,9 @@
                         </div>
                         <field name="plan_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary"/>
                     </group>
+                    <br>
+
+                    </br>
                     <br>
 
                     </br>
@@ -47,6 +47,26 @@
                         </div>
                         <field name="open_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary"/>
                     </group>
+                </page>
+                <page string="Comisiones">
+                    <field name="commissions_ids" mode="tree">
+                        <tree string="Plan de Pagos">
+                            <field name="employee_id.name"/>
+                            <field name="payment_date"/>
+                            <field name="payment_amount" widget="monetary"/>
+                            <field name="note"/>
+                            <field name="state"/>
+                            <field name="voicher" widget="binary"/>
+                        </tree>
+                    </field>
+                    <!--
+                    <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                        <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                            <label for="plan_total"/>
+                        </div>
+                        <field name="plan_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary"/>
+                    </group>
+                    -->
                 </page>
             </xpath>
         </field>
