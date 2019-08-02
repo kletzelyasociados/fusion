@@ -290,6 +290,40 @@ class SaleOrder(models.Model):
         return True
     """
 
+    @api.multi
+    def action_authorize(self):
+        return
+
+    @api.multi
+    def action_reject(self):
+        return
+
+    @api.multi
+    def action_cancel_request(self):
+        return
+
+    @api.multi
+    def action_integration(self):
+        return
+
+    @api.multi
+    def action_entitlement(self):
+        return
+
+    @api.multi
+    def action_finished_home(self):
+        return
+
+    @api.multi
+    def action_paid(self):
+        return
+
+    @api.multi
+    def action_deed(self):
+        return
+
+
+
 class PaymentPlan(models.Model):
     _name = "payment.plan"
     _inherit = ['mail.thread', 'mail.activity.mixin', 'portal.mixin']
