@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from functools import partial
 from itertools import groupby
 
-from odoo import api, fields, models, _
+from odoo import api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools.misc import formatLang
 from odoo.osv import expression
@@ -28,9 +28,11 @@ class SaleOrder(models.Model):
         ('folder_integration', 'Integración'), # Verificación de Pablo
         ('entitlement', 'Titulación'), # Verificación de Manuel Belman
         ('house_finished', 'Casa Terminada'), # Autorización de Luis Antonio
+        ('quality_check', 'Recibida Post-venta'),  # Verificación Postventa
         ('house_paid', 'Casa Pagada'), # Verificación de Fernando
         ('deed', 'Escrituración'), # Autorización de Liliana
         ('done', 'Entregada'), # Verificación de Pablo Guerrero
+        ('cancel_request', 'Solicitud de Cancelación'), # Autorización de Alejandro
         ('cancel', 'Cancelled'), # Autorización de Alejandro
     ], string='Estado',
         readonly=True,
@@ -65,6 +67,7 @@ class SaleOrder(models.Model):
                               digits=(16, 2),
                               compute='_compute_open_total')
 
+
     @api.one
     @api.depends('payment_plan_id.payment_amount')
     def _compute_plan_total(self):
@@ -83,39 +86,7 @@ class SaleOrder(models.Model):
         else:
             self.open_total = self.plan_total - self.paid_total
 
-    '''
-    
-    payment_received_id = fields.One2many('account.invoice.tax', 'invoice_id', string='Tax Lines', oldname='tax_line',
-        readonly=True, states={'draft': [('readonly', False)]}, copy=True)
-
-    @api.multi
-    def unlink(self):
-        for order in self:
-            if order.state not in ('draft', 'cancel'):
-                raise UserError(
-                    _('You can not delete a sent quotation or a confirmed sales order. You must first cancel it.'))
-        return super(SaleOrder, self).unlink()
-
-    @api.model
-    def create(self, vals):
-        if vals.get('name', _('New')) == _('New'):
-            if 'company_id' in vals:
-                vals['name'] = self.env['ir.sequence'].with_context(force_company=vals['company_id']).next_by_code(
-                    'sale.order') or _('New')
-            else:
-                vals['name'] = self.env['ir.sequence'].next_by_code('sale.order') or _('New')
-
-        # Makes sure partner_invoice_id', 'partner_shipping_id' and 'pricelist_id' are defined
-        if any(f not in vals for f in ['partner_invoice_id', 'partner_shipping_id', 'pricelist_id']):
-            partner = self.env['res.partner'].browse(vals.get('partner_id'))
-            addr = partner.address_get(['delivery', 'invoice'])
-            vals['partner_invoice_id'] = vals.setdefault('partner_invoice_id', addr['invoice'])
-            vals['partner_shipping_id'] = vals.setdefault('partner_shipping_id', addr['delivery'])
-            vals['pricelist_id'] = vals.setdefault('pricelist_id',
-                                                   partner.property_product_pricelist and partner.property_product_pricelist.id)
-        result = super(SaleOrder, self).create(vals)
-        return result
-
+    """
     @api.multi
     def print_quotation(self):
         self.filtered(lambda s: s.state == 'draft').write({'state': 'sent'})
@@ -138,13 +109,7 @@ class SaleOrder(models.Model):
 
     @api.multi
     def action_invoice_create(self, grouped=False, final=False):
-        """
-        Create the invoice associated to the SO.
-        :param grouped: if True, invoices are grouped by SO id. If False, invoices are grouped by
-                        (partner_invoice_id, currency)
-        :param final: if True, refunds will be generated if necessary
-        :returns: list of created invoices
-        """
+        
         inv_obj = self.env['account.invoice']
         precision = self.env['decimal.precision'].precision_get('Product Unit of Measure')
         invoices = {}
@@ -294,14 +259,6 @@ class SaleOrder(models.Model):
         }
 
     @api.multi
-    @api.returns('mail.message', lambda value: value.id)
-    def message_post(self, **kwargs):
-        if self.env.context.get('mark_so_as_sent'):
-            self.filtered(lambda o: o.state == 'draft').with_context(tracking_disable=True).write({'state': 'sent'})
-            self.env.user.company_id.set_onboarding_step_done('sale_onboarding_sample_quotation_state')
-        return super(SaleOrder, self.with_context(mail_post_autofollow=True)).message_post(**kwargs)
-
-    @api.multi
     def action_done(self):
         for order in self:
             tx = order.sudo().transaction_ids.get_last_transaction()
@@ -331,8 +288,7 @@ class SaleOrder(models.Model):
         if self.env['ir.config_parameter'].sudo().get_param('sale.auto_done_setting'):
             self.action_done()
         return True
-    '''
-
+    """
 
 class PaymentPlan(models.Model):
     _name = "payment.plan"
@@ -384,7 +340,7 @@ class Employee(models.Model):
 class Commissions(models.Model):
     _name = "sale.commissions"
     _inherit = ['mail.thread', 'mail.activity.mixin', 'portal.mixin']
-    _description = "Calculo de Comisiones de Ventas"
+    _description = "Comisiones de Ventas"
 
     sale_order_id = fields.Many2one('sale.order',
                                     string='Orden de Venta',
