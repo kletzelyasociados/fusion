@@ -15,9 +15,6 @@
             <xpath expr="//button[@name='action_confirm']" position="replace">
 
             </xpath>
-            <xpath expr="//button[@name='action_invoice_open']" position="replace">
-
-            </xpath>
             <xpath expr="//button[@name='action_quotation_send']" position="replace">
 
             </xpath>
