@@ -160,7 +160,7 @@
                         <field name="appraisal" widget="binary"/>
                         <field name="salary_receipts" widget="binary"/>
                         <field name="bank_acount_receipts" widget="binary"/>
-                        <field name="partials" widget="binary"/>
+                        <field name="tax_declaration" widget="binary"/>
                         <field name="labor_voucher" widget="binary"/>
                     </group>
                 </page>
