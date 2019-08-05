@@ -15,6 +15,8 @@ from odoo.addons import decimal_precision as dp
 
 from werkzeug.urls import url_encode
 
+from datetime import date
+
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
@@ -60,11 +62,17 @@ class SaleOrder(models.Model):
                               digits=(16, 2),
                               compute='_compute_paid_total')
 
-    open_total = fields.Float(string='Saldo Pendiente',
+    open_total = fields.Float(string='Saldo Pendiente Total',
                               store=True,
                               readonly=True,
                               digits=(16, 2),
                               compute='_compute_open_total')
+
+    open_total_by_date = fields.Float(string='Saldo Pendiente por Fecha',
+                                      store=True,
+                                      readonly=True,
+                                      digits=(16, 2),
+                                      compute='_compute_open_total_by_date')
 
     # Commissions Page
 
@@ -187,6 +195,24 @@ class SaleOrder(models.Model):
             self.open_total = self.amount_total - self.paid_total
         else:
             self.open_total = self.plan_total - self.paid_total
+
+    @api.one
+    @api.depends('plan_total', 'paid_total')
+    def _compute_open_total_by_date(self):
+        if self.plan_total == 0 and self.amount_total > 0:
+
+            paid_total_by_date = sum(paid_line.amount for paid_line
+                                     in self.payments_ids.filtered(lambda l: l.payment_date <= str(date.today())))
+
+            self.open_total_by_date = self.amount_total - paid_total_by_date
+        else:
+            plan_total_by_date = sum(plan_line.payment_amount for plan_line in
+                                     self.payment_plan_id.filtered(lambda l: l.payment_date <= str(date.today())))
+
+            paid_total_by_date = sum(paid_line.amount for paid_line
+                                     in self.payments_ids.filtered(lambda l: l.payment_date <= str(date.today())))
+
+            self.open_total_by_date = plan_total_by_date - paid_total_by_date
 
     """
     @api.multi
