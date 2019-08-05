@@ -89,6 +89,10 @@
                             <label for="plan_total"/>
                         </div>
                         <field name="plan_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary"/>
+                        <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                            <label for="plan_difference"/>
+                        </div>
+                        <field name="plan_difference" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" attrs="{'invisible': [('plan_difference', '=', 0)]}"/>
                     </group>
                     <br>
 
