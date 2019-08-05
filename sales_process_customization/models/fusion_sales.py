@@ -56,6 +56,12 @@ class SaleOrder(models.Model):
                               digits=(16, 2),
                               compute='_compute_plan_total')
 
+    plan_difference = fields.Float(string='Diferencia con Monto de Venta',
+                                   store=True,
+                                   readonly=True,
+                                   digits=(16, 2),
+                                   compute='_compute_sale_vs_plan')
+
     paid_total = fields.Float(string='Total Recibido',
                               store=True,
                               readonly=True,
@@ -176,16 +182,15 @@ class SaleOrder(models.Model):
                             copy=False,
                             track_visibility='onchange')
 
-
-
     @api.one
     @api.depends('payment_plan_id.payment_amount')
     def _compute_plan_total(self):
-        if self.amount_total == self.plan_total:
-            self.plan_total = sum(plan_line.payment_amount for plan_line in self.payment_plan_id)
-        else:
-            raise ValidationError("EL plan de pagos no concuerda con el monto de la venta")
+        self.plan_total = sum(plan_line.payment_amount for plan_line in self.payment_plan_id)
 
+    @api.one
+    @api.depends('amount_total', 'plan_total')
+    def _compute_sale_vs_plan(self):
+        self.plan_difference = self.amount_total - self.plan_total
 
     @api.one
     @api.depends('payments_ids.amount')
