@@ -111,6 +111,10 @@
                         </div>
                         <field name="paid_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary"/>
                         <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                            <label for="open_total_by_date"/>
+                        </div>
+                        <field name="open_total_by_date" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary"/>
+                        <div class="oe_subtotal_footer_separator oe_inline o_td_label">
                             <label for="open_total"/>
                         </div>
                         <field name="open_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary"/>
