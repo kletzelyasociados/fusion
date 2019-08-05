@@ -457,6 +457,9 @@ class SaleOrder(models.Model):
     def action_deed(self):
         return
 
+    @api.multi
+    def action_update_commissions(self):
+        return
 
 
 class PaymentPlan(models.Model):
