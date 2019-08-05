@@ -198,23 +198,18 @@ class SaleOrder(models.Model):
         self.paid_total = sum(paid_line.amount for paid_line in self.payments_ids)
 
     @api.one
-    @api.depends('plan_total', 'paid_total')
+    @api.depends('plan_total', 'plan_difference', 'paid_total')
     def _compute_open_total(self):
-        if self.plan_total == 0 and self.amount_total > 0:
-            self.open_total = self.amount_total - self.paid_total
-        else:
+        if self.plan_difference == 0 and self.amount_total > 0:
             self.open_total = self.plan_total - self.paid_total
+        else:
+            self.open_total = 0
 
     @api.one
-    @api.depends('plan_total', 'paid_total')
+    @api.depends('plan_total', 'plan_difference', 'paid_total')
     def _compute_open_total_by_date(self):
-        if self.plan_total == 0 and self.amount_total > 0:
+        if self.plan_difference == 0 and self.amount_total > 0:
 
-            paid_total_by_date = sum(paid_line.amount for paid_line
-                                     in self.payments_ids.filtered(lambda l: l.payment_date <= str(date.today())))
-
-            self.open_total_by_date = self.amount_total - paid_total_by_date
-        else:
             plan_total_by_date = sum(plan_line.payment_amount for plan_line in
                                      self.payment_plan_id.filtered(lambda l: l.payment_date <= str(date.today())))
 
@@ -222,6 +217,9 @@ class SaleOrder(models.Model):
                                      in self.payments_ids.filtered(lambda l: l.payment_date <= str(date.today())))
 
             self.open_total_by_date = plan_total_by_date - paid_total_by_date
+        else:
+
+            self.open_total_by_date = 0
 
     """
     @api.multi
