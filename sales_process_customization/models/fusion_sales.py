@@ -181,7 +181,11 @@ class SaleOrder(models.Model):
     @api.one
     @api.depends('payment_plan_id.payment_amount')
     def _compute_plan_total(self):
-        self.plan_total = sum(plan_line.payment_amount for plan_line in self.payment_plan_id)
+        if self.amount_total == self.plan_total:
+            self.plan_total = sum(plan_line.payment_amount for plan_line in self.payment_plan_id)
+        else:
+            raise ValidationError("EL plan de pagos no concuerda con el monto de la venta")
+
 
     @api.one
     @api.depends('payments_ids.amount')
