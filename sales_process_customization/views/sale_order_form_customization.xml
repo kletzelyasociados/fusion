@@ -125,6 +125,11 @@
                     </group>
                 </page>
                 <page string="Comisiones">
+
+                    <button name="action_update_commissions" string="Actualizar Comisiones" type="object" class="btn-primary"/>
+                    <br>
+
+                    </br>
                     <field name="commissions_ids" mode="tree">
                         <tree string="Plan de Pagos">
                             <field name="employee_id"/>
