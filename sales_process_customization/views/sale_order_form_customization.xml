@@ -92,7 +92,7 @@
                         <div class="oe_subtotal_footer_separator oe_inline o_td_label" attrs="{'invisible': [('plan_difference', '=', 0)]}">
                             <label for="plan_difference"/>
                         </div>
-                        <field name="plan_difference" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" attrs="{'invisible': [('plan_difference', '=', 0)]}"/>
+                        <field name="plan_difference" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" style="background-color:red;" attrs="{'invisible': [('plan_difference', '=', 0)]}"/>
                     </group>
                     <br>
 
