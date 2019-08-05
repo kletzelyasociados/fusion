@@ -136,6 +136,32 @@
                     </group>
                     -->
                 </page>
+                <page string="Titulación">
+                    <field name="general_data" widget="binary"/>
+                    <field name="credit_request" widget="binary"/>
+                    <field name="identification_id" widget="binary"/>
+                    <field name="id_expiration_date"/>
+                    <field name="fiscal_id" widget="binary"/>
+                    <field name="curp" widget="binary"/>
+                    <field name="proof_of_address" widget="binary"/>
+                    <field name="birth_certificate" widget="binary"/>
+                    <field name="marriage_certificate" widget="binary"/>
+                    <field name="birth_certificate_2" widget="binary"/>
+                    <field name="sic" widget="binary"/>
+                    <field name="infonavit_conference" widget="binary"/>
+                    <field name="inst_certificate" widget="binary"/>
+                    <field name="pre_qualification_infonavit" widget="binary"/>
+                    <field name="ecotechnics" widget="binary"/>
+                    <field name="infonavit_account" widget="binary"/>
+                    <field name="salary_receipt" widget="binary"/>
+                    <field name="afore_account" widget="binary"/>
+                    <field name="credit_bureau_report" widget="binary"/>
+                    <field name="appraisal" widget="binary"/>
+                    <field name="salary_receipts" widget="binary"/>
+                    <field name="bank_acount_receipts" widget="binary"/>
+                    <field name="partials" widget="binary"/>
+                    <field name="labor_voucher" widget="binary"/>
+                </page>
             </xpath>
         </field>
     </record>

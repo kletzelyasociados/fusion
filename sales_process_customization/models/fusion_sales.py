@@ -42,12 +42,11 @@ class SaleOrder(models.Model):
         track_sequence=3,
         default='draft')
 
+    # Payments Page
     payment_plan_id = fields.One2many('payment.plan', 'sale_order_id', string='Plan de Pagos',
         readonly=True, states={'draft': [('readonly', False)]})
 
     payments_ids = fields.One2many('account.payment', 'sale_order_id', readonly=True, string='Pagos Recibidos')
-
-    commissions_ids = fields.One2many('sale.commissions', 'sale_order_id', readonly=True, string='Comisiones')
 
     plan_total = fields.Float(string='Total Plan',
                               store=True,
@@ -66,6 +65,109 @@ class SaleOrder(models.Model):
                               readonly=True,
                               digits=(16, 2),
                               compute='_compute_open_total')
+
+    # Commissions Page
+
+    commissions_ids = fields.One2many('sale.commissions', 'sale_order_id', readonly=True, string='Comisiones')
+
+    # Entitlement Page
+
+    general_data = fields.Binary(string='Hoja de datos generales',
+                            copy=False,
+                            track_visibility='onchange')
+
+    credit_request = fields.Binary(string='Solicitud de crédito',
+                            copy=False,
+                            track_visibility='onchange')
+
+    identification_id = fields.Binary(string='Identificación',
+                            copy=False,
+                            track_visibility='onchange')
+
+    id_expiration_date = fields.Date(string='Fecha de Expiración',
+                            copy=False,
+                            track_visibility='onchange')
+
+    fiscal_id = fields.Binary(string='Fiscal',
+                            copy=False,
+                            track_visibility='onchange')
+
+    curp = fields.Binary(string='CURP',
+                            copy=False,
+                            track_visibility='onchange')
+
+    proof_of_address = fields.Binary(string='Comprobante de domicilio',
+                            copy=False,
+                            track_visibility='onchange')
+
+    birth_certificate = fields.Binary(string='Acta de nacimiento',
+                            copy=False,
+                            track_visibility='onchange')
+
+    marriage_certificate = fields.Binary(string='Acta de matrimonio',
+                            copy=False,
+                            track_visibility='onchange')
+
+    birth_certificate_2 = fields.Binary(string='Acta de nacimiento de conyugue',
+                            copy=False,
+                            track_visibility='onchange')
+
+    sic = fields.Binary(string='Sociedad de información crediticia',
+                            copy=False,
+                            track_visibility='onchange')
+
+    infonavit_conference = fields.Binary(string='Taller saber para decidir',
+                            copy=False,
+                            track_visibility='onchange')
+
+    inst_certificate = fields.Binary(string='Carta de instrucción irrevocable',
+                            copy=False,
+                            track_visibility='onchange')
+
+    pre_qualification_infonavit = fields.Binary(string='Precalificación de INFONAVIT',
+                            copy=False,
+                            track_visibility='onchange')
+
+    ecotechnics = fields.Binary(string='Ecotecnias',
+                            copy=False,
+                            track_visibility='onchange')
+
+    infonavit_account = fields.Binary(string='Hoja mi cuenta INFONAVIT',
+                            copy=False,
+                            track_visibility='onchange')
+
+    salary_receipt = fields.Binary(string='Último recibo de nómina',
+                            copy=False,
+                            track_visibility='onchange')
+
+    afore_account = fields.Binary(string='Estado de cuenta AFORE',
+                            copy=False,
+                            track_visibility='onchange')
+
+    credit_bureau_report = fields.Binary(string='Reporte buró de crédito',
+                            copy=False,
+                            track_visibility='onchange')
+
+    appraisal = fields.Binary(string='Avalúo',
+                            copy=False,
+                            track_visibility='onchange')
+
+    salary_receipts = fields.Binary(string='Recibos de nómina',
+                            copy=False,
+                            track_visibility='onchange')
+
+    bank_acount_receipts = fields.Binary(string='Estados de cuenta bancarios',
+                            copy=False,
+                            track_visibility='onchange')
+
+    partials = fields.Binary(string='Parciales',
+                            copy=False,
+                            track_visibility='onchange')
+
+    labor_voucher = fields.Binary(string='Carta Laboral',
+                            copy=False,
+                            track_visibility='onchange')
+
 
 
     @api.one
