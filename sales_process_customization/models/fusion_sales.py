@@ -160,7 +160,7 @@ class SaleOrder(models.Model):
                             copy=False,
                             track_visibility='onchange')
 
-    partials = fields.Binary(string='Parciales',
+    tax_declaration = fields.Binary(string='Declaraciones de Impuestos',
                             copy=False,
                             track_visibility='onchange')
 
