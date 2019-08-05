@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f15fe529-153d-4685-80c9-7ff2206f9b74" name="Default Changelist" comment="Track visibility of amount_authorized field">
+      <change beforePath="$PROJECT_DIR$/../sales_process_customization/__manifest__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../sales_process_customization/__manifest__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sales_process_customization/models/fusion_sales.py" beforeDir="false" afterPath="$PROJECT_DIR$/../sales_process_customization/models/fusion_sales.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../sales_process_customization/views/sale_order_form_customization.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../sales_process_customization/views/sale_order_form_customization.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -66,9 +68,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="676" />
-    <option name="width" value="697" />
-    <option name="height" value="735" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
