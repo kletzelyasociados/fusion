@@ -362,10 +362,15 @@ class SaleOrder(models.Model):
     """
 
     @api.multi
-    def action_quotation_send(self):
+    @api.returns('mail.message', lambda value: value.id)
+    def message_post(self, **kwargs):
+        if self.env.context.get('mark_so_as_sent'):
+            self.filtered(lambda o: o.state == 'leader_approved').with_context(tracking_disable=True).write({'state': 'sent'})
+            self.env.user.company_id.set_onboarding_step_done('sale_onboarding_sample_quotation_state')
+        return super(SaleOrder, self.with_context(mail_post_autofollow=True)).message_post(**kwargs)
 
-        if self.state == "leader_approved":
-            self.write({'state': 'sent'})
+    @api.multi
+    def action_quotation_send(self):
 
         self.ensure_one()
         ir_model_data = self.env['ir.model.data']
@@ -399,20 +404,19 @@ class SaleOrder(models.Model):
             'context': ctx,
         }
 
-    """
     @api.multi
-    def action_done(self):
-        for order in self:
-            tx = order.sudo().transaction_ids.get_last_transaction()
-            if tx and tx.state == 'pending' and tx.acquirer_id.provider == 'transfer':
-                tx._set_transaction_done()
-                tx.write({'is_processed': True})
-        return self.write({'state': 'done'})
+    def action_confirm(self):
+        if self._get_forbidden_state_confirm() & set(self.mapped('state')):
+            raise UserError(
+                'It is not allowed to confirm an order in the following states: %s'
+            ) % (', '.join(self._get_forbidden_state_confirm()))
 
-    @api.multi
-    def action_unlock(self):
-        self.write({'state': 'sale'})
-    """
+        for order in self.filtered(lambda order: order.partner_id not in order.message_partner_ids):
+            order.message_subscribe([order.partner_id.id])
+        self.write({
+            'state': 'sale',
+            'confirmation_date': fields.Datetime.now()
+        })
 
     @api.multi
     def action_authorize(self):
