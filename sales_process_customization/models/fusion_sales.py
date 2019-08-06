@@ -358,6 +358,8 @@ class SaleOrder(models.Model):
     @api.multi
     def action_cancel(self):
         return self.write({'state': 'cancel'})
+    
+    """
 
     @api.multi
     def action_quotation_send(self):
@@ -393,6 +395,7 @@ class SaleOrder(models.Model):
             'context': ctx,
         }
 
+    """
     @api.multi
     def action_done(self):
         for order in self:
@@ -472,6 +475,10 @@ class SaleOrder(models.Model):
     @api.multi
     def action_finished_home(self):
         self.write({'state': 'house_finished'})
+
+    @api.multi
+    def action_quality_check(self):
+        self.write({'state': 'quality_check'})
 
     @api.multi
     def action_paid(self):
