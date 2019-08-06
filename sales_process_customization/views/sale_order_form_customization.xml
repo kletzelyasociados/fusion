@@ -60,6 +60,7 @@
                 <button name="action_deed" string="Escrituración" states="quality_check,house_paid" type="object" class="oe_highlight"/>
                 <button name="action_done" type="object" string="Entregada" states="house_paid,deed" class="oe_highlight"/>
                 <button name="action_reject" string="Rechazar" type="object" states="leader_approved,sale_request,sale,folder_integration,entitlement,house_finished,quality_check,house_paid,deed,cancel_request"/>
+                <button name="action_cancel_request" string="Solicitud de Cancelación" type="object" states="sale,folder_integration,entitlement,house_finished,quality_check,house_paid,deed,done"/>
                 <button name="action_cancel" string="Cancelar" states="draft,leader_approved,sent,sale_request" type="object"/>
                 <button name="action_draft" string="Cotización" states="cancel" type="object"/>
 
