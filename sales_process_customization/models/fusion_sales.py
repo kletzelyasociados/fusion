@@ -482,7 +482,7 @@ class SaleOrder(models.Model):
 
     @api.multi
     def action_paid(self):
-        self.write({'state': 'paid'})
+        self.write({'state': 'house_paid'})
 
     @api.multi
     def action_deed(self):
