@@ -363,6 +363,10 @@ class SaleOrder(models.Model):
 
     @api.multi
     def action_quotation_send(self):
+
+        if self.state == "leader_approved":
+            self.write({'state': 'sent'})
+
         self.ensure_one()
         ir_model_data = self.env['ir.model.data']
         try:
