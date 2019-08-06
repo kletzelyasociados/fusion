@@ -427,35 +427,59 @@ class SaleOrder(models.Model):
 
     @api.multi
     def action_authorize(self):
-        return
+        if self.state == 'draft':
+            self.write({'state': 'leader_approved'})
+        elif self.state == 'sale_request':
+            self.write({'state': 'sale'})
+        elif self.state == 'cancel_request':
+            self.write({'state': 'cancel'})
+        else:
+            return
 
     @api.multi
     def action_reject(self):
-        return
+        if self.state == 'leader_approved':
+            self.write({'state': 'draft'})
+        elif self.state == 'sale_request':
+            self.write({'state': 'draft'})
+        elif self.state == 'sale':
+            self.write({'state': 'draft'})
+        elif self.state == 'folder_integration':
+            self.write({'state': 'sale'})
+        elif self.state == 'entitlement':
+            self.write({'state': 'folder_integration'})
+        elif self.state == 'house_finished':
+            self.write({'state': 'entitlement'})
+        elif self.state == 'quality_check':
+            self.write({'state': 'house_finished'})
+        elif self.state == 'deed' or self.state == 'house_paid':
+            self.write({'state': 'quality_check'})
+        else:
+            return
 
     @api.multi
     def action_cancel_request(self):
-        return
+        self.write({'state': 'cancel_request'})
 
     @api.multi
     def action_integration(self):
-        return
+        self.write({'state': 'folder_integration'})
 
     @api.multi
     def action_entitlement(self):
-        return
+        self.write({'state': 'entitlement'})
 
     @api.multi
     def action_finished_home(self):
-        return
+        self.write({'state': 'house_finished'})
 
     @api.multi
     def action_paid(self):
-        return
+        self.write({'state': 'paid'})
 
     @api.multi
     def action_deed(self):
-        return
+        self.write({'state': 'deed'})
 
     @api.multi
     def action_update_commissions(self):

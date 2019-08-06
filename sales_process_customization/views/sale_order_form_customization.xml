@@ -45,29 +45,27 @@
             <xpath expr="//button[@name='action_quotation_send']" position="replace">
 
             </xpath>
-            <!--<header>
+            <header>
 
-                <button name="action_quotation_send" string="Send by Email" type="object" states="draft" class="btn-primary"/>
-                <button name="action_quotation_send" type="object" string="Send PRO-FORMA Invoice" groups="sale.group_proforma_sales" class="btn-primary" attrs="{'invisible': ['|', ('state', '!=', 'draft'), ('invoice_count','&gt;=',1)]}" context="{'proforma': True}"/>
-                <button name="print_quotation" string="Print" type="object" states="draft" class="btn-primary o_sale_print"/>
-                <button name="action_confirm" id="action_confirm" string="Confirm Sale" class="btn-primary" type="object" attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>
+                <button name="action_authorize" string="Autorizar" type="object" states="draft,sale_request,cancel_request" class="oe_highlight"/>
+                <button name="action_reject" string="Rechazar" type="object" states="leader_approved,sale_request,sale,folder_integration,entitlement,house_finished,quality_check,house_paid,deed,cancel_request" class="oe_highlight"/>
+                <button name="action_quotation_send" string="Enviar Por Correo" type="object" states="leader_approved" class="btn-primary"/>
+                <button name="action_quotation_send" type="object" string="Enviar factura PRO-Forma" groups="sale.group_proforma_sales" class="btn-primary" attrs="{'invisible': ['|', ('state', '!=', 'draft'), ('invoice_count','&gt;=',1)]}" context="{'proforma': True}"/>
+                <button name="print_quotation" string="Imprimir" type="object" states="leader_approved,sent,sale_request,sale" class="btn-primary o_sale_print"/>
+                <button name="action_cancel" string="Cancelar" states="draft,leader_approved,sent,sale_request" type="object"/>
+                <button name="action_integration" string="Integración" states="sale" type="object"/>
+                <button name="action_entitlement" string="Titulación" states="folder_integration" type="object"/>
+                <button name="action_finished_home" string="Casa Terminada" states="entitlement" type="object"/>
+                <button name="action_quality_check" string="Recibida Post-Venta" states="house_finished" type="object"/>
+                <button name="action_paid" string="Casa Pagada" states="quality_check,deed" type="object"/>
+                <button name="action_deed" string="Escrituración" states="quality_check,house_paid" type="object"/>
+                <button name="action_done" type="object" string="Entregada" states="house_paid,deed"/>
+
+                <!--<button name="action_confirm" id="action_confirm" string="Confirm Sale" class="btn-primary" type="object" attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>
                 <button name="action_confirm" string="Confirm Sale" type="object" attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
-                <button name="action_quotation_send" type="object" string="Send PRO-FORMA Invoice" groups="sale.group_proforma_sales" attrs="{'invisible': ['|', ('state', '=', 'draft'), ('invoice_count','&gt;=',1)]}" context="{'proforma': True}"/>
-                <button name="print_quotation" string="Print" type="object" states="sent,sale" class="o_sale_print"/>
-                <button name="action_quotation_send" string="Send by Email" type="object" states="sent,sale"/>
-                <button name="action_cancel" states="draft,sent,sale" type="object" string="Cancel"/>
-                <button name="action_draft" states="cancel" type="object" string="Set to Quotation"/>
-                <button name="action_done" type="object" string="Lock" states="sale" help="If the sale is locked, you can not modify it anymore. However, you will still be able to invoice or deliver."/>
-                <button name="action_unlock" type="object" string="Unlock" states="done" groups="sales_team.group_sale_manager"/>
+                Action confirm goes inside of authorize method-->
 
-                <button name="action_invoice_open" type="object" states="draft,approved_by_manager" string="Validar" class="oe_highlight" modifiers="{'invisible':[['state','not in',['draft','approved_by_manager']]]}" options="{}"/>
-                <button name="action_invoice_draft" type="object" states="cancel,payment_request,approved_by_leader,approved_by_manager,payment_rejected" string="Cambiar a borrador" class="oe_highlight" modifiers="{'invisible':[['state','not in',['cancel','payment_request','approved_by_leader','approved_by_manager','payment_rejected']]]}" options="{}"/>
-
-                <button name="action_invoice_payment_request" type="object" states="draft" string="Solicitar Pago" class="oe_highlight" modifiers="{'invisible':[['state','not in',['draft']]]}" options="{}"/>
-                <button name="action_invoice_approve" type="object" states="payment_request,approved_by_leader" string="Autorizar Pago" class="oe_highlight" modifiers="{'invisible':[['state','not in',['open']]]}" options="{}"/>
-                <button name="action_invoice_reject" type="object" states="payment_request,approved_by_leader,approved_by_manager" string="Rechazar Pago" class="oe_highlight" modifiers="{'invisible':[['state','not in',['open']]]}" options="{}"/>
-
-            </header>-->
+            </header>
             <field name="state" position="replace">
                 <field name="state" widget="statusbar" statusbar_visible="draft,leader_approved,sent,sale_request,sale,folder_integration,entitlement,house_finished,quality_check,house_paid,deed,done,cancel_request,cancel" on_change="1" modifiers="{'readonly':true}"/>
             </field>
@@ -151,30 +149,34 @@
                 </page>
                 <page string="Titulación">
                     <group>
-                        <field name="general_data" widget="binary"/>
-                        <field name="credit_request" widget="binary"/>
-                        <field name="identification_id" widget="binary"/>
-                        <field name="id_expiration_date"/>
-                        <field name="fiscal_id" widget="binary"/>
-                        <field name="curp" widget="binary"/>
-                        <field name="proof_of_address" widget="binary"/>
-                        <field name="birth_certificate" widget="binary"/>
-                        <field name="marriage_certificate" widget="binary"/>
-                        <field name="birth_certificate_2" widget="binary"/>
-                        <field name="sic" widget="binary"/>
-                        <field name="infonavit_conference" widget="binary"/>
-                        <field name="inst_certificate" widget="binary"/>
-                        <field name="pre_qualification_infonavit" widget="binary"/>
-                        <field name="ecotechnics" widget="binary"/>
-                        <field name="infonavit_account" widget="binary"/>
-                        <field name="salary_receipt" widget="binary"/>
-                        <field name="afore_account" widget="binary"/>
-                        <field name="credit_bureau_report" widget="binary"/>
-                        <field name="appraisal" widget="binary"/>
-                        <field name="salary_receipts" widget="binary"/>
-                        <field name="bank_acount_receipts" widget="binary"/>
-                        <field name="tax_declaration" widget="binary"/>
-                        <field name="labor_voucher" widget="binary"/>
+                        <group>
+                            <field name="general_data" widget="binary"/>
+                            <field name="credit_request" widget="binary"/>
+                            <field name="identification_id" widget="binary"/>
+                            <field name="id_expiration_date"/>
+                            <field name="fiscal_id" widget="binary"/>
+                            <field name="curp" widget="binary"/>
+                            <field name="proof_of_address" widget="binary"/>
+                            <field name="birth_certificate" widget="binary"/>
+                            <field name="marriage_certificate" widget="binary"/>
+                            <field name="birth_certificate_2" widget="binary"/>
+                            <field name="sic" widget="binary"/>
+                            <field name="infonavit_conference" widget="binary"/>
+                        </group>
+                        <group>
+                            <field name="inst_certificate" widget="binary"/>
+                            <field name="pre_qualification_infonavit" widget="binary"/>
+                            <field name="ecotechnics" widget="binary"/>
+                            <field name="infonavit_account" widget="binary"/>
+                            <field name="salary_receipt" widget="binary"/>
+                            <field name="afore_account" widget="binary"/>
+                            <field name="credit_bureau_report" widget="binary"/>
+                            <field name="appraisal" widget="binary"/>
+                            <field name="salary_receipts" widget="binary"/>
+                            <field name="bank_acount_receipts" widget="binary"/>
+                            <field name="tax_declaration" widget="binary"/>
+                            <field name="labor_voucher" widget="binary"/>
+                        </group>
                     </group>
                 </page>
             </xpath>
