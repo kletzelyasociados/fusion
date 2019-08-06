@@ -417,7 +417,7 @@ class SaleOrder(models.Model):
     @api.multi
     def action_authorize(self):
         if self.state == 'draft':
-            self.action_draft()
+            self.write({'state': 'leader_approved'})
         elif self.state == 'sale_request':
             self.action_confirm()
         elif self.state == 'cancel_request':
