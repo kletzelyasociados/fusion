@@ -51,7 +51,7 @@
                 <button name="action_quotation_send" string="Enviar Por Correo" type="object" states="leader_approved" />
                 <button name="action_quotation_send" type="object" string="Enviar factura PRO-Forma" groups="sale.group_proforma_sales" class="btn-primary" attrs="{'invisible': ['|', ('state', '!=', 'draft'), ('invoice_count','&gt;=',1)]}" context="{'proforma': True}"/>
                 <button name="print_quotation" string="Imprimir" type="object" states="leader_approved,sent,sale_request,sale" class="btn-primary o_sale_print"/>
-                <button name="action_confirm" string="Solicitud de Venta" states="sent" type="object" class="oe_highlight"/>
+                <button name="action_sale_request" string="Solicitud de Venta" states="sent" type="object" class="oe_highlight"/>
                 <button name="action_integration" string="Integración" states="sale" type="object" class="oe_highlight"/>
                 <button name="action_entitlement" string="Titulación" states="folder_integration" type="object" class="oe_highlight"/>
                 <button name="action_finished_home" string="Casa Terminada" states="entitlement" type="object" class="oe_highlight"/>

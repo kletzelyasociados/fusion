@@ -417,13 +417,11 @@ class SaleOrder(models.Model):
     @api.multi
     def action_authorize(self):
         if self.state == 'draft':
-            self.write({'state': 'leader_approved'})
+            self.action_draft()
         elif self.state == 'sale_request':
-            self.write({'state': 'sale'})
+            self.action_confirm()
         elif self.state == 'cancel_request':
             self.write({'state': 'cancel'})
-        else:
-            return
 
     @api.multi
     def action_reject(self):
@@ -449,6 +447,10 @@ class SaleOrder(models.Model):
     @api.multi
     def action_cancel_request(self):
         self.write({'state': 'cancel_request'})
+
+    @api.multi
+    def action_sale_request(self):
+        self.write({'state': 'sale_request'})
 
     @api.multi
     def action_integration(self):
