@@ -84,6 +84,24 @@ class SaleOrder(models.Model):
 
     commissions_ids = fields.One2many('sale.commissions', 'sale_order_id', readonly=True, string='Comisiones')
 
+    commissions_total = fields.Float(string='Total Comisiones',
+                                     store=True,
+                                     readonly=True,
+                                     digits=(16, 2),
+                                     compute='_compute_commissions_total')
+
+    comm_paid_total = fields.Float(string='Total Pagado',
+                                   store=True,
+                                   readonly=True,
+                                   digits=(16, 2),
+                                   compute='_compute_comm_paid_total')
+
+    comm_to_pay = fields.Float(string='Saldo Por_Pagar',
+                               store=True,
+                               readonly=True,
+                               digits=(16, 2),
+                               compute='_compute_comm_to_pay')
+
     # Entitlement Page
 
     general_data = fields.Binary(string='Hoja de datos generales',
@@ -220,6 +238,22 @@ class SaleOrder(models.Model):
         else:
 
             self.open_total_by_date = 0
+
+    @api.one
+    @api.depends('commissions_ids')
+    def _compute_commissions_total(self):
+        self.commissions_total = sum(comm_line.payment_amount for comm_line in self.commissions_ids)
+
+    @api.one
+    @api.depends('commissions_ids')
+    def _compute_paid_total(self):
+        self.comm_paid_total = sum(comm_line.payment_amount for comm_line in
+                                   self.commissions_ids.filtered(lambda l: l.state == 'paid'))
+
+    @api.one
+    @api.depends('commissions_total', 'comm_paid_total')
+    def _compute_paid_total(self):
+        self.comm_to_pay = self.commissions_total - self.paid_total
 
     @api.multi
     @api.returns('mail.message', lambda value: value.id)
