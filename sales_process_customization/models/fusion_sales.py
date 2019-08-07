@@ -252,7 +252,7 @@ class SaleOrder(models.Model):
 
     @api.one
     @api.depends('commissions_total', 'comm_paid_total')
-    def _compute_paid_total(self):
+    def _compute_comm_to_pay(self):
         self.comm_to_pay = self.commissions_total - self.paid_total
 
     @api.multi
