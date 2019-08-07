@@ -141,14 +141,20 @@
                             <field name="voucher" widget="binary"/>
                         </tree>
                     </field>
-                    <!--
                     <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
                         <div class="oe_subtotal_footer_separator oe_inline o_td_label">
-                            <label for="plan_total"/>
+                            <label for="commissions_total"/>
                         </div>
-                        <field name="plan_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary"/>
+                        <field name="commissions_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary"/>
+                        <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                            <label for="comm_paid_total"/>
+                        </div>
+                        <field name="comm_paid_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary"/>
+                        <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                            <label for="comm_to_pay"/>
+                        </div>
+                        <field name="comm_to_pay" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary"/>
                     </group>
-                    -->
                 </page>
                 <page string="Titulación">
                     <group>
