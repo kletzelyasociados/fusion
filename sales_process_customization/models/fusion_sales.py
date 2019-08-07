@@ -240,12 +240,12 @@ class SaleOrder(models.Model):
             self.open_total_by_date = 0
 
     @api.one
-    @api.depends('commissions_ids')
+    @api.depends('commissions_ids.payment_amount')
     def _compute_commissions_total(self):
         self.commissions_total = sum(comm_line.payment_amount for comm_line in self.commissions_ids)
 
     @api.one
-    @api.depends('commissions_ids')
+    @api.depends('commissions_ids.payment_amount')
     def _compute_comm_paid_total(self):
         self.comm_paid_total = sum(comm_line.payment_amount for comm_line in
                                    self.commissions_ids.filtered(lambda l: l.state == 'paid'))
@@ -253,7 +253,7 @@ class SaleOrder(models.Model):
     @api.one
     @api.depends('commissions_total', 'comm_paid_total')
     def _compute_comm_to_pay(self):
-        self.comm_to_pay = 0
+        self.comm_to_pay = self.commissions_total - self.comm_paid_total
 
     @api.multi
     @api.returns('mail.message', lambda value: value.id)
