@@ -1,22 +1,19 @@
 <odoo>
-  <!--<data>-->
+  <data>
     <!-- explicit list view definition -->
-    <record model="ir.ui.view" id="account_invoice_form_view_inherit">
-      <field name="name">account.invoice.custom.form.inherited</field>
-      <field name="model">account.invoice</field>
-      <field name="inherit_id" ref="account.invoice_supplier_form"/>
+    <!--
+    <record model="ir.ui.view" id="my_module.list">
+      <field name="name">my_module list</field>
+      <field name="model">my_module.my_module</field>
       <field name="arch" type="xml">
-        <header>
-		<!--The oe_highlight class gives the button a red color when it is saved.
-		It is usually used to indicate the expected behaviour. -->
-	        <button string="Importar Datos del XML" type="object" states="draft,approved_by_manager" name="import_xml_data" class="oe_highlight" modifiers="{'invisible':[['state','not in',['draft','approved_by_manager']]]}" />
-
-	    </header>
-        <!--<field name="reference" position="after">
-          <field name="UUID"/>
-        </field>-->
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
       </field>
     </record>
+    -->
 
     <!-- actions opening views on models -->
     <!--
@@ -59,5 +56,5 @@
     <menuitem name="Server to list" id="my_module" parent="my_module.menu_2"
               action="my_module.action_server"/>
     -->
-  <!-- </data>-->
+  </data>
 </odoo>
