@@ -96,7 +96,7 @@ class SaleOrder(models.Model):
                                    digits=(16, 2),
                                    compute='_compute_comm_paid_total')
 
-    comm_to_pay = fields.Float(string='Saldo Por_Pagar',
+    comm_to_pay = fields.Float(string='Saldo Por Pagar',
                                store=True,
                                readonly=True,
                                digits=(16, 2),
