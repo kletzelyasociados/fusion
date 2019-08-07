@@ -35,24 +35,29 @@ class AccountInvoice(models.Model):
 
         else:
 
-            if self.state == 'draft':
-                # The file is stored in odoo encoded in base64 bytes column, in order to get the information in the original way
-                # It must have to be decoded in the same base.
-
+            if self.state == 'draft' or self.state == 'approved_by_manager':
 
                 try:
+                    #If the XML is ok can be parsed into a document object model
+                    '''The file is stored in odoo encoded in base64 bytes column, in order to get the information in 
+                    the original way, It must have to be decoded in the same base.'''
+
                     xml = minidom.parseString(base64.b64decode(self.x_xml_file))
 
                 except:
-
+                    #If the XML has ilegal characters, it has to be decoded in base 64
                     decoded = base64.b64decode(self.x_xml_file)
 
-                    fixed_xml = str(decoded, "utf-8")
+                    #Conversion to string so it han be handled by sub() function
+                    string = str(decoded, "utf-8")
 
-                    _illegal_xml_chars_RE = re.compile(u'[\x00-\x08\x0b\x0c\x0e-\x1F\uD800-\uDFFF\uFFFE\uFFFF]')
+                    #Definition of ilegal characters in XML files
+                    ilegal_characters = re.compile(u'[\x00-\x08\x0b\x0c\x0e-\x1F\uD800-\uDFFF\uFFFE\uFFFF]')
 
-                    fixed_xml = _illegal_xml_chars_RE.sub('', fixed_xml)
+                    #Replacement of ilegal characters in the string
+                    fixed_xml = ilegal_characters.sub('', string)
 
+                    #Now the fixed string can be parsed into a document object model without error
                     xml = minidom.parseString(fixed_xml)
 
                 # Obtengo el nodo del receptor
@@ -76,7 +81,12 @@ class AccountInvoice(models.Model):
                     emisor_items = xml.getElementsByTagName("cfdi:Emisor")
 
                     # Obtengo los datos necesarios
-                    NombreEmisor = emisor_items[0].attributes['Nombre'].value
+                    try:
+                        NombreEmisor = emisor_items[0].attributes['Nombre'].value
+
+                    except:
+                        NombreEmisor = "FACTURA TIMBRADA SIN NOMBRE DE PROVEEDOR"
+
                     RfcEmisor = emisor_items[0].attributes['Rfc'].value
                     RegimenEmisor = emisor_items[0].attributes['RegimenFiscal'].value
 
@@ -95,6 +105,7 @@ class AccountInvoice(models.Model):
 
                     except:
                         Folio = xml.getElementsByTagName("tfd:TimbreFiscalDigital")[0].attributes['UUID'].value
+                        Folio = Folio[-5:]
 
                     Fecha = invoice_items[0].attributes['Fecha'].value
                     SubTotal = invoice_items[0].attributes['SubTotal'].value
@@ -135,6 +146,16 @@ class AccountInvoice(models.Model):
                                 'reference': Serie + " " + Folio,
                                 'x_invoice_date_sat': Fecha})
 
+                    if self.search([('type', '=', self.type), ('reference', '=', self.reference),
+                                    ('company_id', '=', self.company_id.id),
+                                    ('commercial_partner_id', '=', self.commercial_partner_id.id),
+                                    ('id', '!=', self.id)]):
+                        raise ValidationError("Se ha detectado una referencia de " + NombreEmisor +
+                                              " duplicada: " + self.reference +
+                                              " timbrada el " + Fecha +
+                                              " en el SAT por un monto de " +
+                                              '${}'.format(Total))
+
                     #Si tiene lineas de factura
                     if self.invoice_line_ids:
                         #Cuento las lineas de factura de odoo y del XML
@@ -152,8 +173,13 @@ class AccountInvoice(models.Model):
                                 ValorUnitario = float(invoice_line_items[idx].attributes['ValorUnitario'].value)
 
                                 try:
-                                    ValorUnitario = ValorUnitario - float(invoice_line_items[idx].attributes['Descuento'].value)
+
+                                    descuento_unitario = float(invoice_line_items[idx].attributes['Descuento'].value) / float(invoice_line_items[idx].attributes['Cantidad'].value)
+
+                                    ValorUnitario = ValorUnitario - descuento_unitario
+
                                 except:
+
                                     ValorUnitario = ValorUnitario
 
                                 line.write({
@@ -173,8 +199,13 @@ class AccountInvoice(models.Model):
                                     ValorUnitario = float(invoice_line_items[idx].attributes['ValorUnitario'].value)
 
                                     try:
-                                        ValorUnitario = ValorUnitario - float(invoice_line_items[idx].attributes['Descuento'].value)
+
+                                        descuento_unitario = float(invoice_line_items[idx].attributes['Descuento'].value) / float(invoice_line_items[idx].attributes['Cantidad'].value)
+
+                                        ValorUnitario = ValorUnitario - descuento_unitario
+
                                     except:
+
                                         ValorUnitario = ValorUnitario
 
                                     line.write({
@@ -196,8 +227,9 @@ class AccountInvoice(models.Model):
                                 ValorUnitario = float(invoice_line_items[idx].attributes['ValorUnitario'].value)
 
                                 try:
-                                    ValorUnitario = ValorUnitario - float(
-                                        invoice_line_items[idx].attributes['Descuento'].value)
+                                    descuento_unitario = float(invoice_line_items[idx].attributes['Descuento'].value)/float(invoice_line_items[idx].attributes['Cantidad'].value)
+
+                                    ValorUnitario = ValorUnitario - descuento_unitario
                                 except:
                                     ValorUnitario = ValorUnitario
 
@@ -219,8 +251,13 @@ class AccountInvoice(models.Model):
                                     ValorUnitario = float(line.attributes['ValorUnitario'].value)
 
                                     try:
-                                        ValorUnitario = ValorUnitario - float(line.attributes['Descuento'].value)
+
+                                        descuento_unitario = float(line.attributes['Descuento'].value)/float(line.attributes['Cantidad'].value)
+
+                                        ValorUnitario = ValorUnitario - descuento_unitario
+
                                     except:
+
                                         ValorUnitario = ValorUnitario
 
                                     # Creación de la línea de factura
@@ -245,8 +282,13 @@ class AccountInvoice(models.Model):
                             ValorUnitario = float(line.attributes['ValorUnitario'].value)
 
                             try:
-                                ValorUnitario = ValorUnitario - float(line.attributes['Descuento'].value)
+
+                                descuento_unitario = float(line.attributes['Descuento'].value) / float(line.attributes['Cantidad'].value)
+
+                                ValorUnitario = ValorUnitario - descuento_unitario
+
                             except:
+
                                 ValorUnitario = ValorUnitario
 
                             #Creación de la línea de factura
@@ -268,6 +310,7 @@ class AccountInvoice(models.Model):
                 else:
 
                     #Poner el valor en Null
+                    self.write({'x_xml_file': None})
 
                     raise ValidationError('La factura no corresponde a ' + self.env.user.company_id.name
                                           + "\nLa factura está hecha a: " + NombreReceptor
