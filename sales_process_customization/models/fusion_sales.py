@@ -246,7 +246,7 @@ class SaleOrder(models.Model):
 
     @api.one
     @api.depends('commissions_ids')
-    def _compute_paid_total(self):
+    def _compute_comm_paid_total(self):
         self.comm_paid_total = sum(comm_line.payment_amount for comm_line in
                                    self.commissions_ids.filtered(lambda l: l.state == 'paid'))
 
