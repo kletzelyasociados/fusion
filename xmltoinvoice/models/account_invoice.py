@@ -323,7 +323,7 @@ class AccountInvoice(models.Model):
         try:
 
             tax_id = self.env['account.tax'].search([["type_tax_use", "=", "purchase"],
-                                                    ["company_id", "=", self.company.id],
+                                                    ["company_id", "=", self.company_id.id],
                                                     ["amount", "=", xml_line.attributes['TasaOCuota'].value]], limit=1)
 
             return [(4, tax_id.id)]
@@ -338,14 +338,14 @@ class AccountInvoice(models.Model):
         try:
 
             odoo_code = self.env['product.uom'].search([["l10n_mx_edi_code_sat_id.code", "=", clave_unidad],
-                                                        ["company_id", "=", self.company.id]], limit=1)
+                                                        ["company_id", "=", self.company_id.id]], limit=1)
 
             return odoo_code.id
 
         except:
 
             odoo_code = self.env['product.uom'].search([["l10n_mx_edi_code_sat_id.code", "=", "E48"]],
-                                                       ["company_id", "=", self.company.id], limit=1)
+                                                       ["company_id", "=", self.company_id.id], limit=1)
 
             return odoo_code.id
 
