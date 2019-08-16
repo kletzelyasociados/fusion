@@ -44,7 +44,7 @@ class AccountInvoice(models.Model):
     @api.multi
     def map_xml_to_odoo_fields(self):
 
-        xml = self.binary_to_xml
+        xml = self.binary_to_xml()
 
         # Obtengo el nodo del receptor
         receptor_items = xml.getElementsByTagName("cfdi:Receptor")
@@ -154,7 +154,7 @@ class AccountInvoice(models.Model):
     def import_xml_data(self):
         self.ensure_one()
 
-        xml = self.map_xml_to_odoo_fields
+        xml = self.map_xml_to_odoo_fields()
 
         if self.state == 'draft':
 
