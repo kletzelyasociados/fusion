@@ -321,12 +321,20 @@ class AccountInvoice(models.Model):
     @api.multi
     def get_tax_id(self, xml_line):
         try:
+            invoice_line_tax_ids = []
 
             tax_id = self.env['account.tax'].search([["type_tax_use", "=", "purchase"],
                                                     ["company_id", "=", self.company_id.id],
                                                     ["amount", "=", xml_line.getElementsByTagName("cfdi:Traslado")[0].attributes['TasaOCuota'].value]], limit=1)
 
-            return [(4, tax_id.id)]
+            if tax_id:
+                invoice_line_tax_ids.append((4, tax_id.id, None))
+
+                return invoice_line_tax_ids
+
+            else:
+
+                return self.product_id.taxes_id
 
         except:
 
