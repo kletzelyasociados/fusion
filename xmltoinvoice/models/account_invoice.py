@@ -319,18 +319,13 @@ class AccountInvoice(models.Model):
 
         try:
 
-            sat_code = self.env['l10n_mx_edi.product.sat.code'].search([["code", "=", clave_unidad]], limit=1)
-
-            odoo_code = self.env['product.uom'].search([["l10n_mx_edi_code_sat_id.id", "=", sat_code.id]], limit=1)
+            odoo_code = self.env['product.uom'].search([["l10n_mx_edi_code_sat_id.code", "=", clave_unidad]], limit=1)
 
             return odoo_code
 
         except:
 
-            sat_code = self.env['l10n_mx_edi.product.sat.code'].search(
-                [["code", "=", "E48"]], limit=1)
-
-            odoo_code = self.env['product.uom'].search([["l10n_mx_edi_code_sat_id.id", "=", sat_code.id]], limit=1)
+            odoo_code = self.env['product.uom'].search([["l10n_mx_edi_code_sat_id.code", "=", "E48"]], limit=1)
 
             return odoo_code
 
