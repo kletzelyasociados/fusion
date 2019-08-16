@@ -292,7 +292,7 @@ class AccountInvoice(models.Model):
     @api.multi
     def match_xml(self, xml):
 
-        if self.partner_id != xml.partner.id:
+        if self.partner_id.id != xml.partner.id:
             raise ValidationError("No coincide el Proveedor del documento con el del XML!")
 
         if self.search([('type', '=', self.type), ('reference', '=', self.reference),
