@@ -57,8 +57,6 @@ class AccountInvoice(models.Model):
         # Valido que la factura sea para la compañía actual
         if RfcReceptor == self.env.user.company_id.vat:
 
-            xml_dict = dict()
-
             # Obtengo el nodo del emisor
             emisor_items = xml.getElementsByTagName("cfdi:Emisor")
 
@@ -89,35 +87,44 @@ class AccountInvoice(models.Model):
                 Folio = xml.getElementsByTagName("tfd:TimbreFiscalDigital")[0].attributes['UUID'].value
                 Folio = Folio[-5:]
 
-            xml_dict["reference"] = Serie + " " + Folio
+            reference = Serie + " " + Folio
 
-            xml_dict["x_invoice_date_sat"] = invoice_items[0].attributes['Fecha'].value
-            xml_dict["amount_untaxed"] = invoice_items[0].attributes['SubTotal'].value
-
-            try:
-                xml_dict["discount"] = invoice_items[0].attributes['Descuento'].value
-
-            except:
-                xml_dict["discount"] = 0
+            x_invoice_date_sat = invoice_items[0].attributes['Fecha'].value
+            amount_untaxed = invoice_items[0].attributes['SubTotal'].value
 
             try:
-                xml_dict["taxes"] = xml.getElementsByTagName("cfdi:Impuestos")[len(xml.getElementsByTagName("cfdi:Impuestos"))-1].attributes['TotalImpuestosTrasladados'].value
-            except:
-                xml_dict["taxes"] = 0
+                discount = invoice_items[0].attributes['Descuento'].value
 
-            xml_dict["amount_total"] = invoice_items[0].attributes['Total'].value
+            except:
+                discount = 0
+
+            try:
+                taxes = xml.getElementsByTagName("cfdi:Impuestos")[len(xml.getElementsByTagName("cfdi:Impuestos"))-1].attributes['TotalImpuestosTrasladados'].value
+            except:
+                taxes = 0
+
+            amount_total = invoice_items[0].attributes['Total'].value
 
             # Obtengo los nodos con la información de las líneas de factura
-            xml_dict["invoice_line_ids"] = xml.getElementsByTagName("cfdi:Concepto")
+            invoice_line_ids = xml.getElementsByTagName("cfdi:Concepto")
 
             # Busco al proveedor
-            xml_dict["partner"] = self.env['res.partner'].search([["vat", "=", RfcEmisor]], limit=1)
+            partner = self.env['res.partner'].search([["vat", "=", RfcEmisor]], limit=1)
 
             # Si no existe lo creo en odoo
-            if not xml_dict["partner"]:
-                xml_dict["partner"] = self.create_partner(RegimenEmisor=RegimenEmisor, NombreEmisor=NombreEmisor, RfcEmisor=RfcEmisor)
+            if not partner:
+                partner = self.create_partner(RegimenEmisor=RegimenEmisor, NombreEmisor=NombreEmisor, RfcEmisor=RfcEmisor)
 
-            return xml_dict
+            xml_mapped = MappedXml(reference=reference,
+                                   x_invoice_date_sat=x_invoice_date_sat,
+                                   amount_untaxed=amount_untaxed,
+                                   discount=discount,
+                                   taxes=taxes,
+                                   amount_total=amount_total,
+                                   invoice_line_ids=invoice_line_ids,
+                                   partner=partner)
+
+            return xml_mapped
 
         # Si la factura no es de la compañia actual envío una alerta
         else:
@@ -307,3 +314,15 @@ class AccountInvoice(models.Model):
         if not (-.10 <= difference <= .10):
             raise ValidationError("No coincide el monto de factura! variación: " + "${:,.2f}".format(difference))
 
+
+class MappedXml:
+
+    def __init__(self, reference, x_invoice_date_sat, amount_untaxed, discount, taxes, amount_total, invoice_line_ids, partner):
+        self.reference = reference
+        self.x_invoice_date_sat = x_invoice_date_sat
+        self.amount_untaxed = amount_untaxed
+        self.discount = discount
+        self.taxes = taxes
+        self.amount_total = amount_total
+        self.invoice_line_ids = invoice_line_ids
+        self.partner = partner
