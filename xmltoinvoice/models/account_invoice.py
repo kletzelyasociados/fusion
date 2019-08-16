@@ -4,6 +4,7 @@ import base64
 from odoo.exceptions import AccessError, UserError, RedirectWarning, ValidationError, Warning
 import re
 from odoo import models, fields, api
+from datetime import datetime
 
 
 class AccountInvoice(models.Model):
@@ -293,7 +294,7 @@ class AccountInvoice(models.Model):
     def match_xml(self, xml):
 
         if self.partner_id.id != xml.partner.id:
-            raise ValidationError("No coincide el Proveedor del documento con el del XML!" +
+            raise ValidationError("No coincide el Proveedor de la Factura Odoo con el del CFDi!" +
                                   "\nProveedor en la Factura: " + self.partner_id +
                                   "\nProveedor en el XML: " + xml.partner.name)
 
@@ -308,15 +309,18 @@ class AccountInvoice(models.Model):
                                       " en el SAT por un monto de " +
                                       "${:,.2f}".format(xml.amount_total))
 
-        if self.x_invoice_date_sat != xml.x_invoice_date_sat:
-            raise ValidationError("No coincide la fecha de timbrado de la Factura con la del XML!" +
-                                  "\nFecha de facturación del SAT en la Factura: " + self.x_invoice_date_sat +
-                                  "\nFecha de timbrado en el XML: " + xml.x_invoice_date_sat)
+        if self.x_invoice_date_sat != datetime.strptime(xml.x_invoice_date_sat, '%Y-%m-%d').date():
+            raise ValidationError("No coincide la fecha de timbrado de la Factura Odoo con el del CFDi!" +
+                                  "\nFecha de facturación del SAT en la Factura Odoo: " + self.x_invoice_date_sat +
+                                  "\nFecha de timbrado en el CFDi: " + xml.x_invoice_date_sat)
 
         difference = self.amount_total - xml.amount_total
 
         if not (-.10 <= difference <= .10):
-            raise ValidationError("No coincide el monto de factura! variación: " + "${:,.2f}".format(difference))
+            raise ValidationError("No coincide el monto de factura!" +
+                                  "\nMonto total en la Factura Odoo: " + self.amount_total +
+                                  "\nMOnto total en el CFDi: " + xml.amount_total +
+                                  "Variación: " + "${:,.2f}".format(difference))
 
     @api.multi
     def get_uom(self, clave_unidad):
@@ -338,7 +342,7 @@ class MappedXml:
 
     def __init__(self, reference, x_invoice_date_sat, amount_untaxed, discount, taxes, amount_total, invoice_line_ids, partner):
         self.reference = reference
-        self.x_invoice_date_sat = x_invoice_date_sat
+        self.x_invoice_date_sat = datetime.strptime(x_invoice_date_sat, '%Y-%m-%d').date()
         self.amount_untaxed = float(amount_untaxed)
         self.discount = float(discount)
         self.taxes = float(taxes)
