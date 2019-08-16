@@ -293,7 +293,9 @@ class AccountInvoice(models.Model):
     def match_xml(self, xml):
 
         if self.partner_id.id != xml.partner.id:
-            raise ValidationError("No coincide el Proveedor del documento con el del XML!")
+            raise ValidationError("No coincide el Proveedor del documento con el del XML!" +
+                                  "\nProveedor en la Factura: " + self.partner_id +
+                                  "\nProveedor en el XML: " + xml.partner.name)
 
         if self.search([('type', '=', self.type), ('reference', '=', self.reference),
                         ('company_id', '=', self.company_id.id),
@@ -307,7 +309,9 @@ class AccountInvoice(models.Model):
                                       "${:,.2f}".format(xml.amount_total))
 
         if self.x_invoice_date_sat != xml.x_invoice_date_sat:
-            raise ValidationError("No coincide la fecha de timbrado de la Factura con la del XML!")
+            raise ValidationError("No coincide la fecha de timbrado de la Factura con la del XML!" +
+                                  "\nFecha de facturación del SAT en la Factura: " + self.x_invoice_date_sat +
+                                  "\nFecha de timbrado en el XML: " + xml.x_invoice_date_sat)
 
         difference = self.amount_total - xml.amount_total
 
