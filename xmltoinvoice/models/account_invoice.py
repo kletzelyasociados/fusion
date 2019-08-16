@@ -296,7 +296,7 @@ class AccountInvoice(models.Model):
         if self.partner_id.id != xml.partner.id:
 
             raise ValidationError("No coincide el Proveedor de la Factura Odoo con el del CFDi!" +
-                                  "\nProveedor en la Factura: " + self.partner_id +
+                                  "\nProveedor en la Factura: " + self.partner_id.name +
                                   "\nProveedor en el XML: " + xml.partner.name)
 
         if self.search([('type', '=', self.type), ('reference', '=', self.reference),
@@ -322,7 +322,7 @@ class AccountInvoice(models.Model):
 
             raise ValidationError("No coincide el monto de factura!" +
                                   "\nMonto total en la Factura Odoo: " + "${:,.2f}".format(self.amount_total) +
-                                  "\nMOnto total en el CFDi: " + "${:,.2f}".format(xml.amount_total) +
+                                  "\nMonto total en el CFDi: " + "${:,.2f}".format(xml.amount_total) +
                                   "\nVariación: " + "${:,.2f}".format(difference))
 
     @api.multi
