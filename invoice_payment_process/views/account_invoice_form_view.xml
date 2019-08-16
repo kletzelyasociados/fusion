@@ -1,0 +1,81 @@
+<odoo>
+  <!--<data>-->
+    <!-- Overriding base view to change default behaviour -->
+    <record model="ir.ui.view" id="account_invoice_form_view_inherit_payments">
+      <field name="name">account.invoice.custom.form.payments.inherited</field>
+      <field name="model">account.invoice</field>
+      <field name="inherit_id" ref="account.invoice_supplier_form"/>
+      <field name="arch" type="xml">
+
+          <xpath expr="//button[@name='action_invoice_open']" position="replace">
+
+          </xpath>
+          <xpath expr="//button[@name='action_invoice_draft']" position="replace">
+
+          </xpath>
+
+          <header>
+
+            <button name="action_invoice_open" type="object" states="draft,approved_by_manager" string="Validar" class="oe_highlight" modifiers="{'invisible':[['state','not in',['draft','approved_by_manager']]]}" options="{}"/>
+            <button name="action_invoice_draft" type="object" states="cancel,payment_request,approved_by_leader,approved_by_manager,payment_rejected" string="Cambiar a borrador" class="oe_highlight" modifiers="{'invisible':[['state','not in',['cancel','payment_request','approved_by_leader','approved_by_manager','payment_rejected']]]}" options="{}"/>
+
+            <button name="action_invoice_payment_request" type="object" states="draft" string="Solicitar Pago" class="oe_highlight" modifiers="{'invisible':[['state','not in',['draft']]]}" options="{}"/>
+            <button name="action_invoice_approve" type="object" states="payment_request,approved_by_leader" string="Autorizar Pago" class="oe_highlight" modifiers="{'invisible':[['state','not in',['open']]]}" options="{}"/>
+            <button name="action_invoice_reject" type="object" states="payment_request,approved_by_leader,approved_by_manager" string="Rechazar Pago" class="oe_highlight" modifiers="{'invisible':[['state','not in',['open']]]}" options="{}"/>
+
+          </header>
+          <field name="state" position="replace">
+            <field name="state" widget="statusbar" statusbar_visible="draft,payment_request,approved_by_leader,approved_by_manager,open,paid,payment_rejected" on_change="1" modifiers="{'readonly':true}"/>
+          </field>
+
+        <field name="purchase_id" position="after">
+            <field name="department_id" readonly="1"/>
+            <field name="account_analytic_id" readonly="1"/>
+            <field name="analytic_tag_ids" readonly="1" widget="many2many_tags"/>
+        </field>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="my_module.action_window">
+      <field name="name">my_module window</field>
+      <field name="res_model">my_module.my_module</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="my_module.action_server">
+      <field name="name">my_module server</field>
+      <field name="model_id" ref="model_my_module_my_module"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="my_module" id="my_module.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="my_module.menu_1" parent="my_module.menu_root"/>
+    <menuitem name="Menu 2" id="my_module.menu_2" parent="my_module.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="my_module.menu_1_list" parent="my_module.menu_1"
+              action="my_module.action_window"/>
+    <menuitem name="Server to list" id="my_module" parent="my_module.menu_2"
+              action="my_module.action_server"/>
+    -->
+  <!-- </data>-->
+</odoo>
