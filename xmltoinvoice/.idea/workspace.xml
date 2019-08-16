@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="47bb8b36-2dc0-47cf-b447-fe577a2c9883" name="Default Changelist" comment="Adding validation of invoice total amount vs xml and optimizing code">
-      <change beforePath="$PROJECT_DIR$/../invoice_payment_process/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../invoice_payment_process/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="47bb8b36-2dc0-47cf-b447-fe577a2c9883" name="Default Changelist" comment="Fixing function calls">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/account_invoice.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/account_invoice.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,18 +16,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
-              <caret line="308" selection-start-line="308" selection-end-line="308" />
+            <state relative-caret-position="2108">
+              <caret line="124" column="50" selection-start-line="124" selection-start-column="50" selection-end-line="124" selection-end-column="50" />
               <folding>
                 <element signature="e#24#51#0" expanded="true" />
-                <element signature="e#331#1598#0" />
-                <element signature="e#1662#4763#0" />
-                <element signature="e#4858#5479#0" />
-                <element signature="e#5535#8531#0" />
-                <element signature="e#8619#8962#0" />
-                <element signature="e#9033#9572#0" />
-                <element signature="e#9649#9987#0" />
-                <element signature="e#10043#11236#0" />
               </folding>
             </state>
           </provider>
@@ -60,6 +52,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/__manifest__.py" />
         <option value="$PROJECT_DIR$/models/account_invoice.py" />
       </list>
     </option>
@@ -70,6 +63,7 @@
     <option name="width" value="1382" />
     <option name="height" value="744" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -123,7 +117,28 @@
       <option name="project" value="LOCAL" />
       <updated>1565918451362</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Adding validation of invoice total amount vs xml and optimizing code">
+      <created>1565919257299</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1565919257299</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Fixing function calls">
+      <created>1565920304962</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1565920304962</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Fixing function calls">
+      <created>1565920448797</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1565920448797</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -140,9 +155,9 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.6770833" visible="true" weight="0.3289689" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="7" sideWeight="0.6770833" visible="true" weight="0.3289689" />
       <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info active="true" anchor="bottom" id="Event Log" order="9" sideWeight="0.32291666" side_tool="true" visible="true" weight="0.32242227" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.32291666" side_tool="true" weight="0.32242227" />
       <window_info anchor="bottom" id="Python Console" order="10" />
       <window_info anchor="bottom" id="GitLabIntegration" order="11" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -168,7 +183,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Adding validation of invoice total amount vs xml and optimizing code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding validation of invoice total amount vs xml and optimizing code" />
+    <MESSAGE value="Fixing function calls" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixing function calls" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/__manifest__.py">
@@ -183,18 +199,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="308" selection-start-line="308" selection-end-line="308" />
+        <state relative-caret-position="2108">
+          <caret line="124" column="50" selection-start-line="124" selection-start-column="50" selection-end-line="124" selection-end-column="50" />
           <folding>
             <element signature="e#24#51#0" expanded="true" />
-            <element signature="e#331#1598#0" />
-            <element signature="e#1662#4763#0" />
-            <element signature="e#4858#5479#0" />
-            <element signature="e#5535#8531#0" />
-            <element signature="e#8619#8962#0" />
-            <element signature="e#9033#9572#0" />
-            <element signature="e#9649#9987#0" />
-            <element signature="e#10043#11236#0" />
           </folding>
         </state>
       </provider>
