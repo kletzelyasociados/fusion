@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="326" column="112" selection-start-line="326" selection-start-column="112" selection-end-line="326" selection-end-column="112" />
+            <state relative-caret-position="330">
+              <caret line="330" column="44" selection-start-line="330" selection-start-column="44" selection-end-line="330" selection-end-column="44" />
               <folding>
                 <element signature="e#24#51#0" expanded="true" />
                 <element signature="e#10386#12241#0" />
@@ -50,6 +50,7 @@
       <find>format</find>
       <find>datetime</find>
       <find>get_uom</find>
+      <find>tasa</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -305,7 +306,21 @@
       <option name="project" value="LOCAL" />
       <updated>1565975257483</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Fixing KeyError: 'TasaOCuota' not found because is not inthe same leaf">
+      <created>1565976296126</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1565976296126</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Fixing AttributeError: 'NodeList' object has no attribute 'attributes'">
+      <created>1565976583671</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1565976583671</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -377,10 +392,12 @@
     <MESSAGE value="Fixing AttributeError: 'account.invoice' object has no attribute 'company'" />
     <MESSAGE value="Fixing TypeError: %d format: a number is required, not list" />
     <MESSAGE value="Fixing ValueError: Invalid field 'company_id' in leaf &quot;&lt;osv.ExtendedLeaf: ('company_id', '=', 1) on product_uom (ctx: )&gt;&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixing ValueError: Invalid field 'company_id' in leaf &quot;&lt;osv.ExtendedLeaf: ('company_id', '=', 1) on product_uom (ctx: )&gt;&quot;" />
+    <MESSAGE value="Fixing KeyError: 'TasaOCuota' not found because is not inthe same leaf" />
+    <MESSAGE value="Fixing AttributeError: 'NodeList' object has no attribute 'attributes'" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixing AttributeError: 'NodeList' object has no attribute 'attributes'" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/models/purchase.py">
+    <entry file="file://$PROJECT_DIR$/../invoice_payment_process/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/__manifest__.py">
@@ -390,13 +407,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../invoice_payment_process/.idea/workspace.xml">
+    <entry file="file://$PROJECT_DIR$/models/purchase.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="326" column="112" selection-start-line="326" selection-start-column="112" selection-end-line="326" selection-end-column="112" />
+        <state relative-caret-position="330">
+          <caret line="330" column="44" selection-start-line="330" selection-start-column="44" selection-end-line="330" selection-end-column="44" />
           <folding>
             <element signature="e#24#51#0" expanded="true" />
             <element signature="e#10386#12241#0" />
