@@ -10,7 +10,6 @@ from datetime import datetime
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
-    @api.multi
     def binary_to_xml(self):
         self.ensure_one()
         if not self.x_xml_file:
@@ -42,7 +41,6 @@ class AccountInvoice(models.Model):
 
             return xml
 
-    @api.multi
     def map_xml_to_odoo_fields(self):
 
         xml = self.binary_to_xml()
@@ -134,7 +132,6 @@ class AccountInvoice(models.Model):
                                   + "\nLa factura está hecha a: " + NombreReceptor
                                   + " RFC: " + RfcReceptor)
 
-    @api.multi
     def import_xml_data(self):
         self.ensure_one()
 
@@ -212,7 +209,7 @@ class AccountInvoice(models.Model):
 
                     self.create_invoice_line(line)
 
-                self.compute_taxes()
+            self.compute_taxes()
 
         elif self.state == 'approved_by_manager' or self.state == 'open' or self.state == 'paid':
             if self.match_xml(xml):
@@ -220,7 +217,6 @@ class AccountInvoice(models.Model):
                             'reference': xml.reference,
                             'x_invoice_date_sat': xml.x_invoice_date_sat})
 
-    @api.multi
     def overwrite_invoice_line(self, odoo_line, xml_line, i):
 
         odoo_line.write({
@@ -231,9 +227,6 @@ class AccountInvoice(models.Model):
             'price_unit': self.get_discounted_unit_price(xml_line[i])
         })
 
-        odoo_line._set_taxes()
-
-    @api.multi
     def create_invoice_line(self, xml_line):
 
         # Creación de la línea de factura
@@ -252,9 +245,6 @@ class AccountInvoice(models.Model):
             'invoice_line_tax_ids': self.get_tax_id(new_line, xml_line)
         })
 
-        new_line._set_taxes()
-
-    @api.multi
     def match_xml(self, xml):
 
         if self.partner_id.id != xml.partner.id:
@@ -289,7 +279,6 @@ class AccountInvoice(models.Model):
                                   "\nMonto total en el CFDi: " + "${:,.2f}".format(xml.amount_total) +
                                   "\nVariación: " + "${:,.2f}".format(difference))
 
-    @api.multi
     def create_partner(self, RegimenEmisor, NombreEmisor, RfcEmisor):
         if RegimenEmisor == 612:
             company_type = "person"
@@ -313,15 +302,12 @@ class AccountInvoice(models.Model):
 
         return partner
 
-    @api.multi
     def get_product_id(self):
         pass
 
-    @api.multi
     def get_account_id(self):
         return self.account_id
 
-    @api.multi
     def get_tax_id(self, odoo_line, xml_line):
 
         try:
@@ -329,7 +315,6 @@ class AccountInvoice(models.Model):
             rate = xml_line[0].getElementsByTagName("cfdi:Traslado")[0].attributes['TasaOCuota'].value * 10
 
             if rate == 0:
-
                 tax_id = self.env['account.tax'].search([["type_tax_use", "=", "purchase"],
                                                         ["company_id", "=", self.company_id.id],
                                                         ["amount", "=", rate]], limit=1)
@@ -339,14 +324,22 @@ class AccountInvoice(models.Model):
                     return [(4, tax_id.id, None)]
 
                 else:
+                    return odoo_line.product_id.supplier_taxes_id
 
-                    return odoo_line.invoice_line_tax_ids
+            elif odoo_line.invoice_line_tax_ids:
+                return odoo_line.invoice_line_tax_ids
+
+            elif self.invoice_id.type in ('out_invoice', 'out_refund'):
+                return odoo_line.product_id.taxes_id
+
+            else:
+                return odoo_line.product_id.supplier_taxes_id
+
 
         except:
 
-            return self.product_id.taxes_id
+            return odoo_line.product_id.taxes_id
 
-    @api.multi
     def get_uom(self, xml_line):
 
         try:
@@ -361,7 +354,6 @@ class AccountInvoice(models.Model):
 
             return odoo_code.id
 
-    @api.multi
     def get_discounted_unit_price(self, xml_line):
 
         price_unit = float(xml_line.attributes['ValorUnitario'].value)
@@ -378,6 +370,14 @@ class AccountInvoice(models.Model):
             price_unit = price_unit
 
         return price_unit
+
+    def _set_taxes(self):
+        """ Used in on_change to set taxes and price."""
+        if self.invoice_id.type in ('out_invoice', 'out_refund'):
+            taxes = self.product_id.taxes_id or self.account_id.tax_ids
+        else:
+            taxes = self.product_id.supplier_taxes_id or self.account_id.tax_ids
+
 
 class MappedXml:
 
