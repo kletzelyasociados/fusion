@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
-              <caret line="315" lean-forward="true" selection-start-line="315" selection-end-line="315" />
+            <state relative-caret-position="-315">
+              <caret line="296" column="12" selection-start-line="296" selection-start-column="12" selection-end-line="296" selection-end-column="12" />
               <folding>
                 <element signature="e#24#51#0" expanded="true" />
               </folding>
@@ -224,7 +224,14 @@
       <option name="project" value="LOCAL" />
       <updated>1565934156821</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Solving TypeError: must be str, not float">
+      <created>1565934768622</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1565934768622</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -289,7 +296,8 @@
     <MESSAGE value="Adding more information in rase errors" />
     <MESSAGE value="Solving date comparison format" />
     <MESSAGE value="Solving date comparison format to str" />
-    <option name="LAST_COMMIT_MESSAGE" value="Solving date comparison format to str" />
+    <MESSAGE value="Solving TypeError: must be str, not float" />
+    <option name="LAST_COMMIT_MESSAGE" value="Solving TypeError: must be str, not float" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/__manifest__.py">
@@ -304,8 +312,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="315" lean-forward="true" selection-start-line="315" selection-end-line="315" />
+        <state relative-caret-position="-315">
+          <caret line="296" column="12" selection-start-line="296" selection-start-column="12" selection-end-line="296" selection-end-column="12" />
           <folding>
             <element signature="e#24#51#0" expanded="true" />
           </folding>
