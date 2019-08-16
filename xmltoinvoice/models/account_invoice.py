@@ -1,333 +1,309 @@
 # -*- coding: utf-8 -*-
-
-from odoo import models, fields, api
-
 from xml.dom import minidom
 import base64
 from odoo.exceptions import AccessError, UserError, RedirectWarning, ValidationError, Warning
 import re
-
-# class my_module(models.Model):
-#     _name = 'my_module.my_module'
-
-#     name = fields.Char()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         self.value2 = float(self.value) / 100
-
 from odoo import models, fields, api
 
 
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
-    #UUID = fields.Text(string='Folio Fiscal')
-
     @api.multi
-    def import_xml_data(self):
-
+    def binary_to_xml(self):
+        self.ensure_one()
         if not self.x_xml_file:
             raise ValidationError('No hay ningún archivo XML adjunto!')
 
         else:
+            try:
+                # If the XML is ok can be parsed into a document object model
+                '''The file is stored in odoo encoded in base64 bytes column, in order to get the information in 
+                the original way, It must have to be decoded in the same base.'''
 
-            if self.state == 'draft' or self.state == 'approved_by_manager':
+                xml = minidom.parseString(base64.b64decode(self.x_xml_file))
 
-                try:
-                    #If the XML is ok can be parsed into a document object model
-                    '''The file is stored in odoo encoded in base64 bytes column, in order to get the information in 
-                    the original way, It must have to be decoded in the same base.'''
+            except:
+                # If the XML has ilegal characters, it has to be decoded in base 64
+                decoded = base64.b64decode(self.x_xml_file)
 
-                    xml = minidom.parseString(base64.b64decode(self.x_xml_file))
+                # Conversion to string so it han be handled by sub() function
+                string = str(decoded, "utf-8")
 
-                except:
-                    #If the XML has ilegal characters, it has to be decoded in base 64
-                    decoded = base64.b64decode(self.x_xml_file)
+                # Definition of ilegal characters in XML files
+                ilegal_characters = re.compile(u'[\x00-\x08\x0b\x0c\x0e-\x1F\uD800-\uDFFF\uFFFE\uFFFF]')
 
-                    #Conversion to string so it han be handled by sub() function
-                    string = str(decoded, "utf-8")
+                # Replacement of ilegal characters in the string
+                fixed_xml = ilegal_characters.sub('', string)
 
-                    #Definition of ilegal characters in XML files
-                    ilegal_characters = re.compile(u'[\x00-\x08\x0b\x0c\x0e-\x1F\uD800-\uDFFF\uFFFE\uFFFF]')
+                # Now the fixed string can be parsed into a document object model without error
+                xml = minidom.parseString(fixed_xml)
 
-                    #Replacement of ilegal characters in the string
-                    fixed_xml = ilegal_characters.sub('', string)
-
-                    #Now the fixed string can be parsed into a document object model without error
-                    xml = minidom.parseString(fixed_xml)
-
-                # Obtengo el nodo del receptor
-                receptor_items = xml.getElementsByTagName("cfdi:Receptor")
-
-                # Obtengo nombre y RFC del receptor
-
-                NombreReceptor = receptor_items[0].attributes['Nombre'].value
-                RfcReceptor = receptor_items[0].attributes['Rfc'].value
-
-                #Valido que la factura sea para la compañía actual
-                if RfcReceptor == self.env.user.company_id.vat:
-
-                    # Obtengo el nodo del emisor
-                    emisor_items = xml.getElementsByTagName("cfdi:Emisor")
-
-                    # Obtengo los datos necesarios
-                    try:
-                        NombreEmisor = emisor_items[0].attributes['Nombre'].value
-
-                    except:
-                        NombreEmisor = "FACTURA TIMBRADA SIN NOMBRE DE PROVEEDOR"
-
-                    RfcEmisor = emisor_items[0].attributes['Rfc'].value
-                    RegimenEmisor = emisor_items[0].attributes['RegimenFiscal'].value
-
-                    # Obtengo el nodo del comprobante
-                    invoice_items = xml.getElementsByTagName("cfdi:Comprobante")
-
-                    # Obtengo los datos principales de la factura
-                    try:
-                        Serie = invoice_items[0].attributes['Serie'].value
-
-                    except:
-                        Serie = ""
-
-                    try:
-                        Folio = invoice_items[0].attributes['Folio'].value
-
-                    except:
-                        Folio = xml.getElementsByTagName("tfd:TimbreFiscalDigital")[0].attributes['UUID'].value
-                        Folio = Folio[-5:]
-
-                    Fecha = invoice_items[0].attributes['Fecha'].value
-                    SubTotal = invoice_items[0].attributes['SubTotal'].value
-                    Moneda = invoice_items[0].attributes['Moneda'].value
-                    Total = invoice_items[0].attributes['Total'].value
-
-                    # Obtengo los nodos con la información de las líneas de factura
-                    invoice_line_items = xml.getElementsByTagName("cfdi:Concepto")
-
-                    #Busco al proveedor
-                    partner = self.env['res.partner'].search([["vat", "=", RfcEmisor]], limit=1)
-
-                    #Si no existe lo creo en odoo
-                    if not partner:
-
-                        if RegimenEmisor == 612:
-                            company_type = "person"
-                            fiscal_position = 10
-                        else:
-                            company_type = "company"
-                            fiscal_position = 1
-
-                        partner = self.env['res.partner'].create({
-                            'company_type': company_type,
-                            'name': NombreEmisor,
-                            'vat': RfcEmisor,
-                            'country_id': 156,
-                            'lang': "es_MX",
-                            'supplier': 1,
-                            'customer': 0,
-                            'property_account_position_id': fiscal_position,
-                            'l10n_mx_type_of_operation': "85",
-                            'type': 'contact'
-                            })
-
-                    #Asigno los datos al documento
-                    self.write({'partner_id': partner.id,
-                                'reference': Serie + " " + Folio,
-                                'x_invoice_date_sat': Fecha})
-
-                    if self.search([('type', '=', self.type), ('reference', '=', self.reference),
-                                    ('company_id', '=', self.company_id.id),
-                                    ('commercial_partner_id', '=', self.commercial_partner_id.id),
-                                    ('id', '!=', self.id)]):
-
-                        raise ValidationError("Se ha detectado una referencia de " + NombreEmisor +
-                                              " duplicada: " + self.reference +
-                                              " timbrada el " + Fecha +
-                                              " en el SAT por un monto de " +
-                                              '${}'.format(Total))
-
-                    #Si tiene lineas de factura
-                    if self.invoice_line_ids:
-                        #Cuento las lineas de factura de odoo y del XML
-                        odoo_lines = 0
-
-                        for lines in self.invoice_line_ids:
-                            odoo_lines = odoo_lines + 1
-
-                        xml_lines = len(invoice_line_items)
-                        # Si son iguales solamente edito las de odoo
-                        if odoo_lines == xml_lines:
-
-                            for idx, line in enumerate(self.invoice_line_ids):
-
-                                ValorUnitario = float(invoice_line_items[idx].attributes['ValorUnitario'].value)
-
-                                try:
-
-                                    descuento_unitario = float(invoice_line_items[idx].attributes['Descuento'].value) / float(invoice_line_items[idx].attributes['Cantidad'].value)
-
-                                    ValorUnitario = ValorUnitario - descuento_unitario
-
-                                except:
-
-                                    ValorUnitario = ValorUnitario
-
-                                line.write({
-                                    'name': invoice_line_items[idx].attributes['Descripcion'].value,
-                                    'quantity': invoice_line_items[idx].attributes['Cantidad'].value,
-                                    'uom_id': self.getUOMID(invoice_line_items[idx].attributes['ClaveUnidad'].value),
-                                    'price_unit': ValorUnitario
-                                })
-                                line._set_taxes()
-
-                        elif odoo_lines > xml_lines:
-
-                            for idx, line in enumerate(self.invoice_line_ids):
-
-                                try:
-
-                                    ValorUnitario = float(invoice_line_items[idx].attributes['ValorUnitario'].value)
-
-                                    try:
-
-                                        descuento_unitario = float(invoice_line_items[idx].attributes['Descuento'].value) / float(invoice_line_items[idx].attributes['Cantidad'].value)
-
-                                        ValorUnitario = ValorUnitario - descuento_unitario
-
-                                    except:
-
-                                        ValorUnitario = ValorUnitario
-
-                                    line.write({
-                                        'name': invoice_line_items[idx].attributes['Descripcion'].value,
-                                        'quantity': invoice_line_items[idx].attributes['Cantidad'].value,
-                                        'uom_id': self.getUOMID(invoice_line_items[idx].attributes['ClaveUnidad'].value),
-                                        'price_unit': ValorUnitario
-                                    })
-                                    line._set_taxes()
-
-                                except:
-
-                                    line.unlink()
-
-                        elif xml_lines > odoo_lines:
-
-                            for idx, line in enumerate(self.invoice_line_ids):
-
-                                ValorUnitario = float(invoice_line_items[idx].attributes['ValorUnitario'].value)
-
-                                try:
-                                    descuento_unitario = float(invoice_line_items[idx].attributes['Descuento'].value)/float(invoice_line_items[idx].attributes['Cantidad'].value)
-
-                                    ValorUnitario = ValorUnitario - descuento_unitario
-                                except:
-                                    ValorUnitario = ValorUnitario
-
-                                line.write({
-                                    'name': invoice_line_items[idx].attributes['Descripcion'].value,
-                                    'quantity': invoice_line_items[idx].attributes['Cantidad'].value,
-                                    'uom_id': self.getUOMID(invoice_line_items[idx].attributes['ClaveUnidad'].value),
-                                    'price_unit': ValorUnitario
-                                })
-                                line._set_taxes()
-
-                            for idx, line in enumerate(invoice_line_items):
-
-                                if idx < odoo_lines:
-                                    continue
-
-                                else:
-
-                                    ValorUnitario = float(line.attributes['ValorUnitario'].value)
-
-                                    try:
-
-                                        descuento_unitario = float(line.attributes['Descuento'].value)/float(line.attributes['Cantidad'].value)
-
-                                        ValorUnitario = ValorUnitario - descuento_unitario
-
-                                    except:
-
-                                        ValorUnitario = ValorUnitario
-
-                                    # Creación de la línea de factura
-                                    new_line = self.env['account.invoice.line'].create({
-                                        'invoice_id': self.id,
-                                        'product_id': 921,
-                                        'name': line.attributes['Descripcion'].value,
-                                        'account_id': 1977,
-                                        'quantity': line.attributes['Cantidad'].value,
-                                        'uom_id': self.getUOMID(line.attributes['ClaveUnidad'].value),
-                                        'price_unit': ValorUnitario,
-                                        'type': "in_invoice"
-                                    })
-
-                                    new_line._set_taxes()
-
-                    #Sino tiene lineas de factura
-                    else:
-                        #Para cada concepto del XML creo una linea de factura en odoo
-                        for line in invoice_line_items:
-
-                            ValorUnitario = float(line.attributes['ValorUnitario'].value)
-
-                            try:
-
-                                descuento_unitario = float(line.attributes['Descuento'].value) / float(line.attributes['Cantidad'].value)
-
-                                ValorUnitario = ValorUnitario - descuento_unitario
-
-                            except:
-
-                                ValorUnitario = ValorUnitario
-
-                            #Creación de la línea de factura
-                            new_line = self.env['account.invoice.line'].create({
-                                'invoice_id': self.id,
-                                'product_id': 921,
-                                'name': line.attributes['Descripcion'].value,
-                                'account_id': 1977,
-                                'quantity': line.attributes['Cantidad'].value,
-                                'uom_id': self.getUOMID(line.attributes['ClaveUnidad'].value),
-                                'price_unit': ValorUnitario,
-                                'type': "in_invoice"
-                                })
-                            new_line._set_taxes()
-
-                    self.compute_taxes()
-
-                #Si la factura no es de la compañia actual envío una alerta
-                else:
-
-                    #Poner el valor en Null
-                    self.write({'x_xml_file': None})
-
-                    raise ValidationError('La factura no corresponde a ' + self.env.user.company_id.name
-                                          + "\nLa factura está hecha a: " + NombreReceptor
-                                          + " RFC: " + RfcReceptor)
-
-            else:
-                raise ValidationError('No se puede importar la información del XML si el documento no está en borrador!')
+            return xml
 
     @api.multi
-    def getUOMID(self, clave_unidad):
+    def map_xml_to_odoo_fields(self):
+
+        xml = self.binary_to_xml
+
+        # Obtengo el nodo del receptor
+        receptor_items = xml.getElementsByTagName("cfdi:Receptor")
+
+        # Obtengo nombre y RFC del receptor
+        NombreReceptor = receptor_items[0].attributes['Nombre'].value
+
+        RfcReceptor = receptor_items[0].attributes['Rfc'].value
+
+        # Valido que la factura sea para la compañía actual
+        if RfcReceptor == self.env.user.company_id.vat:
+
+            xml_dict = dict()
+
+            # Obtengo el nodo del emisor
+            emisor_items = xml.getElementsByTagName("cfdi:Emisor")
+
+            # Obtengo los datos necesarios
+            try:
+                NombreEmisor = emisor_items[0].attributes['Nombre'].value
+
+            except:
+                NombreEmisor = "FACTURA TIMBRADA SIN NOMBRE DE PROVEEDOR"
+
+            RfcEmisor = emisor_items[0].attributes['Rfc'].value
+            RegimenEmisor = emisor_items[0].attributes['RegimenFiscal'].value
+
+            # Obtengo el nodo del comprobante
+            invoice_items = xml.getElementsByTagName("cfdi:Comprobante")
+
+            # Obtengo los datos principales de la factura
+            try:
+                Serie = invoice_items[0].attributes['Serie'].value
+
+            except:
+                Serie = ""
+
+            try:
+                Folio = invoice_items[0].attributes['Folio'].value
+
+            except:
+                Folio = xml.getElementsByTagName("tfd:TimbreFiscalDigital")[0].attributes['UUID'].value
+                Folio = Folio[-5:]
+
+            xml_dict["reference"] = Serie + " " + Folio
+
+            xml_dict["x_invoice_date_sat"] = invoice_items[0].attributes['Fecha'].value
+            xml_dict["amount_untaxed"] = invoice_items[0].attributes['SubTotal'].value
+
+            try:
+                xml_dict["discount"] = invoice_items[0].attributes['Descuento'].value
+
+            except:
+                xml_dict["discount"] = 0
+
+            try:
+                xml_dict["taxes"] = xml.getElementsByTagName("cfdi:Impuestos")[len(xml.getElementsByTagName("cfdi:Impuestos"))-1].attributes['TotalImpuestosTrasladados'].value
+            except:
+                xml_dict["taxes"] = 0
+
+            xml_dict["amount_total"] = invoice_items[0].attributes['Total'].value
+
+            # Obtengo los nodos con la información de las líneas de factura
+            xml_dict["invoice_line_ids"] = xml.getElementsByTagName("cfdi:Concepto")
+
+            # Busco al proveedor
+            xml_dict["partner"] = self.env['res.partner'].search([["vat", "=", RfcEmisor]], limit=1)
+
+            # Si no existe lo creo en odoo
+            if not xml_dict["partner"]:
+                xml_dict["partner"] = self.create_partner(RegimenEmisor=RegimenEmisor, NombreEmisor=NombreEmisor, RfcEmisor=RfcEmisor)
+
+            return xml_dict
+
+        # Si la factura no es de la compañia actual envío una alerta
+        else:
+
+            raise ValidationError('La factura no corresponde a ' + self.env.user.company_id.name
+                                  + "\nLa factura está hecha a: " + NombreReceptor
+                                  + " RFC: " + RfcReceptor)
+
+    @api.multi
+    def create_partner(self, RegimenEmisor, NombreEmisor, RfcEmisor):
+        if RegimenEmisor == 612:
+            company_type = "person"
+            fiscal_position = 10
+        else:
+            company_type = "company"
+            fiscal_position = 1
+
+        partner = self.env['res.partner'].create({
+            'company_type': company_type,
+            'name': NombreEmisor,
+            'vat': RfcEmisor,
+            'country_id': 156,
+            'lang': "es_MX",
+            'supplier': 1,
+            'customer': 0,
+            'property_account_position_id': fiscal_position,
+            'l10n_mx_type_of_operation': "85",
+            'type': 'contact'
+        })
+
+        return partner
+
+    @api.multi
+    def import_xml_data(self):
+        self.ensure_one()
+
+        xml = self.map_xml_to_odoo_fields
+
+        if self.state == 'draft':
+
+            # Asigno los datos al documento
+            self.write({'partner_id': xml.partner.id,
+                        'reference': xml.reference,
+                        'x_invoice_date_sat': xml.x_invoice_date_sat})
+
+            if self.search([('type', '=', self.type), ('reference', '=', self.reference),
+                            ('company_id', '=', self.company_id.id),
+                            ('commercial_partner_id', '=', self.commercial_partner_id.id),
+                            ('id', '!=', self.id)]):
+
+                raise ValidationError("Se ha detectado una referencia de " + xml.partner.name +
+                                      " duplicada: " + self.reference +
+                                      " timbrada el " + xml.x_invoice_date_sat +
+                                      " en el SAT por un monto de " +
+                                      "${:,.2f}".format(xml.amount_total))
+
+            xml_line_items = xml.invoice_line_ids
+
+            # Si tiene lineas de factura
+            if self.invoice_line_ids:
+                # Cuento las lineas de factura de odoo y del XML
+                odoo_lines = 0
+
+                for lines in self.invoice_line_ids:
+                    odoo_lines = odoo_lines + 1
+
+                xml_lines = len(xml_line_items)
+                # Si son iguales solamente edito las de odoo
+                if odoo_lines == xml_lines:
+
+                    for idx, line in enumerate(self.invoice_line_ids):
+
+                        self.overwrite_invoice_line(line, xml_line_items, idx)
+
+                elif odoo_lines > xml_lines:
+
+                    for idx, line in enumerate(self.invoice_line_ids):
+
+                        try:
+
+                            self.overwrite_invoice_line(line, xml_line_items, idx)
+
+                        except:
+
+                            line.unlink()
+
+                elif xml_lines > odoo_lines:
+
+                    for idx, line in enumerate(self.invoice_line_ids):
+
+                        self.overwrite_invoice_line(line, xml_line_items, idx)
+
+                    for idx, line in enumerate(xml_line_items):
+
+                        if idx < odoo_lines:
+
+                            continue
+
+                        else:
+
+                            self.create_invoice_line(line)
+
+            # Sino tiene lineas de factura
+            else:
+
+                # Para cada concepto del XML creo una linea de factura en odoo
+                for line in xml_line_items:
+
+                    self.create_invoice_line(line)
+
+                self.compute_taxes()
+
+        elif self.state == 'approved_by_manager' or self.state == 'open' or self.state == 'paid':
+            if self.match_xml(xml):
+                self.write({'partner_id': xml.partner.id,
+                            'reference': xml.reference,
+                            'x_invoice_date_sat': xml.x_invoice_date_sat})
+
+
+    @api.multi
+    def overwrite_invoice_line(self, odoo_line, xml_line, i):
+
+        odoo_line.write({
+            'name': xml_line[i].attributes['Descripcion'].value,
+            'quantity': xml_line[i].attributes['Cantidad'].value,
+            'uom_id': self.getUOMID(xml_line[i].attributes['ClaveUnidad'].value),
+            'price_unit': self.get_discounted_unit_price(xml_line[i])
+        })
+
+        odoo_line._set_taxes()
+
+    @api.multi
+    def create_invoice_line(self, xml_line):
+
+        # Creación de la línea de factura
+        new_line = self.env['account.invoice.line'].create({
+            'invoice_id': self.id,
+            'product_id': 921,
+            'name': xml_line.attributes['Descripcion'].value,
+            'account_id': 1977,
+            'quantity': xml_line.attributes['Cantidad'].value,
+            'uom_id': self.getUOMID(xml_line.attributes['ClaveUnidad'].value),
+            'price_unit': self.get_discounted_unit_price(xml_line),
+            'type': "in_invoice"
+        })
+
+        new_line._set_taxes()
+
+    @api.multi
+    def get_discounted_unit_price(self, xml_line):
+
+        price_unit = float(xml_line.attributes['ValorUnitario'].value)
 
         try:
-            # No funciona esta madre
-            uom_sat = self.env['l10n_mx_edi.product.sat.code'].search(
-                [[("code", "=", clave_unidad)]], limit=1)
 
-            uom_odoo = self.env['product.uom'].search(
-                [[("l10n_mx_edi_code_sat_id", "=", uom_sat.id)]], limit=1)
+            unitary_discount = float(xml_line.attributes['Descuento'].value) / float(xml_line.attributes['Cantidad'].value)
 
-            return uom_odoo.id
+            price_unit = price_unit - unitary_discount
 
-        # Sino lo encuentra asigno la unida de medida "Servicio" con el id 31
         except:
 
-            return 31
+            price_unit = price_unit
+
+        return price_unit
+
+    @api.multi
+    def match_xml(self, xml):
+
+        if self.partner_id != xml.partner.id:
+            raise ValidationError("No coincide el Proveedor del documento con el del XML!")
+
+        if self.search([('type', '=', self.type), ('reference', '=', self.reference),
+                        ('company_id', '=', self.company_id.id),
+                        ('commercial_partner_id', '=', self.commercial_partner_id.id),
+                        ('id', '!=', self.id)]):
+
+                raise ValidationError("Se ha detectado una referencia de " + xml.partner.name +
+                                      " duplicada: " + self.reference +
+                                      " timbrada el " + xml.x_invoice_date_sat +
+                                      " en el SAT por un monto de " +
+                                      "${:,.2f}".format(xml.amount_total))
+
+        if self.x_invoice_date_sat != xml.x_invoice_date_sat:
+            raise ValidationError("No coincide la fecha de timbrado de la Factura con la del XML!")
+
+        difference = self.amount_total - xml.amount_total
+
+        if not (-.10 <= difference <= .10):
+            raise ValidationError("No coincide el monto de factura! variación: " + "${:,.2f}".format(difference))
