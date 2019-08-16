@@ -324,7 +324,7 @@ class AccountInvoice(models.Model):
 
             tax_id = self.env['account.tax'].search([["type_tax_use", "=", "purchase"],
                                                     ["company_id", "=", self.company_id.id],
-                                                    ["amount", "=", xml_line.getElementsByTagName("cfdi:Traslado").attributes['TasaOCuota'].value]], limit=1)
+                                                    ["amount", "=", xml_line.getElementsByTagName("cfdi:Traslado")[0].attributes['TasaOCuota'].value]], limit=1)
 
             return [(4, tax_id.id)]
 
