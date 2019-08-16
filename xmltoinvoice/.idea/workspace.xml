@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="47bb8b36-2dc0-47cf-b447-fe577a2c9883" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../invoice_payment_process/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../invoice_payment_process/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/account_invoice.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/account_invoice.py" afterDir="false" />
     </list>
@@ -17,14 +16,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-111">
-              <caret line="251" column="29" lean-forward="true" selection-start-line="251" selection-start-column="29" selection-end-line="251" selection-end-column="29" />
+            <state relative-caret-position="229">
+              <caret line="347" column="95" selection-start-line="347" selection-start-column="95" selection-end-line="347" selection-end-column="95" />
               <folding>
                 <element signature="e#24#51#0" expanded="true" />
                 <element signature="e#10386#12241#0" />
                 <element signature="e#11211#11904#0" />
-                <element signature="e#12226#12546#0" />
-                <element signature="e#12485#12847#0" />
                 <element signature="e#12571#13037#0" />
               </folding>
             </state>
@@ -279,14 +276,28 @@
       <option name="project" value="LOCAL" />
       <updated>1565973855573</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Changing parameter of get_tax_id method">
+      <created>1565973985413</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1565973985413</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Fixing AttributeError: 'account.invoice' object has no attribute 'company'">
+      <created>1565974661124</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1565974661124</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18526785" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18526785" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -347,7 +358,9 @@
     <MESSAGE value="Solving TypeError: must be str, not float" />
     <MESSAGE value="Solving TypeError: must be str, not res.partner" />
     <MESSAGE value="Adding taxes based on the taxes in the xml." />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding taxes based on the taxes in the xml." />
+    <MESSAGE value="Changing parameter of get_tax_id method" />
+    <MESSAGE value="Fixing AttributeError: 'account.invoice' object has no attribute 'company'" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixing AttributeError: 'account.invoice' object has no attribute 'company'" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/models/purchase.py">
@@ -360,16 +373,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../invoice_payment_process/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-111">
-          <caret line="251" column="29" lean-forward="true" selection-start-line="251" selection-start-column="29" selection-end-line="251" selection-end-column="29" />
+        <state relative-caret-position="229">
+          <caret line="347" column="95" selection-start-line="347" selection-start-column="95" selection-end-line="347" selection-end-column="95" />
           <folding>
             <element signature="e#24#51#0" expanded="true" />
             <element signature="e#10386#12241#0" />
             <element signature="e#11211#11904#0" />
-            <element signature="e#12226#12546#0" />
-            <element signature="e#12485#12847#0" />
             <element signature="e#12571#13037#0" />
           </folding>
         </state>

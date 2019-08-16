@@ -226,7 +226,7 @@ class AccountInvoice(models.Model):
         odoo_line.write({
             'name': xml_line[i].attributes['Descripcion'].value,
             'quantity': xml_line[i].attributes['Cantidad'].value,
-            'uom_id': self.get_uom(xml_line[i].attributes['ClaveUnidad'].value),
+            'uom_id': self.get_uom(xml_line[i]),
             'invoice_line_tax_ids': self.get_tax_id(xml_line.attributes['TasaOCuota'].value),
             'price_unit': self.get_discounted_unit_price(xml_line[i])
         })
@@ -243,7 +243,7 @@ class AccountInvoice(models.Model):
             'name': xml_line.attributes['Descripcion'].value,
             'account_id': 1977,
             'quantity': xml_line.attributes['Cantidad'].value,
-            'uom_id':  self.get_uom(xml_line.attributes['ClaveUnidad'].value),
+            'uom_id':  self.get_uom(xml_line),
             'invoice_line_tax_ids': self.get_tax_id(xml_line),
             'price_unit': self.get_discounted_unit_price(xml_line),
             'type': "in_invoice"
@@ -333,19 +333,19 @@ class AccountInvoice(models.Model):
             return self.product_id.taxes_id
 
     @api.multi
-    def get_uom(self, clave_unidad):
+    def get_uom(self, xml_line):
 
         try:
 
-            odoo_code = self.env['product.uom'].search([["l10n_mx_edi_code_sat_id.code", "=", clave_unidad],
+            odoo_code = self.env['product.uom'].search([["l10n_mx_edi_code_sat_id.code", "=", xml_line.attributes['ClaveUnidad'].value],
                                                         ["company_id", "=", self.company_id.id]], limit=1)
 
             return odoo_code.id
 
         except:
 
-            odoo_code = self.env['product.uom'].search([["l10n_mx_edi_code_sat_id.code", "=", "E48"]],
-                                                       ["company_id", "=", self.company_id.id], limit=1)
+            odoo_code = self.env['product.uom'].search([["l10n_mx_edi_code_sat_id.code", "=", "E48"],
+                                                       ["company_id", "=", self.company_id.id]], limit=1)
 
             return odoo_code.id
 
