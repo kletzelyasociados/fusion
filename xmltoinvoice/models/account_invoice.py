@@ -135,30 +135,6 @@ class AccountInvoice(models.Model):
                                   + " RFC: " + RfcReceptor)
 
     @api.multi
-    def create_partner(self, RegimenEmisor, NombreEmisor, RfcEmisor):
-        if RegimenEmisor == 612:
-            company_type = "person"
-            fiscal_position = 10
-        else:
-            company_type = "company"
-            fiscal_position = 1
-
-        partner = self.env['res.partner'].create({
-            'company_type': company_type,
-            'name': NombreEmisor,
-            'vat': RfcEmisor,
-            'country_id': 156,
-            'lang': "es_MX",
-            'supplier': 1,
-            'customer': 0,
-            'property_account_position_id': fiscal_position,
-            'l10n_mx_type_of_operation': "85",
-            'type': 'contact'
-        })
-
-        return partner
-
-    @api.multi
     def import_xml_data(self):
         self.ensure_one()
 
@@ -251,6 +227,7 @@ class AccountInvoice(models.Model):
             'name': xml_line[i].attributes['Descripcion'].value,
             'quantity': xml_line[i].attributes['Cantidad'].value,
             'uom_id': self.get_uom(xml_line[i].attributes['ClaveUnidad'].value),
+            'invoice_line_tax_ids': self.get_tax_id(xml_line.attributes['TasaOCuota'].value),
             'price_unit': self.get_discounted_unit_price(xml_line[i])
         })
 
@@ -267,28 +244,12 @@ class AccountInvoice(models.Model):
             'account_id': 1977,
             'quantity': xml_line.attributes['Cantidad'].value,
             'uom_id':  self.get_uom(xml_line.attributes['ClaveUnidad'].value),
+            'invoice_line_tax_ids': self.get_tax_id(xml_line.attributes['TasaOCuota'].value),
             'price_unit': self.get_discounted_unit_price(xml_line),
             'type': "in_invoice"
         })
 
         new_line._set_taxes()
-
-    @api.multi
-    def get_discounted_unit_price(self, xml_line):
-
-        price_unit = float(xml_line.attributes['ValorUnitario'].value)
-
-        try:
-
-            unitary_discount = float(xml_line.attributes['Descuento'].value) / float(xml_line.attributes['Cantidad'].value)
-
-            price_unit = price_unit - unitary_discount
-
-        except:
-
-            price_unit = price_unit
-
-        return price_unit
 
     @api.multi
     def match_xml(self, xml):
@@ -297,7 +258,7 @@ class AccountInvoice(models.Model):
 
             raise ValidationError("No coincide el Proveedor de la Factura Odoo con el del CFDi!" +
                                   "\nProveedor en la Factura: " + self.partner_id.name +
-                                  "\nProveedor en el XML: " + xml.partner.name)
+                                  "\nProveedor en el CFDi: " + xml.partner.name)
 
         if self.search([('type', '=', self.type), ('reference', '=', self.reference),
                         ('company_id', '=', self.company_id.id),
@@ -326,20 +287,85 @@ class AccountInvoice(models.Model):
                                   "\nVariación: " + "${:,.2f}".format(difference))
 
     @api.multi
+    def create_partner(self, RegimenEmisor, NombreEmisor, RfcEmisor):
+        if RegimenEmisor == 612:
+            company_type = "person"
+            fiscal_position = 10
+        else:
+            company_type = "company"
+            fiscal_position = 1
+
+        partner = self.env['res.partner'].create({
+            'company_type': company_type,
+            'name': NombreEmisor,
+            'vat': RfcEmisor,
+            'country_id': 156,
+            'lang': "es_MX",
+            'supplier': 1,
+            'customer': 0,
+            'property_account_position_id': fiscal_position,
+            'l10n_mx_type_of_operation': "85",
+            'type': 'contact'
+        })
+
+        return partner
+
+    @api.multi
+    def get_product_id(self):
+        pass
+
+    @api.multi
+    def get_account_id(self):
+        return self.account_id
+
+    @api.multi
+    def get_tax_id(self, tax_rate):
+        try:
+
+            tax_id = self.env['account.tax'].search([["type_tax_use", "=", "purchase"],
+                                                    ["company_id", "=", self.company.id],
+                                                    ["amount", "=", tax_rate]], limit=1)
+
+            return [(4, tax_id.id)]
+
+        except:
+
+            return self.product_id.taxes_id
+
+    @api.multi
     def get_uom(self, clave_unidad):
 
         try:
 
-            odoo_code = self.env['product.uom'].search([["l10n_mx_edi_code_sat_id.code", "=", clave_unidad]], limit=1)
+            odoo_code = self.env['product.uom'].search([["l10n_mx_edi_code_sat_id.code", "=", clave_unidad],
+                                                        ["company_id", "=", self.company.id]], limit=1)
 
             return odoo_code.id
 
         except:
 
-            odoo_code = self.env['product.uom'].search([["l10n_mx_edi_code_sat_id.code", "=", "E48"]], limit=1)
+            odoo_code = self.env['product.uom'].search([["l10n_mx_edi_code_sat_id.code", "=", "E48"]],
+                                                       ["company_id", "=", self.company.id], limit=1)
 
             return odoo_code.id
 
+    @api.multi
+    def get_discounted_unit_price(self, xml_line):
+
+        price_unit = float(xml_line.attributes['ValorUnitario'].value)
+
+        try:
+
+            unitary_discount = float(xml_line.attributes['Descuento'].value) / float(
+                xml_line.attributes['Cantidad'].value)
+
+            price_unit = price_unit - unitary_discount
+
+        except:
+
+            price_unit = price_unit
+
+        return price_unit
 
 class MappedXml:
 
