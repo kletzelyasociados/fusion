@@ -244,7 +244,7 @@ class AccountInvoice(models.Model):
             'account_id': 1977,
             'quantity': xml_line.attributes['Cantidad'].value,
             'uom_id':  self.get_uom(xml_line.attributes['ClaveUnidad'].value),
-            'invoice_line_tax_ids': self.get_tax_id(xml_line.attributes['TasaOCuota'].value),
+            'invoice_line_tax_ids': self.get_tax_id(xml_line),
             'price_unit': self.get_discounted_unit_price(xml_line),
             'type': "in_invoice"
         })
@@ -319,12 +319,12 @@ class AccountInvoice(models.Model):
         return self.account_id
 
     @api.multi
-    def get_tax_id(self, tax_rate):
+    def get_tax_id(self, xml_line):
         try:
 
             tax_id = self.env['account.tax'].search([["type_tax_use", "=", "purchase"],
                                                     ["company_id", "=", self.company.id],
-                                                    ["amount", "=", tax_rate]], limit=1)
+                                                    ["amount", "=", xml_line.attributes['TasaOCuota'].value]], limit=1)
 
             return [(4, tax_id.id)]
 
