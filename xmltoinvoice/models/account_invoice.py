@@ -326,7 +326,7 @@ class AccountInvoice(models.Model):
 
         try:
 
-            rate = xml_line.getElementsByTagName("cfdi:Traslado")[0].attributes['TasaOCuota'].value * 10
+            rate = xml_line[0].getElementsByTagName("cfdi:Traslado")[0].attributes['TasaOCuota'].value * 10
 
             if rate == 0:
 
