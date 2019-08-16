@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="47bb8b36-2dc0-47cf-b447-fe577a2c9883" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/models/account_invoice.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/account_invoice.py" afterDir="false" />
-    </list>
+    <list default="true" id="47bb8b36-2dc0-47cf-b447-fe577a2c9883" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,8 +13,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2533">
-              <caret line="344" column="91" selection-start-line="344" selection-start-column="91" selection-end-line="344" selection-end-column="91" />
+            <state relative-caret-position="340">
+              <caret line="344" column="90" selection-start-line="344" selection-start-column="90" selection-end-line="344" selection-end-column="90" />
               <folding>
                 <element signature="e#24#51#0" expanded="true" />
               </folding>
@@ -187,7 +185,21 @@
       <option name="project" value="LOCAL" />
       <updated>1565932676163</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Solving date comparison format">
+      <created>1565933563603</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1565933563603</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Solving date comparison format">
+      <created>1565933692958</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1565933692958</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -250,7 +262,8 @@
     <MESSAGE value="Solving psycopg2.ProgrammingError: can't adapt type 'product.uom' the id in the parameter was missing" />
     <MESSAGE value="Solving missing id in partner" />
     <MESSAGE value="Adding more information in rase errors" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding more information in rase errors" />
+    <MESSAGE value="Solving date comparison format" />
+    <option name="LAST_COMMIT_MESSAGE" value="Solving date comparison format" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/__manifest__.py">
@@ -265,8 +278,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2533">
-          <caret line="344" column="91" selection-start-line="344" selection-start-column="91" selection-end-line="344" selection-end-column="91" />
+        <state relative-caret-position="340">
+          <caret line="344" column="90" selection-start-line="344" selection-start-column="90" selection-end-line="344" selection-end-column="90" />
           <folding>
             <element signature="e#24#51#0" expanded="true" />
           </folding>

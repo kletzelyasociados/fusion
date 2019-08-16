@@ -342,7 +342,7 @@ class MappedXml:
 
     def __init__(self, reference, x_invoice_date_sat, amount_untaxed, discount, taxes, amount_total, invoice_line_ids, partner):
         self.reference = reference
-        self.x_invoice_date_sat = datetime.strptime(x_invoice_date_sat, '%Y-%m-%dT%H:%M:%S').date()
+        self.x_invoice_date_sat = str(datetime.strptime(x_invoice_date_sat, '%Y-%m-%dT%H:%M:%S').date())
         self.amount_untaxed = float(amount_untaxed)
         self.discount = float(discount)
         self.taxes = float(taxes)
