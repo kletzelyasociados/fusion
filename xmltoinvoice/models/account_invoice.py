@@ -306,3 +306,4 @@ class AccountInvoice(models.Model):
 
         if not (-.10 <= difference <= .10):
             raise ValidationError("No coincide el monto de factura! variación: " + "${:,.2f}".format(difference))
+
