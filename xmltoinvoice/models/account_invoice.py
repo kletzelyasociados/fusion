@@ -309,7 +309,7 @@ class AccountInvoice(models.Model):
                                       " en el SAT por un monto de " +
                                       "${:,.2f}".format(xml.amount_total))
 
-        if self.x_invoice_date_sat != datetime.strptime(xml.x_invoice_date_sat, '%Y-%m-%d').date():
+        if self.x_invoice_date_sat != xml.x_invoice_date_sat:
             raise ValidationError("No coincide la fecha de timbrado de la Factura Odoo con el del CFDi!" +
                                   "\nFecha de facturación del SAT en la Factura Odoo: " + self.x_invoice_date_sat +
                                   "\nFecha de timbrado en el CFDi: " + xml.x_invoice_date_sat)
