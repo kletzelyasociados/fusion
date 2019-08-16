@@ -249,7 +249,7 @@ class AccountInvoice(models.Model):
         odoo_line.write({
             'name': xml_line[i].attributes['Descripcion'].value,
             'quantity': xml_line[i].attributes['Cantidad'].value,
-            'uom_id': self.getUOMID(xml_line[i].attributes['ClaveUnidad'].value),
+            'uom_id': self.get_uom(xml_line[i].attributes['ClaveUnidad'].value),
             'price_unit': self.get_discounted_unit_price(xml_line[i])
         })
 
@@ -265,7 +265,7 @@ class AccountInvoice(models.Model):
             'name': xml_line.attributes['Descripcion'].value,
             'account_id': 1977,
             'quantity': xml_line.attributes['Cantidad'].value,
-            'uom_id': self.getUOMID(xml_line.attributes['ClaveUnidad'].value),
+            'uom_id':  self.get_uom(xml_line.attributes['ClaveUnidad'].value),
             'price_unit': self.get_discounted_unit_price(xml_line),
             'type': "in_invoice"
         })
@@ -313,6 +313,26 @@ class AccountInvoice(models.Model):
 
         if not (-.10 <= difference <= .10):
             raise ValidationError("No coincide el monto de factura! variación: " + "${:,.2f}".format(difference))
+
+    @api.multi
+    def get_uom(self, clave_unidad):
+
+        try:
+
+            sat_code = self.env['l10n_mx_edi.product.sat.code'].search([["code", "=", clave_unidad]], limit=1)
+
+            odoo_code = self.env['product.uom'].search([["l10n_mx_edi_code_sat_id.id", "=", sat_code.id]], limit=1)
+
+            return odoo_code
+
+        except:
+
+            sat_code = self.env['l10n_mx_edi.product.sat.code'].search(
+                [["code", "=", "E48"]], limit=1)
+
+            odoo_code = self.env['product.uom'].search([["l10n_mx_edi_code_sat_id.id", "=", sat_code.id]], limit=1)
+
+            return odoo_code
 
 
 class MappedXml:
