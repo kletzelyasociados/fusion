@@ -227,7 +227,7 @@ class AccountInvoice(models.Model):
             'name': xml_line[i].attributes['Descripcion'].value,
             'quantity': xml_line[i].attributes['Cantidad'].value,
             'uom_id': self.get_uom(xml_line[i]),
-            'invoice_line_tax_ids': self.get_tax_id(xml_line),
+            'invoice_line_tax_ids': self.get_tax_id(odoo_line, xml_line),
             'price_unit': self.get_discounted_unit_price(xml_line[i])
         })
 
@@ -244,9 +244,12 @@ class AccountInvoice(models.Model):
             'account_id': 1977,
             'quantity': xml_line.attributes['Cantidad'].value,
             'uom_id':  self.get_uom(xml_line),
-            'invoice_line_tax_ids': self.get_tax_id(xml_line),
             'price_unit': self.get_discounted_unit_price(xml_line),
             'type': "in_invoice"
+        })
+
+        new_line.write({
+            'invoice_line_tax_ids': self.get_tax_id(new_line, xml_line)
         })
 
         new_line._set_taxes()
@@ -319,22 +322,25 @@ class AccountInvoice(models.Model):
         return self.account_id
 
     @api.multi
-    def get_tax_id(self, xml_line):
+    def get_tax_id(self, odoo_line, xml_line):
+
         try:
-            invoice_line_tax_ids = []
 
-            tax_id = self.env['account.tax'].search([["type_tax_use", "=", "purchase"],
-                                                    ["company_id", "=", self.company_id.id],
-                                                    ["amount", "=", xml_line.getElementsByTagName("cfdi:Traslado")[0].attributes['TasaOCuota'].value]], limit=1)
+            rate = xml_line.getElementsByTagName("cfdi:Traslado")[0].attributes['TasaOCuota'].value * 10
 
-            if tax_id:
-                invoice_line_tax_ids.append((4, tax_id.id, None))
+            if rate == 0:
 
-                return invoice_line_tax_ids
+                tax_id = self.env['account.tax'].search([["type_tax_use", "=", "purchase"],
+                                                        ["company_id", "=", self.company_id.id],
+                                                        ["amount", "=", rate]], limit=1)
 
-            else:
+                if tax_id:
 
-                return self.product_id.taxes_id
+                    return [(4, tax_id.id, None)]
+
+                else:
+
+                    return odoo_line.invoice_line_tax_ids
 
         except:
 
