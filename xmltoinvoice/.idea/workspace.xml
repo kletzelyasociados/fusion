@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="47bb8b36-2dc0-47cf-b447-fe577a2c9883" name="Default Changelist" comment="" />
+    <list default="true" id="47bb8b36-2dc0-47cf-b447-fe577a2c9883" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/account_invoice.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/account_invoice.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="344" column="90" selection-start-line="344" selection-start-column="90" selection-end-line="344" selection-end-column="90" />
+            <state relative-caret-position="212">
+              <caret line="315" lean-forward="true" selection-start-line="315" selection-end-line="315" />
               <folding>
                 <element signature="e#24#51#0" expanded="true" />
               </folding>
@@ -42,6 +45,7 @@
     <findStrings>
       <find>for</find>
       <find>format</find>
+      <find>datetime</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -199,7 +203,28 @@
       <option name="project" value="LOCAL" />
       <updated>1565933692958</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Solving date comparison format">
+      <created>1565933860856</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1565933860856</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Solving date comparison format to str">
+      <created>1565933984815</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1565933984815</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Solving date comparison format to str">
+      <created>1565934156821</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1565934156821</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -263,7 +288,8 @@
     <MESSAGE value="Solving missing id in partner" />
     <MESSAGE value="Adding more information in rase errors" />
     <MESSAGE value="Solving date comparison format" />
-    <option name="LAST_COMMIT_MESSAGE" value="Solving date comparison format" />
+    <MESSAGE value="Solving date comparison format to str" />
+    <option name="LAST_COMMIT_MESSAGE" value="Solving date comparison format to str" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/__manifest__.py">
@@ -278,8 +304,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="344" column="90" selection-start-line="344" selection-start-column="90" selection-end-line="344" selection-end-column="90" />
+        <state relative-caret-position="212">
+          <caret line="315" lean-forward="true" selection-start-line="315" selection-end-line="315" />
           <folding>
             <element signature="e#24#51#0" expanded="true" />
           </folding>

@@ -320,7 +320,7 @@ class AccountInvoice(models.Model):
             raise ValidationError("No coincide el monto de factura!" +
                                   "\nMonto total en la Factura Odoo: " + self.amount_total +
                                   "\nMOnto total en el CFDi: " + xml.amount_total +
-                                  "Variación: " + "${:,.2f}".format(difference))
+                                  "Variación: " + str("${:,.2f}".format(difference)))
 
     @api.multi
     def get_uom(self, clave_unidad):
