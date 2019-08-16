@@ -321,13 +321,13 @@ class AccountInvoice(models.Model):
 
             odoo_code = self.env['product.uom'].search([["l10n_mx_edi_code_sat_id.code", "=", clave_unidad]], limit=1)
 
-            return odoo_code
+            return odoo_code.id
 
         except:
 
             odoo_code = self.env['product.uom'].search([["l10n_mx_edi_code_sat_id.code", "=", "E48"]], limit=1)
 
-            return odoo_code
+            return odoo_code.id
 
 
 class MappedXml:
