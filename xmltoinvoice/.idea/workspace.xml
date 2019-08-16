@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="347" column="95" selection-start-line="347" selection-start-column="95" selection-end-line="347" selection-end-column="95" />
+            <state relative-caret-position="160">
+              <caret line="326" column="112" selection-start-line="326" selection-start-column="112" selection-end-line="326" selection-end-column="112" />
               <folding>
                 <element signature="e#24#51#0" expanded="true" />
                 <element signature="e#10386#12241#0" />
@@ -49,6 +49,7 @@
       <find>for</find>
       <find>format</find>
       <find>datetime</find>
+      <find>get_uom</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -290,7 +291,21 @@
       <option name="project" value="LOCAL" />
       <updated>1565974661124</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Fixing TypeError: %d format: a number is required, not list">
+      <created>1565975052979</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1565975052979</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Fixing ValueError: Invalid field 'company_id' in leaf &quot;&lt;osv.ExtendedLeaf: ('company_id', '=', 1) on product_uom (ctx: )&gt;&quot;">
+      <created>1565975257483</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1565975257483</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -360,7 +375,9 @@
     <MESSAGE value="Adding taxes based on the taxes in the xml." />
     <MESSAGE value="Changing parameter of get_tax_id method" />
     <MESSAGE value="Fixing AttributeError: 'account.invoice' object has no attribute 'company'" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixing AttributeError: 'account.invoice' object has no attribute 'company'" />
+    <MESSAGE value="Fixing TypeError: %d format: a number is required, not list" />
+    <MESSAGE value="Fixing ValueError: Invalid field 'company_id' in leaf &quot;&lt;osv.ExtendedLeaf: ('company_id', '=', 1) on product_uom (ctx: )&gt;&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixing ValueError: Invalid field 'company_id' in leaf &quot;&lt;osv.ExtendedLeaf: ('company_id', '=', 1) on product_uom (ctx: )&gt;&quot;" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/models/purchase.py">
@@ -378,8 +395,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="347" column="95" selection-start-line="347" selection-start-column="95" selection-end-line="347" selection-end-column="95" />
+        <state relative-caret-position="160">
+          <caret line="326" column="112" selection-start-line="326" selection-start-column="112" selection-end-line="326" selection-end-column="112" />
           <folding>
             <element signature="e#24#51#0" expanded="true" />
             <element signature="e#10386#12241#0" />
