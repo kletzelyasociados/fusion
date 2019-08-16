@@ -337,15 +337,13 @@ class AccountInvoice(models.Model):
 
         try:
 
-            odoo_code = self.env['product.uom'].search([["l10n_mx_edi_code_sat_id.code", "=", xml_line.attributes['ClaveUnidad'].value],
-                                                        ["company_id", "=", self.company_id.id]], limit=1)
+            odoo_code = self.env['product.uom'].search([["l10n_mx_edi_code_sat_id.code", "=", xml_line.attributes['ClaveUnidad'].value]], limit=1)
 
             return odoo_code.id
 
         except:
 
-            odoo_code = self.env['product.uom'].search([["l10n_mx_edi_code_sat_id.code", "=", "E48"],
-                                                       ["company_id", "=", self.company_id.id]], limit=1)
+            odoo_code = self.env['product.uom'].search([["l10n_mx_edi_code_sat_id.code", "=", "E48"]], limit=1)
 
             return odoo_code.id
 
