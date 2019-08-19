@@ -325,8 +325,8 @@ class AccountInvoice(models.Model):
                 raise ValidationError("No se encontro impuesto")
                 return odoo_line.product_id.supplier_taxes_id
         else:
-            #raise ValidationError("Producto: " + xml_line.attributes['Descripcion'].value +"  Rate en XML: " + rate)
-            raise ValidationError("Producto: " + xml_line.attributes['Descripcion'].value + "  Impuesto en producto: " +  odoo_line.product_id.supplier_taxes_id.name)
+            # raise ValidationError("Producto: " + xml_line.attributes['Descripcion'].value +"  Rate en XML: " + rate)
+            # raise ValidationError("Producto: " + xml_line.attributes['Descripcion'].value + "  Impuesto en producto: " +  odoo_line.product_id.supplier_taxes_id.name)
             return odoo_line.product_id.supplier_taxes_id
 
 
