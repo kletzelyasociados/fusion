@@ -223,7 +223,7 @@ class AccountInvoice(models.Model):
             'name': xml_line[i].attributes['Descripcion'].value,
             'quantity': xml_line[i].attributes['Cantidad'].value,
             'uom_id': self.get_uom(xml_line[i]),
-            'invoice_line_tax_ids': self.get_tax_id(odoo_line, xml_line),
+            'invoice_line_tax_ids': self.get_tax_id(odoo_line, xml_line[i]),
             'price_unit': self.get_discounted_unit_price(xml_line[i])
         })
 
@@ -309,7 +309,7 @@ class AccountInvoice(models.Model):
     def get_tax_id(self, odoo_line, xml_line):
 
 
-        rate = xml_line[0].getElementsByTagName("cfdi:Traslado")[0].attributes['TasaOCuota'].value * 10
+        rate = xml_line.getElementsByTagName("cfdi:Traslado")[0].attributes['TasaOCuota'].value * 10
 
         if rate == 0:
             tax_id = self.env['account.tax'].search([["type_tax_use", "=", "purchase"],
