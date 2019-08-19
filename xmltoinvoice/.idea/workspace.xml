@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="47bb8b36-2dc0-47cf-b447-fe577a2c9883" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/account_invoice.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/account_invoice.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="484">
-              <caret line="359" lean-forward="true" selection-start-line="359" selection-end-line="359" />
+            <state relative-caret-position="161">
+              <caret line="316" column="17" selection-start-line="316" selection-start-column="17" selection-end-line="316" selection-end-column="17" />
               <folding>
                 <element signature="e#24#51#0" expanded="true" />
                 <element signature="e#10386#12241#0" />
@@ -354,7 +355,21 @@
       <option name="project" value="LOCAL" />
       <updated>1566236202639</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="removing odoo_line._set_taxes() and getting taxes using get_tax_id method">
+      <created>1566237310726</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1566237310726</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Testing getting taxes using get_tax_id method">
+      <created>1566237656721</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1566237656721</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -432,7 +447,8 @@
     <MESSAGE value="Fixing AttributeError: 'account.invoice' object has no attribute 'product_id'" />
     <MESSAGE value="Fixing AttributeError: 'NodeList' object has no attribute 'getElementsByTagName'" />
     <MESSAGE value="removing odoo_line._set_taxes() and getting taxes using get_tax_id method" />
-    <option name="LAST_COMMIT_MESSAGE" value="removing odoo_line._set_taxes() and getting taxes using get_tax_id method" />
+    <MESSAGE value="Testing getting taxes using get_tax_id method" />
+    <option name="LAST_COMMIT_MESSAGE" value="Testing getting taxes using get_tax_id method" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/../invoice_payment_process/.idea/workspace.xml">
@@ -450,8 +466,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="359" lean-forward="true" selection-start-line="359" selection-end-line="359" />
+        <state relative-caret-position="161">
+          <caret line="316" column="17" selection-start-line="316" selection-start-column="17" selection-end-line="316" selection-end-column="17" />
           <folding>
             <element signature="e#24#51#0" expanded="true" />
             <element signature="e#10386#12241#0" />

@@ -308,30 +308,26 @@ class AccountInvoice(models.Model):
 
     def get_tax_id(self, odoo_line, xml_line):
 
-        try:
 
-            rate = xml_line[0].getElementsByTagName("cfdi:Traslado")[0].attributes['TasaOCuota'].value * 10
+        rate = xml_line[0].getElementsByTagName("cfdi:Traslado")[0].attributes['TasaOCuota'].value * 10
 
-            if rate == 0:
-                tax_id = self.env['account.tax'].search([["type_tax_use", "=", "purchase"],
-                                                        ["company_id", "=", self.company_id.id],
-                                                        ["amount", "=", rate]], limit=1)
+        if rate == 0:
+            tax_id = self.env['account.tax'].search([["type_tax_use", "=", "purchase"],
+                                                    ["company_id", "=", self.company_id.id],
+                                                    ["amount", "=", rate]], limit=1)
 
-                if tax_id:
+            if tax_id:
 
-                    raise ValidationError(tax_id.name)
-                    return [(4, tax_id.id)]
+                raise ValidationError(tax_id.name)
+                return [(4, tax_id.id)]
 
-                else:
-                    raise ValidationError("No se encontro impuesto")
-                    return odoo_line.product_id.supplier_taxes_id
             else:
-                raise ValidationError("Rate en XML: " + rate)
+                raise ValidationError("No se encontro impuesto")
                 return odoo_line.product_id.supplier_taxes_id
-
-        except:
-            raise ValidationError("Valió chetos")
+        else:
+            raise ValidationError("Rate en XML: " + rate)
             return odoo_line.product_id.supplier_taxes_id
+
 
     def get_uom(self, xml_line):
 
