@@ -324,10 +324,13 @@ class AccountInvoice(models.Model):
                 else:
 
                     return odoo_line.product_id.supplier_taxes_id
+            else:
+
+                return odoo_line.product_id.supplier_taxes_id
 
         except:
 
-            return odoo_line.product_id.taxes_id
+            return odoo_line.product_id.supplier_taxes_id
 
     def get_uom(self, xml_line):
 
