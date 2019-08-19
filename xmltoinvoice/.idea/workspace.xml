@@ -16,12 +16,19 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="340" column="16" lean-forward="true" selection-start-line="340" selection-start-column="16" selection-end-line="340" selection-end-column="16" />
+            <state relative-caret-position="721">
+              <caret line="351" lean-forward="true" selection-start-line="351" selection-end-line="351" />
               <folding>
                 <element signature="e#24#51#0" expanded="true" />
+                <element signature="e#331#1598#0" />
+                <element signature="e#1662#4656#0" />
+                <element signature="e#8199#8534#0" />
+                <element signature="e#8638#9227#0" />
                 <element signature="e#10386#12241#0" />
                 <element signature="e#11211#11904#0" />
+                <element signature="e#11902#13103#0" />
+                <element signature="e#12226#12546#0" />
+                <element signature="e#12485#12847#0" />
                 <element signature="e#12571#13037#0" />
               </folding>
             </state>
@@ -116,13 +123,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1559680858229</updated>
-    </task>
-    <task id="LOCAL-00001" summary="Adding validation of invoice total amount vs xml and optimizing code">
-      <created>1565918451362</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1565918451362</updated>
     </task>
     <task id="LOCAL-00002" summary="Adding validation of invoice total amount vs xml and optimizing code">
       <created>1565919257299</created>
@@ -453,7 +453,21 @@
       <option name="project" value="LOCAL" />
       <updated>1566248470089</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="Changing product to &quot;EDIFICACIÓN EXENTO&quot; when the xml line does not have taxes.">
+      <created>1566249305028</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1566249305028</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Computing price in invoice line">
+      <created>1566252196843</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1566252196853</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -507,8 +521,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Solving psycopg2.ProgrammingError: can't adapt type 'product.uom' the id in the parameter was missing" />
-    <MESSAGE value="Solving missing id in partner" />
     <MESSAGE value="Adding more information in rase errors" />
     <MESSAGE value="Solving date comparison format" />
     <MESSAGE value="Solving date comparison format to str" />
@@ -532,7 +544,9 @@
     <MESSAGE value="Trying to get the product taxes when rate is 0" />
     <MESSAGE value="overriding taxes id" />
     <MESSAGE value="Adding taxes &quot;IVA EXENTO&quot; when the xml line does not have taxes." />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding taxes &quot;IVA EXENTO&quot; when the xml line does not have taxes." />
+    <MESSAGE value="Changing product to &quot;EDIFICACIÓN EXENTO&quot; when the xml line does not have taxes." />
+    <MESSAGE value="Computing price in invoice line" />
+    <option name="LAST_COMMIT_MESSAGE" value="Computing price in invoice line" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/../invoice_payment_process/.idea/workspace.xml">
@@ -550,12 +564,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="340" column="16" lean-forward="true" selection-start-line="340" selection-start-column="16" selection-end-line="340" selection-end-column="16" />
+        <state relative-caret-position="721">
+          <caret line="351" lean-forward="true" selection-start-line="351" selection-end-line="351" />
           <folding>
             <element signature="e#24#51#0" expanded="true" />
+            <element signature="e#331#1598#0" />
+            <element signature="e#1662#4656#0" />
+            <element signature="e#8199#8534#0" />
+            <element signature="e#8638#9227#0" />
             <element signature="e#10386#12241#0" />
             <element signature="e#11211#11904#0" />
+            <element signature="e#11902#13103#0" />
+            <element signature="e#12226#12546#0" />
+            <element signature="e#12485#12847#0" />
             <element signature="e#12571#13037#0" />
           </folding>
         </state>
