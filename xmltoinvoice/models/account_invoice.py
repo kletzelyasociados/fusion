@@ -11,7 +11,7 @@ class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
     def binary_to_xml(self):
-        self.ensure_one()
+
         if not self.x_xml_file:
             raise ValidationError('No hay ningún archivo XML adjunto!')
 
@@ -210,6 +210,7 @@ class AccountInvoice(models.Model):
                     self.create_invoice_line(line)
 
             self.compute_taxes()
+            self._compute_amount()
 
         elif self.state == 'approved_by_manager' or self.state == 'open' or self.state == 'paid':
             if self.match_xml(xml):
@@ -348,7 +349,6 @@ class AccountInvoice(models.Model):
             else:
 
                 return odoo_line.product_id.supplier_taxes_id
-
 
     def get_uom(self, xml_line):
 
