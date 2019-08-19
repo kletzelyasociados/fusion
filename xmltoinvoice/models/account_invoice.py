@@ -331,13 +331,15 @@ class AccountInvoice(models.Model):
 
         except:
 
-            tax_id = self.env['account.tax'].search([["type_tax_use", "=", "purchase"],
-                                                     ["company_id", "=", self.company_id.id],
-                                                     ["name", "like", "EXENTO"]], limit=1)
+            product_id = self.env['product.product'].search([["purchase_ok", "=", True],
+                                                             ["company_id", "=", self.company_id.id],
+                                                             ["supplier_taxes_id.name", "like", "EXENTO"]], limit=1)
 
-            if tax_id:
+            if product_id:
 
-                return [(6, 0, [tax_id.id])]
+                odoo_line.product_id = product_id
+
+                return odoo_line.product_id.supplier_taxes_id
 
             else:
 

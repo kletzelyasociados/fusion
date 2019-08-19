@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="141">
-              <caret line="336" column="67" selection-start-line="336" selection-start-column="67" selection-end-line="336" selection-end-column="67" />
+            <state relative-caret-position="311">
+              <caret line="340" column="16" lean-forward="true" selection-start-line="340" selection-start-column="16" selection-end-line="340" selection-end-column="16" />
               <folding>
                 <element signature="e#24#51#0" expanded="true" />
                 <element signature="e#10386#12241#0" />
@@ -439,7 +439,21 @@
       <option name="project" value="LOCAL" />
       <updated>1566247730478</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="Adding taxes &quot;IVA EXENTO&quot; when the xml line does not have taxes.">
+      <created>1566248231811</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1566248231811</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Adding taxes &quot;IVA EXENTO&quot; when the xml line does not have taxes.">
+      <created>1566248470089</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1566248470089</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -493,7 +507,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Solving psycopg2.ProgrammingError: can't adapt type 'product.uom'" />
     <MESSAGE value="Solving psycopg2.ProgrammingError: can't adapt type 'product.uom' the id in the parameter was missing" />
     <MESSAGE value="Solving missing id in partner" />
     <MESSAGE value="Adding more information in rase errors" />
@@ -518,7 +531,8 @@
     <MESSAGE value="Trying to get the product taxes" />
     <MESSAGE value="Trying to get the product taxes when rate is 0" />
     <MESSAGE value="overriding taxes id" />
-    <option name="LAST_COMMIT_MESSAGE" value="overriding taxes id" />
+    <MESSAGE value="Adding taxes &quot;IVA EXENTO&quot; when the xml line does not have taxes." />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding taxes &quot;IVA EXENTO&quot; when the xml line does not have taxes." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/../invoice_payment_process/.idea/workspace.xml">
@@ -536,8 +550,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="336" column="67" selection-start-line="336" selection-start-column="67" selection-end-line="336" selection-end-column="67" />
+        <state relative-caret-position="311">
+          <caret line="340" column="16" lean-forward="true" selection-start-line="340" selection-start-column="16" selection-end-line="340" selection-end-column="16" />
           <folding>
             <element signature="e#24#51#0" expanded="true" />
             <element signature="e#10386#12241#0" />
