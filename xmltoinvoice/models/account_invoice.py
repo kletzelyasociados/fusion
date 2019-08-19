@@ -308,13 +308,33 @@ class AccountInvoice(models.Model):
 
     def get_tax_id(self, odoo_line, xml_line):
 
+        try:
 
-        rate = float(xml_line.getElementsByTagName("cfdi:Traslado")[0].attributes['TasaOCuota'].value)
+            rate = float(xml_line.getElementsByTagName("cfdi:Traslado")[0].attributes['TasaOCuota'].value)
 
-        if rate == 0:
+            if rate == 0:
+                tax_id = self.env['account.tax'].search([["type_tax_use", "=", "purchase"],
+                                                         ["company_id", "=", self.company_id.id],
+                                                         ["amount", "=", rate],
+                                                         ["name", "like", "0%"]], limit=1)
+
+                if tax_id:
+
+                    return [(6, 0, [tax_id.id])]
+
+                else:
+
+                    return odoo_line.product_id.supplier_taxes_id
+            else:
+
+                return odoo_line.product_id.supplier_taxes_id
+
+        except:
+
             tax_id = self.env['account.tax'].search([["type_tax_use", "=", "purchase"],
-                                                    ["company_id", "=", self.company_id.id],
-                                                    ["amount", "=", rate]], limit=1)
+                                                     ["company_id", "=", self.company_id.id],
+                                                     ["amount", "=", rate],
+                                                     ["name", "like", "EXENTO"]], limit=1)
 
             if tax_id:
 
@@ -323,9 +343,6 @@ class AccountInvoice(models.Model):
             else:
 
                 return odoo_line.product_id.supplier_taxes_id
-        else:
-
-            return odoo_line.product_id.supplier_taxes_id
 
 
     def get_uom(self, xml_line):

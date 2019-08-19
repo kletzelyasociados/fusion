@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="246">
-              <caret line="319" lean-forward="true" selection-start-line="319" selection-end-line="319" />
+            <state relative-caret-position="141">
+              <caret line="336" column="67" selection-start-line="336" selection-start-column="67" selection-end-line="336" selection-end-column="67" />
               <folding>
                 <element signature="e#24#51#0" expanded="true" />
                 <element signature="e#10386#12241#0" />
@@ -432,7 +432,14 @@
       <option name="project" value="LOCAL" />
       <updated>1566241203795</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="overriding taxes id">
+      <created>1566247730478</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1566247730478</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -486,7 +493,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Adding get_uom() method" />
     <MESSAGE value="Solving psycopg2.ProgrammingError: can't adapt type 'product.uom'" />
     <MESSAGE value="Solving psycopg2.ProgrammingError: can't adapt type 'product.uom' the id in the parameter was missing" />
     <MESSAGE value="Solving missing id in partner" />
@@ -511,7 +517,8 @@
     <MESSAGE value="Trying to get the right rate of xml by line" />
     <MESSAGE value="Trying to get the product taxes" />
     <MESSAGE value="Trying to get the product taxes when rate is 0" />
-    <option name="LAST_COMMIT_MESSAGE" value="Trying to get the product taxes when rate is 0" />
+    <MESSAGE value="overriding taxes id" />
+    <option name="LAST_COMMIT_MESSAGE" value="overriding taxes id" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/../invoice_payment_process/.idea/workspace.xml">
@@ -529,8 +536,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="319" lean-forward="true" selection-start-line="319" selection-end-line="319" />
+        <state relative-caret-position="141">
+          <caret line="336" column="67" selection-start-line="336" selection-start-column="67" selection-end-line="336" selection-end-column="67" />
           <folding>
             <element signature="e#24#51#0" expanded="true" />
             <element signature="e#10386#12241#0" />
