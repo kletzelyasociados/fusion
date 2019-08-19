@@ -318,7 +318,7 @@ class AccountInvoice(models.Model):
 
             if tax_id:
 
-                raise ValidationError(tax_id.name)
+                return [(4, tax_id.id)]
 
             else:
                 raise ValidationError("No se encontro impuesto")
