@@ -333,7 +333,6 @@ class AccountInvoice(models.Model):
 
             tax_id = self.env['account.tax'].search([["type_tax_use", "=", "purchase"],
                                                      ["company_id", "=", self.company_id.id],
-                                                     ["amount", "=", rate],
                                                      ["name", "like", "EXENTO"]], limit=1)
 
             if tax_id:
