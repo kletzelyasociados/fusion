@@ -241,9 +241,7 @@ class AccountInvoice(models.Model):
             'type': "in_invoice"
         })
 
-        new_line.write({
-            'invoice_line_tax_ids': self.get_tax_id(new_line, xml_line)
-        })
+        new_line.invoice_line_tax_ids = self.get_tax_id(new_line, xml_line)
 
     def match_xml(self, xml):
 
@@ -321,20 +319,11 @@ class AccountInvoice(models.Model):
 
                 if tax_id:
 
-                    return [(4, tax_id.id, None)]
+                    return [(4, tax_id.id)]
 
                 else:
+
                     return odoo_line.product_id.supplier_taxes_id
-
-            elif odoo_line.invoice_line_tax_ids:
-                return odoo_line.invoice_line_tax_ids
-
-            elif self.invoice_id.type in ('out_invoice', 'out_refund'):
-                return odoo_line.product_id.taxes_id
-
-            else:
-                return odoo_line.product_id.supplier_taxes_id
-
 
         except:
 
@@ -370,13 +359,6 @@ class AccountInvoice(models.Model):
             price_unit = price_unit
 
         return price_unit
-
-    def _set_taxes(self):
-        """ Used in on_change to set taxes and price."""
-        if self.invoice_id.type in ('out_invoice', 'out_refund'):
-            taxes = self.product_id.taxes_id or self.account_id.tax_ids
-        else:
-            taxes = self.product_id.supplier_taxes_id or self.account_id.tax_ids
 
 
 class MappedXml:
