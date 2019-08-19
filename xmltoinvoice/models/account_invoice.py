@@ -309,7 +309,7 @@ class AccountInvoice(models.Model):
     def get_tax_id(self, odoo_line, xml_line):
 
 
-        rate = xml_line.getElementsByTagName("cfdi:Traslado")[0].attributes['TasaOCuota'].value * 10
+        rate = xml_line.getElementsByTagName("cfdi:Traslado")[0].attributes['TasaOCuota'].value
 
         if rate == 0:
             tax_id = self.env['account.tax'].search([["type_tax_use", "=", "purchase"],
