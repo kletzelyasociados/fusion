@@ -227,6 +227,8 @@ class AccountInvoice(models.Model):
             'price_unit': self.get_discounted_unit_price(xml_line[i])
         })
 
+        odoo_line._compute_price()
+
     def create_invoice_line(self, xml_line):
 
         # Creación de la línea de factura
@@ -242,6 +244,8 @@ class AccountInvoice(models.Model):
         })
 
         new_line.invoice_line_tax_ids = self.get_tax_id(new_line, xml_line)
+
+        new_line._compute_price()
 
     def match_xml(self, xml):
 
