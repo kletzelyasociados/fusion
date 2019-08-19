@@ -319,17 +319,18 @@ class AccountInvoice(models.Model):
 
                 if tax_id:
 
+                    raise ValidationError(tax_id.name)
                     return [(4, tax_id.id)]
 
                 else:
-
+                    raise ValidationError("No se encontro impuesto")
                     return odoo_line.product_id.supplier_taxes_id
             else:
-
+                raise ValidationError("Rate en XML: " + rate)
                 return odoo_line.product_id.supplier_taxes_id
 
         except:
-
+            raise ValidationError("Valió chetos")
             return odoo_line.product_id.supplier_taxes_id
 
     def get_uom(self, xml_line):
