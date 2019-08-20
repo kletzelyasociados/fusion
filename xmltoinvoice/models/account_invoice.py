@@ -5,13 +5,16 @@ from odoo.exceptions import AccessError, UserError, RedirectWarning, ValidationE
 import re
 from odoo import models, fields, api
 from datetime import datetime
-
+import pandas as pd
+from sklearn.pipeline import Pipeline
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.naive_bayes import MultinomialNB
 
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
     def binary_to_xml(self):
-
+        self.ensure_one()
         if not self.x_xml_file:
             raise ValidationError('No hay ningún archivo XML adjunto!')
 
@@ -210,7 +213,6 @@ class AccountInvoice(models.Model):
                     self.create_invoice_line(line)
 
             self.compute_taxes()
-            self._compute_amount()
 
         elif self.state == 'approved_by_manager' or self.state == 'open' or self.state == 'paid':
             if self.match_xml(xml):
@@ -228,8 +230,6 @@ class AccountInvoice(models.Model):
             'price_unit': self.get_discounted_unit_price(xml_line[i])
         })
 
-        odoo_line._compute_price()
-
     def create_invoice_line(self, xml_line):
 
         # Creación de la línea de factura
@@ -245,8 +245,6 @@ class AccountInvoice(models.Model):
         })
 
         new_line.invoice_line_tax_ids = self.get_tax_id(new_line, xml_line)
-
-        new_line._compute_price()
 
     def match_xml(self, xml):
 
