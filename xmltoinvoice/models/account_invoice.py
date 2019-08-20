@@ -5,10 +5,6 @@ from odoo.exceptions import AccessError, UserError, RedirectWarning, ValidationE
 import re
 from odoo import models, fields, api
 from datetime import datetime
-import pandas as pd
-from sklearn.pipeline import Pipeline
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.naive_bayes import MultinomialNB
 
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"

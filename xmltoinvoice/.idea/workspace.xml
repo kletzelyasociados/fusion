@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="47bb8b36-2dc0-47cf-b447-fe577a2c9883" name="Default Changelist" comment="">
+    <list default="true" id="47bb8b36-2dc0-47cf-b447-fe577a2c9883" name="Default Changelist" comment="Computing price in invoice line did not work.">
       <change beforePath="$PROJECT_DIR$/../invoice_payment_process/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../invoice_payment_process/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../invoice_payment_process/models/invoice_payment_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/../invoice_payment_process/models/invoice_payment_check.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -18,11 +18,21 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3638">
-              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+            <state relative-caret-position="102">
+              <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
               <folding>
                 <element signature="e#24#51#0" expanded="true" />
+                <element signature="e#346#1613#0" />
+                <element signature="e#1662#5075#0" />
+                <element signature="e#8183#8538#0" />
                 <element signature="e#8595#9148#0" />
+                <element signature="e#9189#11038#0" />
+                <element signature="e#11118#11739#0" />
+                <element signature="e#11779#11783#0" />
+                <element signature="e#11823#11845#0" />
+                <element signature="e#11903#13202#0" />
+                <element signature="e#13246#13594#0" />
+                <element signature="e#13656#14011#0" />
               </folding>
             </state>
           </provider>
@@ -116,13 +126,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1559680858229</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Fixing function calls">
-      <created>1565920448797</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1565920448797</updated>
     </task>
     <task id="LOCAL-00005" summary="Fixing AttributeError: 'dict' object has no attribute 'partner'">
       <created>1565927618651</created>
@@ -460,7 +463,14 @@
       <option name="project" value="LOCAL" />
       <updated>1566253675305</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="Computing price in invoice line did not work.">
+      <created>1566319590049</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1566319590050</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -545,24 +555,34 @@
     <entry file="file://$PROJECT_DIR$/../invoice_payment_process/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
+    <entry file="file://$PROJECT_DIR$/__manifest__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3638">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
-          <folding>
-            <element signature="e#24#51#0" expanded="true" />
-            <element signature="e#8595#9148#0" />
-          </folding>
+        <state relative-caret-position="306">
+          <caret line="18" column="21" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/models/purchase.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/__manifest__.py">
+    <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="21" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
+        <state relative-caret-position="102">
+          <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
+          <folding>
+            <element signature="e#24#51#0" expanded="true" />
+            <element signature="e#346#1613#0" />
+            <element signature="e#1662#5075#0" />
+            <element signature="e#8183#8538#0" />
+            <element signature="e#8595#9148#0" />
+            <element signature="e#9189#11038#0" />
+            <element signature="e#11118#11739#0" />
+            <element signature="e#11779#11783#0" />
+            <element signature="e#11823#11845#0" />
+            <element signature="e#11903#13202#0" />
+            <element signature="e#13246#13594#0" />
+            <element signature="e#13656#14011#0" />
+          </folding>
         </state>
       </provider>
     </entry>
