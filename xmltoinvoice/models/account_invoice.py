@@ -5,7 +5,10 @@ from odoo.exceptions import AccessError, UserError, RedirectWarning, ValidationE
 import re
 from odoo import models, fields, api
 from datetime import datetime
-
+import pandas as pd
+from sklearn.pipeline import Pipeline
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.naive_bayes import MultinomialNB
 
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
@@ -226,7 +229,6 @@ class AccountInvoice(models.Model):
             'invoice_line_tax_ids': self.get_tax_id(odoo_line, xml_line[i]),
             'price_unit': self.get_discounted_unit_price(xml_line[i])
         })
-
 
     def create_invoice_line(self, xml_line):
 
