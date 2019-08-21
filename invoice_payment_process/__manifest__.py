@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "CFDi v3.3 to PO/Invoice",
+    'name': "Payment check process",
 
     'summary': """
-        Creation of Purchase Orders or Vendor Bill based on XML Data (Mexican CFDi)""",
+        This module helps to determine if the requested payment proceeds.""",
 
     'description': """
-        Creation of Purchase Orders or Vendor Bill based on XML Data (Mexican CFDi)
+        This module adds a functionality to request invoice payments.
+        It does an extra validation to check if the requested payment is approved by the corresponding manager and if 
+        it's amount is lower than the Purchase Order to which it is related.
     """,
 
     'author': "Manuel Fabela",
@@ -15,24 +17,23 @@
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
     # for the full list
-    'category': 'Purchases',
-    'version': '1.0.0',
+    'category': 'Purchase',
+    'version': '1.0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'purchase', 'account', 'l10n_mx_edi', 'l10n_mx_reports'],
+    'depends': ['base', 'purchase', 'account', 'account_3way_match'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/purchase_views.xml',
-        'views/account_invoice_view.xml',
+        'views/account_invoice_form_view.xml',
+        'views/views.xml',
         'views/templates.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
     ],
-
     'installable': True,
     'auto_install': True,
 }
