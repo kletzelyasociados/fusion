@@ -80,7 +80,7 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def action_invoice_payment_request(self):
-        self.verify_invoice_line_match_brute_force()
+        #self.verify_invoice_line_match_brute_force()
         self.write({'payment_requested_by': self.env.uid, 'state': 'payment_request'})
         employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
         if employee:
@@ -131,7 +131,7 @@ class AccountInvoice(models.Model):
                     raise UserError("You cannot validate an invoice with a negative total amount. You should create a credit note instead.")
                 if to_open_invoices.filtered(lambda inv: not inv.account_id):
                     raise UserError('No account was found to create the invoice, be sure you have installed a chart of account.')
-                self.verify_invoice_match_brute_force()
+                #self.verify_invoice_match_brute_force()
                 to_open_invoices.action_date_assign()
                 to_open_invoices.action_move_create()
                 return to_open_invoices.invoice_validate()
@@ -182,6 +182,7 @@ class AccountInvoice(models.Model):
         else:
             return 'no esta relacionada a algún contrato'
 
+    '''
     @api.multi
     def verify_invoice_match_brute_force(self):
         purchase_order = self.get_purchase_orders()
@@ -207,6 +208,7 @@ class AccountInvoice(models.Model):
                                       )
 
             # contract = self.get_purchase_contract(purchase_order)
+
 
     @api.multi
     def verify_invoice_line_match_brute_force(self):
@@ -245,3 +247,5 @@ class AccountInvoice(models.Model):
                                      '\n')
             if Error:
                 raise ValidationError(Error)
+
+'''
