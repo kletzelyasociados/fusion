@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="5e740d12-c6a8-4055-be66-c3be411eebfa" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice_payment_process/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice_payment_process/.idea/invoice_payment_process.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice_payment_process/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice_payment_process/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice_payment_process/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice_payment_process/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice_payment_process/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice_payment_process/__manifest__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice_payment_process/controllers/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice_payment_process/controllers/controllers.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice_payment_process/demo/demo.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice_payment_process/models/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice_payment_process/models/invoice_payment_check.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice_payment_process/security/ir.model.access.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice_payment_process/views/account_invoice_form_view.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice_payment_process/views/templates.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice_payment_process/views/views.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/.idea/sprogroup_purchase_request.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/__manifest__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/data/sprogroup_purchase_request_data.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/models/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/models/sprogroup_purchase_request.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/security/ir.model.access.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/security/sprogroup_purchase_request_security.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/static/description/1.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/static/description/2.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/static/description/3.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/static/description/4.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/static/description/5.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/static/description/6.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/static/description/icon.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/static/description/icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/static/description/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/static/description/survey_feedback_form.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/static/description/survey_sc_00.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/static/src/css/survey_print.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/static/src/css/survey_result.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/static/src/js/survey.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/static/src/js/survey_result.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/static/src/js/tour_test_survey.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprogroup_purchase_request/views/sprogroup_purchase_request_view.xml" beforeDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/.gitignore" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="fusion" type="b2602c69:ProjectViewProjectNode" />
+              <item name="fusion" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5e740d12-c6a8-4055-be66-c3be411eebfa" name="Default Changelist" comment="" />
+      <created>1566424814039</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1566424814039</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <layout>
+      <window_info id="Favorites" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Python Console" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="GitLabIntegration" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
