@@ -1,9 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD:.idea/workspace.xml
+    <list default="true" id="5e740d12-c6a8-4055-be66-c3be411eebfa" name="Default Changelist" comment="">
+=======
     <list default="true" id="47bb8b36-2dc0-47cf-b447-fe577a2c9883" name="Default Changelist" comment="Computing price in invoice line did not work.">
       <change beforePath="$PROJECT_DIR$/../invoice_payment_process/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../invoice_payment_process/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../invoice_payment_process/models/invoice_payment_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/../invoice_payment_process/models/invoice_payment_check.py" afterDir="false" />
+>>>>>>> tests-2:xmltoinvoice/.idea/workspace.xml
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/account_invoice.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/account_invoice.py" afterDir="false" />
     </list>
@@ -14,6 +18,9 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
+<<<<<<< HEAD:.idea/workspace.xml
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+=======
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
@@ -62,15 +69,20 @@
       <find>get_uom</find>
       <find>tasa</find>
     </findStrings>
+>>>>>>> tests-2:xmltoinvoice/.idea/workspace.xml
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+<<<<<<< HEAD:.idea/workspace.xml
+        <option value="$PROJECT_DIR$/.gitignore" />
+=======
         <option value="$PROJECT_DIR$/__manifest__.py" />
         <option value="$PROJECT_DIR$/models/account_invoice.py" />
+>>>>>>> tests-2:xmltoinvoice/.idea/workspace.xml
       </list>
     </option>
   </component>
@@ -90,8 +102,13 @@
         <subPane>
           <expand>
             <path>
+<<<<<<< HEAD:.idea/workspace.xml
+              <item name="fusion" type="b2602c69:ProjectViewProjectNode" />
+              <item name="fusion" type="462c0819:PsiDirectoryNode" />
+=======
               <item name="xmltoinvoice" type="b2602c69:ProjectViewProjectNode" />
               <item name="xmltoinvoice" type="462c0819:PsiDirectoryNode" />
+>>>>>>> tests-2:xmltoinvoice/.idea/workspace.xml
             </path>
           </expand>
           <select />
@@ -101,8 +118,12 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+<<<<<<< HEAD:.idea/workspace.xml
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+=======
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../GitLab/agrovizion" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
+>>>>>>> tests-2:xmltoinvoice/.idea/workspace.xml
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -121,12 +142,28 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="47bb8b36-2dc0-47cf-b447-fe577a2c9883" name="Default Changelist" comment="" />
-      <created>1559680858229</created>
+      <changelist id="5e740d12-c6a8-4055-be66-c3be411eebfa" name="Default Changelist" comment="" />
+      <created>1566424814039</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1559680858229</updated>
+      <updated>1566424814039</updated>
     </task>
+    <task id="LOCAL-00001" summary="Ignoring .idea folder">
+      <created>1566425295411</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1566425295411</updated>
+    </task>
+<<<<<<< HEAD:.idea/workspace.xml
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+=======
     <task id="LOCAL-00005" summary="Fixing AttributeError: 'dict' object has no attribute 'partner'">
       <created>1565927618651</created>
       <option name="number" value="00005" />
@@ -478,6 +515,7 @@
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1845238" />
+>>>>>>> tests-2:xmltoinvoice/.idea/workspace.xml
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -489,14 +527,31 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.6770833" weight="0.806874" />
       <window_info anchor="bottom" id="Terminal" order="8" />
+<<<<<<< HEAD:.idea/workspace.xml
+      <window_info anchor="bottom" id="GitLabIntegration" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Python Console" order="11" />
+=======
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.32291666" side_tool="true" weight="0.32242227" />
       <window_info anchor="bottom" id="Python Console" order="10" />
       <window_info anchor="bottom" id="GitLabIntegration" order="11" />
+>>>>>>> tests-2:xmltoinvoice/.idea/workspace.xml
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
   </component>
+<<<<<<< HEAD:.idea/workspace.xml
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Ignoring .idea folder" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ignoring .idea folder" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="7" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="7" />
+=======
   <component name="Vcs.Log.History.Properties">
     <option name="COLUMN_ORDER">
       <list>
@@ -580,6 +635,7 @@
             <element signature="e#13246#13594#0" />
             <element signature="e#13656#14011#0" />
           </folding>
+>>>>>>> tests-2:xmltoinvoice/.idea/workspace.xml
         </state>
       </provider>
     </entry>
