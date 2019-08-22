@@ -1,8 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD:.idea/workspace.xml
     <list default="true" id="5e740d12-c6a8-4055-be66-c3be411eebfa" name="Default Changelist" comment="">
+=======
+    <list default="true" id="47bb8b36-2dc0-47cf-b447-fe577a2c9883" name="Default Changelist" comment="Computing price in invoice line did not work.">
+      <change beforePath="$PROJECT_DIR$/../invoice_payment_process/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../invoice_payment_process/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../invoice_payment_process/models/invoice_payment_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/../invoice_payment_process/models/invoice_payment_check.py" afterDir="false" />
+>>>>>>> tests-2:xmltoinvoice/.idea/workspace.xml
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/account_invoice.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/account_invoice.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -11,7 +18,58 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
+<<<<<<< HEAD:.idea/workspace.xml
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+=======
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
+              <folding>
+                <element signature="e#24#51#0" expanded="true" />
+                <element signature="e#346#1613#0" />
+                <element signature="e#1662#5075#0" />
+                <element signature="e#8183#8538#0" />
+                <element signature="e#8595#9148#0" />
+                <element signature="e#9189#11038#0" />
+                <element signature="e#11118#11739#0" />
+                <element signature="e#11779#11783#0" />
+                <element signature="e#11823#11845#0" />
+                <element signature="e#11903#13202#0" />
+                <element signature="e#13246#13594#0" />
+                <element signature="e#13656#14011#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/purchase.py">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/__manifest__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="18" column="21" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>for</find>
+      <find>format</find>
+      <find>datetime</find>
+      <find>get_uom</find>
+      <find>tasa</find>
+    </findStrings>
+>>>>>>> tests-2:xmltoinvoice/.idea/workspace.xml
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -19,37 +77,53 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+<<<<<<< HEAD:.idea/workspace.xml
         <option value="$PROJECT_DIR$/.gitignore" />
+=======
+        <option value="$PROJECT_DIR$/__manifest__.py" />
+        <option value="$PROJECT_DIR$/models/account_invoice.py" />
+>>>>>>> tests-2:xmltoinvoice/.idea/workspace.xml
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1382" />
     <option name="height" value="744" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
+<<<<<<< HEAD:.idea/workspace.xml
               <item name="fusion" type="b2602c69:ProjectViewProjectNode" />
               <item name="fusion" type="462c0819:PsiDirectoryNode" />
+=======
+              <item name="xmltoinvoice" type="b2602c69:ProjectViewProjectNode" />
+              <item name="xmltoinvoice" type="462c0819:PsiDirectoryNode" />
+>>>>>>> tests-2:xmltoinvoice/.idea/workspace.xml
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+<<<<<<< HEAD:.idea/workspace.xml
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+=======
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../GitLab/agrovizion" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+>>>>>>> tests-2:xmltoinvoice/.idea/workspace.xml
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -81,6 +155,7 @@
       <option name="project" value="LOCAL" />
       <updated>1566425295411</updated>
     </task>
+<<<<<<< HEAD:.idea/workspace.xml
     <option name="localTasksCounter" value="2" />
     <servers />
   </component>
@@ -88,6 +163,359 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+=======
+    <task id="LOCAL-00005" summary="Fixing AttributeError: 'dict' object has no attribute 'partner'">
+      <created>1565927618651</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1565927618651</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Fixing ValueError: Unknown format code 'f' for object of type 'str'">
+      <created>1565927991400</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1565927991400</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Adding get_uom() method">
+      <created>1565929888262</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1565929888262</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Solving psycopg2.ProgrammingError: can't adapt type 'product.uom'">
+      <created>1565930401259</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1565930401259</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Solving psycopg2.ProgrammingError: can't adapt type 'product.uom' the id in the parameter was missing">
+      <created>1565931525805</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1565931525805</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Solving missing id in partner">
+      <created>1565932115028</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1565932115028</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Adding more information in rase errors">
+      <created>1565932676163</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1565932676163</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Solving date comparison format">
+      <created>1565933563603</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1565933563603</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Solving date comparison format">
+      <created>1565933692958</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1565933692958</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Solving date comparison format">
+      <created>1565933860856</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1565933860856</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Solving date comparison format to str">
+      <created>1565933984815</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1565933984815</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Solving date comparison format to str">
+      <created>1565934156821</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1565934156821</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Solving TypeError: must be str, not float">
+      <created>1565934768622</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1565934768622</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Solving TypeError: must be str, not float">
+      <created>1565967503085</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1565967503085</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Solving TypeError: must be str, not float">
+      <created>1565967740139</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1565967740139</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Solving TypeError: must be str, not float">
+      <created>1565967838625</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1565967838625</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Solving TypeError: must be str, not float">
+      <created>1565967948716</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1565967948716</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Solving TypeError: must be str, not res.partner">
+      <created>1565968433127</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1565968433127</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Adding taxes based on the taxes in the xml.">
+      <created>1565973855573</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1565973855573</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Changing parameter of get_tax_id method">
+      <created>1565973985413</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1565973985413</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Fixing AttributeError: 'account.invoice' object has no attribute 'company'">
+      <created>1565974661124</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1565974661124</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Fixing TypeError: %d format: a number is required, not list">
+      <created>1565975052979</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1565975052979</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Fixing ValueError: Invalid field 'company_id' in leaf &quot;&lt;osv.ExtendedLeaf: ('company_id', '=', 1) on product_uom (ctx: )&gt;&quot;">
+      <created>1565975257483</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1565975257483</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Fixing KeyError: 'TasaOCuota' not found because is not inthe same leaf">
+      <created>1565976296126</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1565976296126</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Fixing AttributeError: 'NodeList' object has no attribute 'attributes'">
+      <created>1565976583671</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1565976583671</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Fixing psycopg2.ProgrammingError: EXCEPT types boolean and integer cannot be matched&#10;LINE 3: ...                  EXCEPT (SELECT invoice_line_id, tax_id FRO...">
+      <created>1565977317431</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1565977317431</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Fixing AttributeError: 'account.invoice' object has no attribute 'product_id'">
+      <created>1565978128456</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1565978128456</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Fixing AttributeError: 'NodeList' object has no attribute 'getElementsByTagName'">
+      <created>1565978532303</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1565978532303</updated>
+    </task>
+    <task id="LOCAL-00033" summary="removing odoo_line._set_taxes() and getting taxes using get_tax_id method">
+      <created>1565979698577</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1565979698577</updated>
+    </task>
+    <task id="LOCAL-00034" summary="removing odoo_line._set_taxes() and getting taxes using get_tax_id method">
+      <created>1566236202639</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1566236202639</updated>
+    </task>
+    <task id="LOCAL-00035" summary="removing odoo_line._set_taxes() and getting taxes using get_tax_id method">
+      <created>1566237310726</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1566237310726</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Testing getting taxes using get_tax_id method">
+      <created>1566237656721</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1566237656721</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Running method without try except">
+      <created>1566237937069</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1566237937069</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Trying to get the right rate of xml by line">
+      <created>1566238987322</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1566238987322</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Trying to get the right rate of xml by line">
+      <created>1566239610441</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1566239610441</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Trying to get the right rate of xml by line">
+      <created>1566239788545</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1566239788545</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Trying to get the product taxes">
+      <created>1566240004387</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1566240004387</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Trying to get the product taxes when rate is 0">
+      <created>1566240128440</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1566240128440</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Trying to get the product taxes when rate is 0">
+      <created>1566240441978</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1566240441978</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Trying to get the product taxes when rate is 0">
+      <created>1566240642086</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1566240642086</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Trying to get the product taxes when rate is 0">
+      <created>1566241203795</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1566241203795</updated>
+    </task>
+    <task id="LOCAL-00046" summary="overriding taxes id">
+      <created>1566247730478</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1566247730478</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Adding taxes &quot;IVA EXENTO&quot; when the xml line does not have taxes.">
+      <created>1566248231811</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1566248231811</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Adding taxes &quot;IVA EXENTO&quot; when the xml line does not have taxes.">
+      <created>1566248470089</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1566248470089</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Changing product to &quot;EDIFICACIÓN EXENTO&quot; when the xml line does not have taxes.">
+      <created>1566249305028</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1566249305028</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Computing price in invoice line">
+      <created>1566252196843</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1566252196853</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Computing price in invoice line">
+      <created>1566253312525</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1566253312525</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Computing price in invoice line did not work.">
+      <created>1566253675305</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1566253675305</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Computing price in invoice line did not work.">
+      <created>1566319590049</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1566319590050</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1845238" />
+>>>>>>> tests-2:xmltoinvoice/.idea/workspace.xml
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -97,16 +525,23 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.6770833" weight="0.806874" />
       <window_info anchor="bottom" id="Terminal" order="8" />
+<<<<<<< HEAD:.idea/workspace.xml
       <window_info anchor="bottom" id="GitLabIntegration" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="11" />
+=======
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.32291666" side_tool="true" weight="0.32242227" />
+      <window_info anchor="bottom" id="Python Console" order="10" />
+      <window_info anchor="bottom" id="GitLabIntegration" order="11" />
+>>>>>>> tests-2:xmltoinvoice/.idea/workspace.xml
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
   </component>
+<<<<<<< HEAD:.idea/workspace.xml
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Ignoring .idea folder" />
     <option name="LAST_COMMIT_MESSAGE" value="Ignoring .idea folder" />
@@ -116,6 +551,91 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" column="7" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="7" />
+=======
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Solving date comparison format" />
+    <MESSAGE value="Solving date comparison format to str" />
+    <MESSAGE value="Solving TypeError: must be str, not float" />
+    <MESSAGE value="Solving TypeError: must be str, not res.partner" />
+    <MESSAGE value="Adding taxes based on the taxes in the xml." />
+    <MESSAGE value="Changing parameter of get_tax_id method" />
+    <MESSAGE value="Fixing AttributeError: 'account.invoice' object has no attribute 'company'" />
+    <MESSAGE value="Fixing TypeError: %d format: a number is required, not list" />
+    <MESSAGE value="Fixing ValueError: Invalid field 'company_id' in leaf &quot;&lt;osv.ExtendedLeaf: ('company_id', '=', 1) on product_uom (ctx: )&gt;&quot;" />
+    <MESSAGE value="Fixing KeyError: 'TasaOCuota' not found because is not inthe same leaf" />
+    <MESSAGE value="Fixing AttributeError: 'NodeList' object has no attribute 'attributes'" />
+    <MESSAGE value="Fixing psycopg2.ProgrammingError: EXCEPT types boolean and integer cannot be matched&#10;LINE 3: ...                  EXCEPT (SELECT invoice_line_id, tax_id FRO..." />
+    <MESSAGE value="Fixing AttributeError: 'account.invoice' object has no attribute 'product_id'" />
+    <MESSAGE value="Fixing AttributeError: 'NodeList' object has no attribute 'getElementsByTagName'" />
+    <MESSAGE value="removing odoo_line._set_taxes() and getting taxes using get_tax_id method" />
+    <MESSAGE value="Testing getting taxes using get_tax_id method" />
+    <MESSAGE value="Running method without try except" />
+    <MESSAGE value="Trying to get the right rate of xml by line" />
+    <MESSAGE value="Trying to get the product taxes" />
+    <MESSAGE value="Trying to get the product taxes when rate is 0" />
+    <MESSAGE value="overriding taxes id" />
+    <MESSAGE value="Adding taxes &quot;IVA EXENTO&quot; when the xml line does not have taxes." />
+    <MESSAGE value="Changing product to &quot;EDIFICACIÓN EXENTO&quot; when the xml line does not have taxes." />
+    <MESSAGE value="Computing price in invoice line" />
+    <MESSAGE value="Computing price in invoice line did not work." />
+    <option name="LAST_COMMIT_MESSAGE" value="Computing price in invoice line did not work." />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/__manifest__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="21" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/purchase.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/account_invoice.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
+          <folding>
+            <element signature="e#24#51#0" expanded="true" />
+            <element signature="e#346#1613#0" />
+            <element signature="e#1662#5075#0" />
+            <element signature="e#8183#8538#0" />
+            <element signature="e#8595#9148#0" />
+            <element signature="e#9189#11038#0" />
+            <element signature="e#11118#11739#0" />
+            <element signature="e#11779#11783#0" />
+            <element signature="e#11823#11845#0" />
+            <element signature="e#11903#13202#0" />
+            <element signature="e#13246#13594#0" />
+            <element signature="e#13656#14011#0" />
+          </folding>
+>>>>>>> tests-2:xmltoinvoice/.idea/workspace.xml
         </state>
       </provider>
     </entry>
