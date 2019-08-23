@@ -80,13 +80,21 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def action_invoice_payment_request(self):
-        #self.verify_invoice_line_match_brute_force()
-        self.write({'payment_requested_by': self.env.uid, 'state': 'payment_request'})
-        employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
-        if employee:
-            self.write({'department_id': employee[0].department_id.id})
-        else:
-            raise ValidationError('El empleado no se encuentra dado de alta, o el correo electrónico en el empleado no es el mismo que el del usuario')
+
+        if self.verify_invoice_line_match_brute_force():
+
+            if self.x_xml_file:
+
+                xml = self.map_xml_to_odoo_fields()
+
+                if self.match_xml(xml):
+
+                    self.write({'payment_requested_by': self.env.uid, 'state': 'payment_request'})
+                    employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
+                    if employee:
+                        self.write({'department_id': employee[0].department_id.id})
+                    else:
+                        raise ValidationError('El empleado no se encuentra dado de alta, o el correo electrónico en el empleado no es el mismo que el del usuario')
 
     @api.multi
     def action_invoice_approve(self):
@@ -208,7 +216,7 @@ class AccountInvoice(models.Model):
                                       )
 
             # contract = self.get_purchase_contract(purchase_order)
-
+    '''
 
     @api.multi
     def verify_invoice_line_match_brute_force(self):
@@ -245,7 +253,19 @@ class AccountInvoice(models.Model):
                                      '\n********Monto de Linea de Factura No. ' + str(i+1) + ': ' + '${:,.2f}'.format(invoice_line.price_total) +
                                      '\n********Excedente con esta Línea de Factura: ' + '${:,.2f}'.format((purchase_line_total_amount - inv_total_amount - invoice_line.price_total)*-1) +
                                      '\n')
+
+                else:
+
+                    employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
+                    if employee:
+                        if employee[0].department_id.name == "Construcción de Obra" or employee[0].department_id.name == "Compras" or employee[0].department_id.name == "Proyectos":
+                            Error.append('\nError en Línea de Factura No. ' + str(i + 1) +
+                                         ':- No tiene orden de compra de origen: ')
+                        else:
+                            pass
+                    else:
+                        raise ValidationError('\nNo tienes los permisos necesarios para validar facturas')
+
             if Error:
                 raise ValidationError(Error)
 
-'''
