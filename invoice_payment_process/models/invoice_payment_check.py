@@ -230,29 +230,38 @@ class AccountInvoice(models.Model):
                 if invoice_line.purchase_line_id:
                     # Obtener la línea de la PO
                     purchase_line = invoice_line.purchase_line_id
-                    # Extraer el monto total
-                    purchase_line_total_amount = purchase_line.price_total
-                    # Obtener las líneas de factura
-                    purchase_line_invoice_lines = purchase_line.invoice_lines
 
-                    inv_total_amount = 0
+                    if purchase_line.order_id.state == "purchase":
 
-                    # Para cada linea de factura
-                    for linea_de_factura in purchase_line_invoice_lines:
-                        # Filtrar donde el estado sea diferente de borrador, cancelado o pago rechazado
-                        if linea_de_factura.invoice_id.state == 'payment_request' or linea_de_factura.invoice_id.state == 'approved_by_leader' or linea_de_factura.invoice_id.state == 'approved_by_manager' or linea_de_factura.invoice_id.state == 'open' or linea_de_factura.invoice_id.state == 'paid':
-                            # Sumar el monto total
-                            inv_total_amount = inv_total_amount + linea_de_factura.price_total
+                        # Extraer el monto total
+                        purchase_line_total_amount = purchase_line.price_total
+                        # Obtener las líneas de factura
+                        purchase_line_invoice_lines = purchase_line.invoice_lines
 
-                    # Comparar con el monto de la línea de orden de compra, si es mayor asignar error al arreglo
-                    if inv_total_amount + invoice_line.price_total > purchase_line_total_amount:
-                        Error.append('\nError en Línea de Factura No. ' + str(i+1) +
+                        inv_total_amount = 0
+
+                        # Para cada linea de factura
+                        for linea_de_factura in purchase_line_invoice_lines:
+                            # Filtrar donde el estado sea diferente de borrador, cancelado o pago rechazado
+                            if linea_de_factura.invoice_id.state == 'payment_request' or linea_de_factura.invoice_id.state == 'approved_by_leader' or linea_de_factura.invoice_id.state == 'approved_by_manager' or linea_de_factura.invoice_id.state == 'open' or linea_de_factura.invoice_id.state == 'paid':
+                                # Sumar el monto total
+                                inv_total_amount = inv_total_amount + linea_de_factura.price_total
+
+                        # Comparar con el monto de la línea de orden de compra, si es mayor asignar error al arreglo
+                        if inv_total_amount + invoice_line.price_total > purchase_line_total_amount:
+                            Error.append('\nError en Línea de Factura No. ' + str(i+1) +
+                                         ':- Orden de Compra Origen: ' + purchase_line.order_id.name +
+                                         '\n********Monto de Línea de Orden de Compra: ' + '${:,.2f}'.format(purchase_line_total_amount) +
+                                         '\n********Monto de Lineas de Factura Registradas: ' + '${:,.2f}'.format(inv_total_amount) +
+                                         '\n********Monto de Linea de Factura No. ' + str(i+1) + ': ' + '${:,.2f}'.format(invoice_line.price_total) +
+                                         '\n********Excedente con esta Línea de Factura: ' + '${:,.2f}'.format((purchase_line_total_amount - inv_total_amount - invoice_line.price_total)*-1) +
+                                         '\n')
+
+                    else:
+
+                        Error.append('\nError en Línea de Factura No. ' + str(i + 1) +
                                      ':- Orden de Compra Origen: ' + purchase_line.order_id.name +
-                                     '\n********Monto de Línea de Orden de Compra: ' + '${:,.2f}'.format(purchase_line_total_amount) +
-                                     '\n********Monto de Lineas de Factura Registradas: ' + '${:,.2f}'.format(inv_total_amount) +
-                                     '\n********Monto de Linea de Factura No. ' + str(i+1) + ': ' + '${:,.2f}'.format(invoice_line.price_total) +
-                                     '\n********Excedente con esta Línea de Factura: ' + '${:,.2f}'.format((purchase_line_total_amount - inv_total_amount - invoice_line.price_total)*-1) +
-                                     '\n')
+                                     '\n********La orden de compra está bloqueada, ya no se pueden realizar solicitudes de pagos')
 
                 else:
 
@@ -264,7 +273,7 @@ class AccountInvoice(models.Model):
                         else:
                             pass
                     else:
-                        raise ValidationError('\nNo tienes los permisos necesarios para validar facturas')
+                        raise ValidationError('\nNo tienes los permisos necesarios para solicitar pagos de facturas')
 
             if Error:
                 raise ValidationError(Error)
