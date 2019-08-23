@@ -278,3 +278,8 @@ class AccountInvoice(models.Model):
             if Error:
                 raise ValidationError(Error)
 
+    @api.multi
+    @api.onchange('residual')
+    def change_authorized_amount(self):
+        if self.amount_authorized > 0:
+            self.amount_authorized = 0
