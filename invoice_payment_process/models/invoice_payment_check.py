@@ -302,7 +302,7 @@ class AccountInvoice(models.Model):
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
-    @api.depends('order_line.invoice_lines.invoice_id.state')
+    @api.depends('order_line')
     def _compute_paid_total(self):
         self.ensure_one()
 
