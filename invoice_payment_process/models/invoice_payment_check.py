@@ -61,10 +61,9 @@ class AccountInvoice(models.Model):
                                        digits=(16, 2),
                                        compute='_compute_paid_by_line')
 
+    @api.one
     @api.depends('residual')
     def _compute_paid_by_line(self):
-        self.ensure_one()
-
         if self.state == 'open':
             self.amount_paid_by_line = self.amount_total / len(self.invoice_line_ids)
         else:
@@ -303,8 +302,9 @@ class AccountInvoice(models.Model):
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
-    @api.depends('order_line')
+    @api.depends('order_line.invoice_lines.invoice_id.state')
     def _compute_paid_total(self):
+
         for order in self:
 
             if order.order_line:
