@@ -307,7 +307,8 @@ class PurchaseOrder(models.Model):
     @api.multi
     @api.depends('order_line.invoice_lines.invoice_id.state')
     def _compute_paid_total(self):
-        for record in self:
+
+        for record in self.records:
 
             if record.order_line:
 
