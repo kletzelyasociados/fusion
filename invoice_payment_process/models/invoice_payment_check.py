@@ -307,22 +307,22 @@ class PurchaseOrder(models.Model):
 
     @api.depends('order_line')
     def _compute_paid_total(self):
-        self.ensure_one()
+        for record in self:
 
-        if self.order_line:
+            if record.order_line:
 
-            amount_paid = 0
+                amount_paid = 0
 
-            for order_line in self.order_line:
+                for order_line in record.order_line:
 
-                for invoice_line in order_line.invoice_lines:
+                    for invoice_line in order_line.invoice_lines:
 
-                    if invoice_line.invoice_id.state == 'paid':
+                        if invoice_line.invoice_id.state == 'paid':
 
-                        amount_paid = amount_paid + invoice_line.price_total
+                            amount_paid = amount_paid + invoice_line.price_total
 
-                    elif invoice_line.invoice_id.state == 'open':
-                        amount_paid = amount_paid + invoice_line.invoice_id.amount_paid_by_line
+                        elif invoice_line.invoice_id.state == 'open':
+                            amount_paid = amount_paid + invoice_line.invoice_id.amount_paid_by_line
 
     paid_total = fields.Float(string='Total Pagado',
                               store=True,
