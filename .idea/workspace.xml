@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5e740d12-c6a8-4055-be66-c3be411eebfa" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/invoice_payment_process/models/invoice_payment_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/invoice_payment_process/models/invoice_payment_check.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,10 +24,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/invoice_payment_process/models/invoice_payment_check.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="158">
-              <caret line="263" column="67" lean-forward="true" selection-start-line="263" selection-start-column="67" selection-end-line="263" selection-end-column="82" />
+            <state relative-caret-position="419">
+              <caret line="281" column="27" selection-start-line="281" selection-start-column="27" selection-end-line="281" selection-end-column="27" />
               <folding>
                 <element signature="e#25#61#0" expanded="true" />
+                <element signature="e#12027#14495#0" />
               </folding>
             </state>
           </provider>
@@ -48,10 +48,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="744" />
+    <option name="x" value="-7" />
+    <option name="width" value="697" />
+    <option name="height" value="735" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -123,7 +122,21 @@
       <option name="project" value="LOCAL" />
       <updated>1566591443004</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Blocking the payment request if the related PO of the invoice is blocked">
+      <created>1566596878480</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1566596878480</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Changing amount authorized when the residual changes">
+      <created>1566597381882</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1566597381882</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -153,7 +166,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Ignoring .idea folder" />
     <MESSAGE value="Blocking the payment request if the invoice does not have origin PO in building department" />
-    <option name="LAST_COMMIT_MESSAGE" value="Blocking the payment request if the invoice does not have origin PO in building department" />
+    <MESSAGE value="Blocking the payment request if the related PO of the invoice is blocked" />
+    <MESSAGE value="Changing amount authorized when the residual changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changing amount authorized when the residual changes" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/.gitignore">
@@ -165,10 +180,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/invoice_payment_process/models/invoice_payment_check.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="263" column="67" lean-forward="true" selection-start-line="263" selection-start-column="67" selection-end-line="263" selection-end-column="82" />
+        <state relative-caret-position="419">
+          <caret line="281" column="27" selection-start-line="281" selection-start-column="27" selection-end-line="281" selection-end-column="27" />
           <folding>
             <element signature="e#25#61#0" expanded="true" />
+            <element signature="e#12027#14495#0" />
           </folding>
         </state>
       </provider>
