@@ -51,7 +51,7 @@ class AccountInvoice(models.Model):
                                         store=True)
 
     amount_authorized = fields.Monetary(string='Monto Autorizado de Pago',
-
+                                        compute='_compute_authorized_amount',
                                         track_visibility='onchange',
                                         store=True)
 
@@ -278,8 +278,8 @@ class AccountInvoice(models.Model):
             if Error:
                 raise ValidationError(Error)
 
-    @api.multi
-    @api.onchange('residual')
-    def change_authorized_amount(self):
+    @api.depends('residual')
+    def _compute_authorized_amount(self):
+        self.ensure_one()
         if self.amount_authorized > 0:
             self.amount_authorized = 0
