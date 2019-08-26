@@ -302,29 +302,27 @@ class AccountInvoice(models.Model):
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
-    @api.multi
+    @api.one
     @api.depends('order_line.invoice_lines.invoice_id.state')
     def _compute_paid_total(self):
 
-        for record in self.records:
+        if self.order_line:
 
-            if record.order_line:
+            amount_paid = 0
 
-                amount_paid = 0
+            for line in self.order_line:
 
-                for line in record.order_line:
+                for invoice_line in line.invoice_lines:
 
-                    for invoice_line in line.invoice_lines:
+                    if invoice_line.invoice_id.state == 'paid':
 
-                        if invoice_line.invoice_id.state == 'paid':
+                        amount_paid = amount_paid + invoice_line.price_total
 
-                            amount_paid = amount_paid + invoice_line.price_total
+                    elif invoice_line.invoice_id.state == 'open':
 
-                        elif invoice_line.invoice_id.state == 'open':
+                        amount_paid = amount_paid + invoice_line.invoice_id.amount_paid_by_line
 
-                            amount_paid = amount_paid + invoice_line.invoice_id.amount_paid_by_line
-
-                record.paid_total = amount_paid
+            self.paid_total = amount_paid
 
     paid_total = fields.Float(string='Total Pagado',
                               store=True,
