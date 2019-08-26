@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/invoice_payment_process/models/invoice_payment_check.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="313" column="31" lean-forward="true" selection-start-line="313" selection-start-column="31" selection-end-line="313" selection-end-column="31" />
+            <state relative-caret-position="107">
+              <caret line="306" column="8" selection-start-line="306" selection-start-column="8" selection-end-line="306" selection-end-column="8" />
               <folding>
                 <element signature="e#25#61#0" expanded="true" />
               </folding>
@@ -28,7 +28,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/invoice_payment_process/__manifest__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
+            <state relative-caret-position="291">
               <caret line="29" column="29" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
             </state>
           </provider>
@@ -201,7 +201,28 @@
       <option name="project" value="LOCAL" />
       <updated>1566854495386</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Trying to solve ValueError: too many values to unpack (expected 1)">
+      <created>1566854766654</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1566854766654</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Trying to solve ValueError: too many values to unpack (expected 1)">
+      <created>1566854953246</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1566854953246</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Trying to solve ValueError: too many values to unpack (expected 1)">
+      <created>1566855190328</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1566855190328</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -218,7 +239,7 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" visible="true" weight="0.12765957" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.66121113" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="GitLabIntegration" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
@@ -242,21 +263,21 @@
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
-          <caret line="1" column="7" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="7" />
+          <caret line="1" column="1" lean-forward="true" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/invoice_payment_process/__manifest__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
+        <state relative-caret-position="291">
           <caret line="29" column="29" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/invoice_payment_process/models/invoice_payment_check.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="313" column="31" lean-forward="true" selection-start-line="313" selection-start-column="31" selection-end-line="313" selection-end-column="31" />
+        <state relative-caret-position="107">
+          <caret line="306" column="8" selection-start-line="306" selection-start-column="8" selection-end-line="306" selection-end-column="8" />
           <folding>
             <element signature="e#25#61#0" expanded="true" />
           </folding>

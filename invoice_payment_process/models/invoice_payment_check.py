@@ -61,13 +61,13 @@ class AccountInvoice(models.Model):
                                        digits=(16, 2),
                                        compute='_compute_paid_by_line')
 
-    @api.one
     @api.depends('residual')
     def _compute_paid_by_line(self):
-        if self.state == 'open':
-            self.amount_paid_by_line = self.amount_total / len(self.invoice_line_ids)
-        else:
-            self.amount_paid_by_line = 0
+        for invoice in self:
+            if invoice.state == 'open':
+                invoice.amount_paid_by_line = invoice.amount_total / len(invoice.invoice_line_ids)
+            else:
+                invoice.amount_paid_by_line = 0
 
     @api.depends('payment_requested_by_id')
     def _compute_department(self):
@@ -304,25 +304,26 @@ class PurchaseOrder(models.Model):
 
     @api.depends('order_line')
     def _compute_paid_total(self):
-        self.ensure_one()
 
-        if self.order_line:
+        for order in self:
 
-            amount_paid = 0
+            if order.order_line:
 
-            for line in self.order_line:
+                amount_paid = 0
 
-                for invoice_line in line.invoice_lines:
+                for line in order.order_line:
 
-                    if invoice_line.invoice_id.state == 'paid':
+                    for invoice_line in line.invoice_lines:
 
-                        amount_paid = amount_paid + invoice_line.price_total
+                        if invoice_line.invoice_id.state == 'paid':
 
-                    elif invoice_line.invoice_id.state == 'open':
+                            amount_paid = amount_paid + invoice_line.price_total
 
-                        amount_paid = amount_paid + invoice_line.invoice_id.amount_paid_by_line
+                        elif invoice_line.invoice_id.state == 'open':
 
-            self.paid_total = amount_paid
+                            amount_paid = amount_paid + invoice_line.invoice_id.amount_paid_by_line
+
+                order.paid_total = amount_paid
 
     paid_total = fields.Float(string='Total Pagado',
                               store=True,
