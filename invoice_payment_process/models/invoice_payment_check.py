@@ -55,6 +55,21 @@ class AccountInvoice(models.Model):
                                         track_visibility='onchange',
                                         store=True)
 
+    amount_paid_by_line = fields.Float(string='Pagado por linea',
+                                       store=True,
+                                       readonly=True,
+                                       digits=(16, 2),
+                                       compute='_compute_paid_by_line')
+
+    @api.depends('residual')
+    def _compute_paid_by_line(self):
+        self.ensure_one()
+
+        if self.state == 'open':
+            self.amount_paid_by_line = self.amount_total / len(self.invoice_line_ids)
+        else:
+            self.amount_paid_by_line = 0
+
     @api.depends('payment_requested_by_id')
     def _compute_department(self):
         for invoice in self:
@@ -283,3 +298,33 @@ class AccountInvoice(models.Model):
         self.ensure_one()
         if self.amount_authorized > 0:
             self.amount_authorized = 0
+
+
+class PurchaseOrder(models.Model):
+    _inherit = "purchase.order"
+
+    @api.depends('order_line')
+    def _compute_paid_total(self):
+        self.ensure_one()
+
+        if self.order_line:
+
+            amount_paid = 0
+
+            for order_line in self.order_line:
+
+                for invoice_line in order_line.invoice_lines:
+
+                    if invoice_line.invoice_id.state == 'paid':
+
+                        amount_paid = amount_paid + invoice_line.price_total
+
+                    elif invoice_line.invoice_id.state == 'open':
+                        amount_paid = amount_paid + invoice_line.invoice_id.amount_paid_by_line
+
+    paid_total = fields.Float(string='Total Pagado',
+                              store=True,
+                              readonly=True,
+                              digits=(16, 2),
+                              compute='_compute_paid_total')
+
