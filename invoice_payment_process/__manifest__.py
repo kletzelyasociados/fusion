@@ -27,6 +27,7 @@
     'data': [
         # 'security/ir.model.access.csv',
         'views/account_invoice_form_view.xml',
+        'views/purchase_order_form_view.xml',
         'views/views.xml',
         'views/templates.xml',
     ],
