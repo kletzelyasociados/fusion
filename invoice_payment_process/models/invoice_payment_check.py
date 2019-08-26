@@ -96,6 +96,7 @@ class AccountInvoice(models.Model):
                     else:
                         raise ValidationError('El empleado no se encuentra dado de alta, o el correo electrónico en el empleado no es el mismo que el del usuario')
 
+
     @api.multi
     def action_invoice_approve(self):
         approver = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
@@ -218,6 +219,7 @@ class AccountInvoice(models.Model):
             # contract = self.get_purchase_contract(purchase_order)
     '''
 
+
     @api.multi
     def verify_invoice_line_match_brute_force(self):
 
@@ -283,3 +285,4 @@ class AccountInvoice(models.Model):
         self.ensure_one()
         if self.amount_authorized > 0:
             self.amount_authorized = 0
+
