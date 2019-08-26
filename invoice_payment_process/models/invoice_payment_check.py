@@ -61,10 +61,9 @@ class AccountInvoice(models.Model):
                                        digits=(16, 2),
                                        compute='_compute_paid_by_line')
 
+    @api.one
     @api.depends('residual')
     def _compute_paid_by_line(self):
-        self.ensure_one()
-
         if self.state == 'open':
             self.amount_paid_by_line = self.amount_total / len(self.invoice_line_ids)
         else:
@@ -305,24 +304,28 @@ class AccountInvoice(models.Model):
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
-    @api.depends('order_line')
+    @api.depends('order_line.invoice_lines.invoice_id.state')
     def _compute_paid_total(self):
-        self.ensure_one()
 
-        if self.order_line:
+        for order in self:
 
-            amount_paid = 0
+            if order.order_line:
 
-            for order_line in self.order_line:
+                amount_paid = 0
 
-                for invoice_line in order_line.invoice_lines:
+                for line in order.order_line:
 
-                    if invoice_line.invoice_id.state == 'paid':
+                    for invoice_line in line.invoice_lines:
 
-                        amount_paid = amount_paid + invoice_line.price_total
+                        if invoice_line.invoice_id.state == 'paid':
 
-                    elif invoice_line.invoice_id.state == 'open':
-                        amount_paid = amount_paid + invoice_line.invoice_id.amount_paid_by_line
+                            amount_paid = amount_paid + invoice_line.price_total
+
+                        elif invoice_line.invoice_id.state == 'open':
+
+                            amount_paid = amount_paid + invoice_line.invoice_id.amount_paid_by_line
+
+                order.paid_total = amount_paid
 
     paid_total = fields.Float(string='Total Pagado',
                               store=True,
