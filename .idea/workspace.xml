@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/invoice_payment_process/models/invoice_payment_check.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="389">
-              <caret line="108" column="159" selection-start-line="108" selection-start-column="159" selection-end-line="108" selection-end-column="159" />
+            <state relative-caret-position="279">
+              <caret line="103" column="8" selection-start-line="103" selection-start-column="8" selection-end-line="108" selection-end-column="26" />
               <folding>
                 <element signature="e#25#61#0" expanded="true" />
               </folding>
@@ -273,7 +273,21 @@
       <option name="project" value="LOCAL" />
       <updated>1567016182231</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Editing action_invoice_payment_request() method to test rase exceptions">
+      <created>1567017589517</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1567017589517</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Solving rase error in verify_invoice_line_match_brute_force method">
+      <created>1567018195044</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1567018195044</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -310,7 +324,9 @@
     <MESSAGE value="Trying to solve ValueError: too many values to unpack (expected 1)" />
     <MESSAGE value="Trying to solve ValueError: too many values to unpack (expected 1) _compute_authorized_amount self.ensure_one()" />
     <MESSAGE value="Solving amount paid by line" />
-    <option name="LAST_COMMIT_MESSAGE" value="Solving amount paid by line" />
+    <MESSAGE value="Editing action_invoice_payment_request() method to test rase exceptions" />
+    <MESSAGE value="Solving rase error in verify_invoice_line_match_brute_force method" />
+    <option name="LAST_COMMIT_MESSAGE" value="Solving rase error in verify_invoice_line_match_brute_force method" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/.gitignore">
@@ -336,8 +352,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/invoice_payment_process/models/invoice_payment_check.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="389">
-          <caret line="108" column="159" selection-start-line="108" selection-start-column="159" selection-end-line="108" selection-end-column="159" />
+        <state relative-caret-position="279">
+          <caret line="103" column="8" selection-start-line="103" selection-start-column="8" selection-end-line="108" selection-end-column="26" />
           <folding>
             <element signature="e#25#61#0" expanded="true" />
           </folding>

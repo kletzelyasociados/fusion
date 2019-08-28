@@ -95,18 +95,18 @@ class AccountInvoice(models.Model):
     @api.multi
     def action_invoice_payment_request(self):
 
-        if self.verify_invoice_line_match_brute_force():
+        self.verify_invoice_line_match_brute_force()
 
-            xml = self.map_xml_to_odoo_fields()
+        xml = self.map_xml_to_odoo_fields()
 
-            if self.match_xml(xml):
+        self.match_xml(xml)
 
-                self.write({'payment_requested_by': self.env.uid, 'state': 'payment_request'})
-                employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
-                if employee:
-                    self.write({'department_id': employee[0].department_id.id})
-                else:
-                    raise ValidationError('El empleado no se encuentra dado de alta, o el correo electrónico en el empleado no es el mismo que el del usuario')
+        self.write({'payment_requested_by': self.env.uid, 'state': 'payment_request'})
+        employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
+        if employee:
+            self.write({'department_id': employee[0].department_id.id})
+        else:
+            raise ValidationError('El empleado no se encuentra dado de alta, o el correo electrónico en el empleado no es el mismo que el del usuario')
 
 
     @api.multi
