@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5e740d12-c6a8-4055-be66-c3be411eebfa" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/invoice_payment_process/models/invoice_payment_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/invoice_payment_process/models/invoice_payment_check.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,11 +12,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/invoice_payment_process/models/invoice_payment_check.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="107">
-              <caret line="306" column="8" selection-start-line="306" selection-start-column="8" selection-end-line="306" selection-end-column="8" />
+            <state relative-caret-position="90">
+              <caret line="306" selection-start-line="306" selection-end-line="306" />
               <folding>
                 <element signature="e#25#61#0" expanded="true" />
               </folding>
@@ -26,9 +25,18 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/invoice_payment_process/views/purchase_order_form_view.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="19" column="7" lean-forward="true" selection-start-line="19" selection-start-column="7" selection-end-line="19" selection-end-column="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/invoice_payment_process/__manifest__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="291">
+            <state relative-caret-position="493">
               <caret line="29" column="29" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
             </state>
           </provider>
@@ -70,6 +78,17 @@
             <path>
               <item name="fusion" type="b2602c69:ProjectViewProjectNode" />
               <item name="fusion" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="fusion" type="b2602c69:ProjectViewProjectNode" />
+              <item name="fusion" type="462c0819:PsiDirectoryNode" />
+              <item name="invoice_payment_process" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="fusion" type="b2602c69:ProjectViewProjectNode" />
+              <item name="fusion" type="462c0819:PsiDirectoryNode" />
+              <item name="invoice_payment_process" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -222,11 +241,18 @@
       <option name="project" value="LOCAL" />
       <updated>1566855190328</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Trying to solve ValueError: too many values to unpack (expected 1)">
+      <created>1566855994864</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1566855994864</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
@@ -267,20 +293,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/invoice_payment_process/__manifest__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="29" column="29" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/invoice_payment_process/models/invoice_payment_check.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="306" column="8" selection-start-line="306" selection-start-column="8" selection-end-line="306" selection-end-column="8" />
+        <state relative-caret-position="90">
+          <caret line="306" selection-start-line="306" selection-end-line="306" />
           <folding>
             <element signature="e#25#61#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/invoice_payment_process/views/purchase_order_form_view.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="7" lean-forward="true" selection-start-line="19" selection-start-column="7" selection-end-line="19" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/invoice_payment_process/__manifest__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="29" column="29" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
         </state>
       </provider>
     </entry>
