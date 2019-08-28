@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/invoice_payment_process/models/invoice_payment_check.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="103" column="8" selection-start-line="103" selection-start-column="8" selection-end-line="108" selection-end-column="26" />
+            <state relative-caret-position="212">
+              <caret line="327" column="41" selection-start-line="327" selection-start-column="41" selection-end-line="327" selection-end-column="41" />
               <folding>
                 <element signature="e#25#61#0" expanded="true" />
               </folding>
@@ -287,7 +287,21 @@
       <option name="project" value="LOCAL" />
       <updated>1567018195044</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Trying to rase an exeption in payment request button">
+      <created>1567026762605</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1567026762605</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Is computing paid total in PO but not working when we pay a new invoice or changes the amount paid">
+      <created>1567028367470</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1567028367470</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -326,7 +340,9 @@
     <MESSAGE value="Solving amount paid by line" />
     <MESSAGE value="Editing action_invoice_payment_request() method to test rase exceptions" />
     <MESSAGE value="Solving rase error in verify_invoice_line_match_brute_force method" />
-    <option name="LAST_COMMIT_MESSAGE" value="Solving rase error in verify_invoice_line_match_brute_force method" />
+    <MESSAGE value="Trying to rase an exeption in payment request button" />
+    <MESSAGE value="Is computing paid total in PO but not working when we pay a new invoice or changes the amount paid" />
+    <option name="LAST_COMMIT_MESSAGE" value="Is computing paid total in PO but not working when we pay a new invoice or changes the amount paid" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/.gitignore">
@@ -352,8 +368,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/invoice_payment_process/models/invoice_payment_check.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="103" column="8" selection-start-line="103" selection-start-column="8" selection-end-line="108" selection-end-column="26" />
+        <state relative-caret-position="212">
+          <caret line="327" column="41" selection-start-line="327" selection-start-column="41" selection-end-line="327" selection-end-column="41" />
           <folding>
             <element signature="e#25#61#0" expanded="true" />
           </folding>
