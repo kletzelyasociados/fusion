@@ -65,7 +65,7 @@ class AccountInvoice(models.Model):
     def _compute_paid_by_line(self):
         for invoice in self:
             if invoice.state == 'open':
-                invoice.amount_paid_by_line = invoice.amount_total / len(invoice.invoice_line_ids)
+                invoice.amount_paid_by_line = (invoice.amount_total - invoice.residual) / len(invoice.invoice_line_ids)
             else:
                 invoice.amount_paid_by_line = 0
 
