@@ -322,9 +322,19 @@ class PurchaseOrder(models.Model):
 
                 order.paid_total = amount_paid
 
+    @api.depends('paid_total')
+    def _compute_residual(self):
+        self.ensure_one()
+        self.residual = self.amount_total - self.paid_total
+
     paid_total = fields.Float(string='Total Pagado',
                               store=True,
                               readonly=True,
                               digits=(16, 2),
                               compute='_compute_paid_total')
 
+    residual = fields.Float(string='Saldo',
+                              store=True,
+                              readonly=True,
+                              digits=(16, 2),
+                              compute='_compute_residual')
