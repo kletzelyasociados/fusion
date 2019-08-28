@@ -324,8 +324,9 @@ class PurchaseOrder(models.Model):
 
     @api.depends('paid_total')
     def _compute_residual(self):
-        self.ensure_one()
-        self.residual = self.amount_total - self.paid_total
+        for order in self:
+            if order.paid_total > 0:
+                order.residual = order.amount_total - order.paid_total
 
     paid_total = fields.Float(string='Total Pagado',
                               store=True,
