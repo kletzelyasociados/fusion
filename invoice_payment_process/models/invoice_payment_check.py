@@ -97,18 +97,16 @@ class AccountInvoice(models.Model):
 
         if self.verify_invoice_line_match_brute_force():
 
-            if self.x_xml_file:
+            xml = self.map_xml_to_odoo_fields()
 
-                xml = self.map_xml_to_odoo_fields()
+            if self.match_xml(xml):
 
-                if self.match_xml(xml):
-
-                    self.write({'payment_requested_by': self.env.uid, 'state': 'payment_request'})
-                    employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
-                    if employee:
-                        self.write({'department_id': employee[0].department_id.id})
-                    else:
-                        raise ValidationError('El empleado no se encuentra dado de alta, o el correo electrónico en el empleado no es el mismo que el del usuario')
+                self.write({'payment_requested_by': self.env.uid, 'state': 'payment_request'})
+                employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
+                if employee:
+                    self.write({'department_id': employee[0].department_id.id})
+                else:
+                    raise ValidationError('El empleado no se encuentra dado de alta, o el correo electrónico en el empleado no es el mismo que el del usuario')
 
     @api.multi
     def action_invoice_approve(self):
@@ -294,9 +292,9 @@ class AccountInvoice(models.Model):
 
     @api.depends('residual')
     def _compute_authorized_amount(self):
-        for order in self:
-            if order.amount_authorized > 0:
-                order.amount_authorized = 0
+        self.ensure_one()
+        if self.amount_authorized > 0:
+            self.amount_authorized = 0
 
 
 class PurchaseOrder(models.Model):
