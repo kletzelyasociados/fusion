@@ -339,3 +339,32 @@ class PurchaseOrder(models.Model):
                               readonly=True,
                               digits=(16, 2),
                               compute='_compute_residual')
+
+    @api.multi
+    def verify_req_or_contract(self):
+
+        if self.x_studio_field_tpsA4 or self.requisition_id:
+            return True
+
+        else:
+            employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
+            if employee:
+                if employee[0].department_id.name == "Construcción de Obra" or employee[0].department_id.name == "Compras" or employee[0].department_id.name == "Proyectos":
+                    raise ValidationError('La Orden de Compra no proviene de Requisición o Contrato')
+
+            else:
+                raise ValidationError('No tienes los permisos necesarios para solicitar ordenes de compra')
+
+    @api.multi
+    def button_confirm(self):
+        for order in self:
+            if order.state not in ['draft', 'sent']:
+                continue
+            order._add_supplier_to_product()
+            order.verify_req_or_contract()
+
+            if order.company_id.po_double_validation == 'one_step' or (order.company_id.po_double_validation == 'two_step' and order.amount_total < self.env.user.company_id.currency_id.compute(order.company_id.po_double_validation_amount, order.currency_id)) or order.user_has_groups('purchase.group_purchase_manager'):
+                order.button_approve()
+            else:
+                order.write({'state': 'to approve'})
+        return True
