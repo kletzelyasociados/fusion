@@ -16,10 +16,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/invoice_payment_process/models/invoice_payment_check.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
-              <caret line="327" column="41" selection-start-line="327" selection-start-column="41" selection-end-line="327" selection-end-column="41" />
+            <state relative-caret-position="-26">
+              <caret line="344" lean-forward="true" selection-start-line="344" selection-end-line="344" />
               <folding>
                 <element signature="e#25#61#0" expanded="true" />
+                <element signature="e#196#16426#0" />
+                <element signature="e#16751#17315#0" />
               </folding>
             </state>
           </provider>
@@ -28,8 +30,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/invoice_payment_process/views/purchase_order_form_view.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+            <state relative-caret-position="391">
+              <caret line="23" column="7" lean-forward="true" selection-start-line="23" selection-start-column="7" selection-end-line="23" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -301,7 +303,21 @@
       <option name="project" value="LOCAL" />
       <updated>1567028367470</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Adding calculated residual to PO">
+      <created>1567029159309</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1567029159309</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Solving ValueError: too many values to unpack (expected 1)">
+      <created>1567029393426</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1567029393426</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -342,7 +358,9 @@
     <MESSAGE value="Solving rase error in verify_invoice_line_match_brute_force method" />
     <MESSAGE value="Trying to rase an exeption in payment request button" />
     <MESSAGE value="Is computing paid total in PO but not working when we pay a new invoice or changes the amount paid" />
-    <option name="LAST_COMMIT_MESSAGE" value="Is computing paid total in PO but not working when we pay a new invoice or changes the amount paid" />
+    <MESSAGE value="Adding calculated residual to PO" />
+    <MESSAGE value="Solving ValueError: too many values to unpack (expected 1)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Solving ValueError: too many values to unpack (expected 1)" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/.gitignore">
@@ -361,17 +379,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/invoice_payment_process/views/purchase_order_form_view.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        <state relative-caret-position="391">
+          <caret line="23" column="7" lean-forward="true" selection-start-line="23" selection-start-column="7" selection-end-line="23" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/invoice_payment_process/models/invoice_payment_check.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="327" column="41" selection-start-line="327" selection-start-column="41" selection-end-line="327" selection-end-column="41" />
+        <state relative-caret-position="-26">
+          <caret line="344" lean-forward="true" selection-start-line="344" selection-end-line="344" />
           <folding>
             <element signature="e#25#61#0" expanded="true" />
+            <element signature="e#196#16426#0" />
+            <element signature="e#16751#17315#0" />
           </folding>
         </state>
       </provider>
