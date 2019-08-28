@@ -284,10 +284,9 @@ class AccountInvoice(models.Model):
                         if employee[0].department_id.name == "Construcción de Obra" or employee[0].department_id.name == "Compras" or employee[0].department_id.name == "Proyectos":
                             Error.append('\nError en Línea de Factura No. ' + str(i + 1) +
                                          ':- No tiene orden de compra de origen: ')
-                        else:
-                            pass
+
                     else:
-                        raise ValidationError('\nNo tienes los permisos necesarios para solicitar pagos de facturas')
+                        Error.append('\nNo tienes los permisos necesarios para solicitar pagos de facturas')
 
             if Error:
                 raise ValidationError(Error)
