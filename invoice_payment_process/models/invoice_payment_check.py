@@ -51,9 +51,23 @@ class AccountInvoice(models.Model):
                                         store=True)
 
     amount_authorized = fields.Monetary(string='Monto Autorizado de Pago',
-
+                                        compute='_compute_authorized_amount',
                                         track_visibility='onchange',
                                         store=True)
+
+    amount_paid_by_line = fields.Float(string='Pagado por linea',
+                                       store=True,
+                                       readonly=True,
+                                       digits=(16, 2),
+                                       compute='_compute_paid_by_line')
+
+    @api.depends('residual')
+    def _compute_paid_by_line(self):
+        for invoice in self:
+            if invoice.state == 'open':
+                invoice.amount_paid_by_line = (invoice.amount_total - invoice.residual) / len(invoice.invoice_line_ids)
+            else:
+                invoice.amount_paid_by_line = 0
 
     @api.depends('payment_requested_by_id')
     def _compute_department(self):
@@ -80,13 +94,30 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def action_invoice_payment_request(self):
-        #self.verify_invoice_line_match_brute_force()
-        self.write({'payment_requested_by': self.env.uid, 'state': 'payment_request'})
-        employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
-        if employee:
-            self.write({'department_id': employee[0].department_id.id})
+
+        self.verify_invoice_line_match_brute_force()
+
+        if self.x_xml_file:
+            xml = self.map_xml_to_odoo_fields()
+
+            self.match_xml(xml)
+
+            self.write({'payment_requested_by': self.env.uid, 'state': 'payment_request'})
+            employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
+            if employee:
+                self.write({'department_id': employee[0].department_id.id})
+            else:
+                raise ValidationError(
+                    'El empleado no se encuentra dado de alta, o el correo electrónico en el empleado no es el mismo que el del usuario')
+
         else:
-            raise ValidationError('El empleado no se encuentra dado de alta, o el correo electrónico en el empleado no es el mismo que el del usuario')
+
+            self.write({'payment_requested_by': self.env.uid, 'state': 'payment_request'})
+            employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
+            if employee:
+                self.write({'department_id': employee[0].department_id.id})
+            else:
+                raise ValidationError('El empleado no se encuentra dado de alta, o el correo electrónico en el empleado no es el mismo que el del usuario')
 
     @api.multi
     def action_invoice_approve(self):
@@ -131,7 +162,7 @@ class AccountInvoice(models.Model):
                     raise UserError("You cannot validate an invoice with a negative total amount. You should create a credit note instead.")
                 if to_open_invoices.filtered(lambda inv: not inv.account_id):
                     raise UserError('No account was found to create the invoice, be sure you have installed a chart of account.')
-                #self.verify_invoice_match_brute_force()
+                self.verify_invoice_line_match_brute_force()
                 to_open_invoices.action_date_assign()
                 to_open_invoices.action_move_create()
                 return to_open_invoices.invoice_validate()
@@ -208,7 +239,7 @@ class AccountInvoice(models.Model):
                                       )
 
             # contract = self.get_purchase_contract(purchase_order)
-
+    '''
 
     @api.multi
     def verify_invoice_line_match_brute_force(self):
@@ -222,30 +253,129 @@ class AccountInvoice(models.Model):
                 if invoice_line.purchase_line_id:
                     # Obtener la línea de la PO
                     purchase_line = invoice_line.purchase_line_id
-                    # Extraer el monto total
-                    purchase_line_total_amount = purchase_line.price_total
-                    # Obtener las líneas de factura
-                    purchase_line_invoice_lines = purchase_line.invoice_lines
 
-                    inv_total_amount = 0
+                    if purchase_line.order_id.state == "purchase":
 
-                    # Para cada linea de factura
-                    for linea_de_factura in purchase_line_invoice_lines:
-                        # Filtrar donde el estado sea diferente de borrador, cancelado o pago rechazado
-                        if linea_de_factura.invoice_id.state == 'payment_request' or linea_de_factura.invoice_id.state == 'approved_by_leader' or linea_de_factura.invoice_id.state == 'approved_by_manager' or linea_de_factura.invoice_id.state == 'open' or linea_de_factura.invoice_id.state == 'paid':
-                            # Sumar el monto total
-                            inv_total_amount = inv_total_amount + linea_de_factura.price_total
+                        # Extraer el monto total
+                        purchase_line_total_amount = purchase_line.price_total
+                        # Obtener las líneas de factura
+                        purchase_line_invoice_lines = purchase_line.invoice_lines
 
-                    # Comparar con el monto de la línea de orden de compra, si es mayor asignar error al arreglo
-                    if inv_total_amount + invoice_line.price_total > purchase_line_total_amount:
-                        Error.append('\nError en Línea de Factura No. ' + str(i+1) +
+                        inv_total_amount = 0
+
+                        # Para cada linea de factura
+                        for linea_de_factura in purchase_line_invoice_lines:
+                            # Filtrar donde el estado sea diferente de borrador, cancelado o pago rechazado
+                            if linea_de_factura.invoice_id.state == 'payment_request' or linea_de_factura.invoice_id.state == 'approved_by_leader' or linea_de_factura.invoice_id.state == 'approved_by_manager' or linea_de_factura.invoice_id.state == 'open' or linea_de_factura.invoice_id.state == 'paid':
+                                # Sumar el monto total
+                                inv_total_amount = inv_total_amount + linea_de_factura.price_total
+
+                        # Comparar con el monto de la línea de orden de compra, si es mayor asignar error al arreglo
+                        if inv_total_amount + invoice_line.price_total > purchase_line_total_amount:
+                            Error.append('\nError en Línea de Factura No. ' + str(i+1) +
+                                         ':- Orden de Compra Origen: ' + purchase_line.order_id.name +
+                                         '\n********Monto de Línea de Orden de Compra: ' + '${:,.2f}'.format(purchase_line_total_amount) +
+                                         '\n********Monto de Lineas de Factura Registradas: ' + '${:,.2f}'.format(inv_total_amount) +
+                                         '\n********Monto de Linea de Factura No. ' + str(i+1) + ': ' + '${:,.2f}'.format(invoice_line.price_total) +
+                                         '\n********Excedente con esta Línea de Factura: ' + '${:,.2f}'.format((purchase_line_total_amount - inv_total_amount - invoice_line.price_total)*-1) +
+                                         '\n')
+
+                    else:
+
+                        Error.append('\nError en Línea de Factura No. ' + str(i + 1) +
                                      ':- Orden de Compra Origen: ' + purchase_line.order_id.name +
-                                     '\n********Monto de Línea de Orden de Compra: ' + '${:,.2f}'.format(purchase_line_total_amount) +
-                                     '\n********Monto de Lineas de Factura Registradas: ' + '${:,.2f}'.format(inv_total_amount) +
-                                     '\n********Monto de Linea de Factura No. ' + str(i+1) + ': ' + '${:,.2f}'.format(invoice_line.price_total) +
-                                     '\n********Excedente con esta Línea de Factura: ' + '${:,.2f}'.format((purchase_line_total_amount - inv_total_amount - invoice_line.price_total)*-1) +
-                                     '\n')
+                                     '\n********La orden de compra está bloqueada, ya no se pueden realizar solicitudes de pagos')
+
+                else:
+
+                    employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
+                    if employee:
+                        if employee[0].department_id.name == "Construcción de Obra" or employee[0].department_id.name == "Compras" or employee[0].department_id.name == "Proyectos":
+                            Error.append('\nError en Línea de Factura No. ' + str(i + 1) +
+                                         ':- No tiene orden de compra de origen: ')
+
+                    else:
+                        Error.append('\nNo tienes los permisos necesarios para solicitar pagos de facturas')
+
             if Error:
                 raise ValidationError(Error)
 
-'''
+    @api.depends('residual')
+    def _compute_authorized_amount(self):
+        self.ensure_one()
+        if self.amount_authorized > 0:
+            self.amount_authorized = 0
+
+
+class PurchaseOrder(models.Model):
+    _inherit = "purchase.order"
+
+    @api.depends('order_line.invoice_lines.invoice_id.state', 'order_line.invoice_lines.invoice_id.amount_paid_by_line')
+    def _compute_paid_total(self):
+
+        for order in self:
+
+            if order.order_line:
+
+                amount_paid = 0
+
+                for line in order.order_line:
+
+                    for invoice_line in line.invoice_lines:
+
+                        if invoice_line.invoice_id.state == 'paid':
+
+                            amount_paid = amount_paid + invoice_line.price_total
+
+                        elif invoice_line.invoice_id.state == 'open':
+
+                            amount_paid = amount_paid + invoice_line.invoice_id.amount_paid_by_line
+
+                order.paid_total = amount_paid
+
+    @api.depends('paid_total')
+    def _compute_residual(self):
+        for order in self:
+            if order.paid_total > 0:
+                order.residual = order.amount_total - order.paid_total
+
+    paid_total = fields.Float(string='Total Pagado',
+                              store=True,
+                              readonly=True,
+                              digits=(16, 2),
+                              compute='_compute_paid_total')
+
+    residual = fields.Float(string='Saldo',
+                              store=True,
+                              readonly=True,
+                              digits=(16, 2),
+                              compute='_compute_residual')
+
+    @api.multi
+    def verify_req_or_contract(self):
+
+        if self.x_studio_field_tpsA4 or self.requisition_id:
+            return True
+
+        else:
+            employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
+            if employee:
+                if employee[0].department_id.name == "Construcción de Obra" or employee[0].department_id.name == "Compras" or employee[0].department_id.name == "Proyectos":
+                    raise ValidationError('La Orden de Compra no proviene de Requisición o Contrato')
+
+            else:
+                raise ValidationError('No tienes los permisos necesarios para solicitar ordenes de compra')
+
+    @api.multi
+    def button_confirm(self):
+        for order in self:
+            if order.state not in ['draft', 'sent']:
+                continue
+            order._add_supplier_to_product()
+            order.verify_req_or_contract()
+
+            if order.company_id.po_double_validation == 'one_step' or (order.company_id.po_double_validation == 'two_step' and order.amount_total < self.env.user.company_id.currency_id.compute(order.company_id.po_double_validation_amount, order.currency_id)) or order.user_has_groups('purchase.group_purchase_manager'):
+                order.button_approve()
+            else:
+                order.write({'state': 'to approve'})
+        return True
