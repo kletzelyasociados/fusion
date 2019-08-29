@@ -244,37 +244,43 @@ class AccountInvoice(models.Model):
 
     def match_xml(self, xml):
 
+        Error = []
+
         if self.partner_id.id != xml.partner.id:
 
-            raise ValidationError("No coincide el Proveedor de la Factura Odoo con el del CFDi!" +
-                                  "\nProveedor en la Factura: " + self.partner_id.name +
-                                  "\nProveedor en el CFDi: " + xml.partner.name)
+            Error.append("\nNo coincide el Proveedor de la Factura Odoo con el del CFDi!" +
+                                  "\n**********Proveedor en la Factura: " + self.partner_id.name +
+                                  "\n**********Proveedor en el CFDi: " + xml.partner.name)
 
         if self.search([('type', '=', self.type), ('reference', '=', self.reference),
                         ('company_id', '=', self.company_id.id),
                         ('commercial_partner_id', '=', self.commercial_partner_id.id),
                         ('id', '!=', self.id)]):
 
-                raise ValidationError("Se ha detectado una referencia de " + xml.partner.name +
-                                      " duplicada: " + self.reference +
-                                      " timbrada el " + xml.x_invoice_date_sat +
-                                      " en el SAT por un monto de " +
-                                      "${:,.2f}".format(xml.amount_total))
+            Error.append("\nSe ha detectado una referencia de " + xml.partner.name +
+                         " duplicada: " + self.reference +
+                         " timbrada el " + xml.x_invoice_date_sat +
+                         " en el SAT por un monto de " +
+                         "${:,.2f}".format(xml.amount_total))
 
         if self.x_invoice_date_sat != xml.x_invoice_date_sat:
 
-            raise ValidationError("No coincide la fecha de timbrado de la Factura Odoo con el del CFDi!" +
-                                  "\nFecha de facturación del SAT en la Factura Odoo: " + self.x_invoice_date_sat +
-                                  "\nFecha de timbrado en el CFDi: " + xml.x_invoice_date_sat)
+            Error.append("\nNo coincide la fecha de timbrado de la Factura Odoo con el del CFDi!" +
+                         "\n**********Fecha de facturación del SAT en la Factura Odoo: " + self.x_invoice_date_sat +
+                         "\n**********Fecha de timbrado en el CFDi: " + xml.x_invoice_date_sat)
 
         difference = self.amount_total - xml.amount_total
 
         if not (-.10 <= difference <= .10):
 
-            raise ValidationError("No coincide el monto de factura!" +
-                                  "\nMonto total en la Factura Odoo: " + "${:,.2f}".format(self.amount_total) +
-                                  "\nMonto total en el CFDi: " + "${:,.2f}".format(xml.amount_total) +
-                                  "\nVariación: " + "${:,.2f}".format(difference))
+            Error.append("\nNo coincide el monto de factura!" +
+                         "\n**********Monto total en la Factura Odoo: " + "${:,.2f}".format(self.amount_total) +
+                         "\n**********Monto total en el CFDi: " + "${:,.2f}".format(xml.amount_total) +
+                         "\n**********Variación: " + "${:,.2f}".format(difference))
+
+        if Error:
+
+            raise ValidationError(Error)
 
     def create_partner(self, RegimenEmisor, NombreEmisor, RfcEmisor):
         if RegimenEmisor == 612:
