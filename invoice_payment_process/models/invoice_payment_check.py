@@ -272,10 +272,10 @@ class AccountInvoice(models.Model):
                                 # Sumar el monto total
                                 inv_total_amount = inv_total_amount + linea_de_factura.price_total
 
-                        difference = purchase_line_total_amount - inv_total_amount - invoice_line.price_total
+                        residual = purchase_line_total_amount - inv_total_amount - invoice_line.price_total
 
                         # Comparar con el monto de la línea de orden de compra, si es mayor asignar error al arreglo
-                        if not (-.10 <= difference <= .10):
+                        if residual > -.10:
                             Error.append('\nError en Línea de Factura No. ' + str(i+1) +
                                          ':- Orden de Compra Origen: ' + purchase_line.order_id.name +
                                          '\n********Monto de Línea de Orden de Compra: ' + '${:,.2f}'.format(purchase_line_total_amount) +
