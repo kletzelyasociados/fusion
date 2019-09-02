@@ -168,7 +168,9 @@ class AccountInvoice(models.Model):
                 to_open_invoices.action_move_create()
                 return to_open_invoices.invoice_validate()
             else:
-                raise ValidationError('No tienes los permisos necesarios para validar facturas')
+                raise ValidationError('No tienes los permisos necesarios para validar facturas' +
+                                      '\nDepartamento: ' + employee[0].department_id.name +
+                                      '\nPuesto: ' + employee[0].job_id.name)
         else:
             raise ValidationError('El empleado no se encuentra dado de alta, o el correo electrónico en el empleado no es el mismo que el del usuario')
 
