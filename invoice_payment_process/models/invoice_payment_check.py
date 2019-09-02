@@ -151,7 +151,7 @@ class AccountInvoice(models.Model):
         # lots of duplicate calls to action_invoice_open, so we remove those already open
         employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
         if employee:
-            if employee[0].department_id.name == 'Administración y Finanzas' or employee[0].department_id.name == 'Tecnologías de la Información' or (employee[0].job_id.name == 'Coordinador de Administración' and employee[0].department_id == self.department_id):
+            if employee[0].job_id.name == 'Coordinador de Administración' or employee[0].department_id.name == 'Administración y Finanzas' or employee[0].department_id.name == 'Tecnologías de la Información':
                 to_open_invoices = self.filtered(lambda inv: inv.state != 'open')
                 if to_open_invoices.filtered(lambda inv: not inv.partner_id):
                     raise UserError("The field Vendor is required, please complete it to validate the Vendor Bill.")
@@ -169,7 +169,7 @@ class AccountInvoice(models.Model):
             else:
                 raise ValidationError('No tienes los permisos necesarios para validar facturas')
         else:
-            raise ValidationError('No estás dado de alta como empleado')
+            raise ValidationError('El empleado no se encuentra dado de alta, o el correo electrónico en el empleado no es el mismo que el del usuario')
 
     @api.multi
     def action_invoice_draft(self):
