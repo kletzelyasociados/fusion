@@ -152,7 +152,7 @@ class AccountInvoice(models.Model):
         # lots of duplicate calls to action_invoice_open, so we remove those already open
         employee = self.env['hr.employee'].search([('work_email', '=', self.env.user.email)])
         if employee:
-            if employee[0].department_id.name == 'Administración y Finanzas' or employee[0].department_id.name == 'Tecnologías de la Información' or employee[0].job_id.name == 'Coordinador de Administración':
+            if employee[0].job_id.name == 'Coordinador de Administración' or employee[0].department_id.name == 'Administración y Finanzas' or employee[0].department_id.name == 'Tecnologías de la Información':
                 to_open_invoices = self.filtered(lambda inv: inv.state != 'open')
                 if to_open_invoices.filtered(lambda inv: not inv.partner_id):
                     raise UserError("The field Vendor is required, please complete it to validate the Vendor Bill.")
@@ -170,7 +170,7 @@ class AccountInvoice(models.Model):
             else:
                 raise ValidationError('No tienes los permisos necesarios para validar facturas')
         else:
-            raise ValidationError('No tienes los permisos necesarios para validar facturas')
+            raise ValidationError('El empleado no se encuentra dado de alta, o el correo electrónico en el empleado no es el mismo que el del usuario')
 
     @api.multi
     def action_invoice_draft(self):
@@ -272,7 +272,11 @@ class AccountInvoice(models.Model):
                                 # Sumar el monto total
                                 inv_total_amount = inv_total_amount + linea_de_factura.price_total
 
-                        residual = purchase_line_total_amount - inv_total_amount - invoice_line.price_total
+                        if self.state == 'approved_by_manager':
+                            residual = purchase_line_total_amount - inv_total_amount
+
+                        else:
+                            residual = purchase_line_total_amount - inv_total_amount - invoice_line.price_total
 
                         # Comparar con el monto de la línea de orden de compra, si es mayor asignar error al arreglo
                         if not residual > -.10:
@@ -281,7 +285,7 @@ class AccountInvoice(models.Model):
                                          '\n********Monto de Línea de Orden de Compra: ' + '${:,.2f}'.format(purchase_line_total_amount) +
                                          '\n********Monto de Lineas de Factura Registradas: ' + '${:,.2f}'.format(inv_total_amount) +
                                          '\n********Monto de Linea de Factura No. ' + str(i+1) + ': ' + '${:,.2f}'.format(invoice_line.price_total) +
-                                         '\n********Excedente con esta Línea de Factura: ' + '${:,.2f}'.format((purchase_line_total_amount - inv_total_amount - invoice_line.price_total)*-1) +
+                                         '\n********Excedente con esta Línea de Factura: ' + '${:,.2f}'.format(residual*-1) +
                                          '\n')
 
                     else:
