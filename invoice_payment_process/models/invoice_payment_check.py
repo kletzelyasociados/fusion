@@ -310,12 +310,10 @@ class AccountInvoice(models.Model):
             if Error:
                 raise ValidationError(Error)
 
-    @api.depends('residual')
+    @api.depends('amount_paid_by_line')
     def _compute_authorized_amount(self):
         self.ensure_one()
-        if self.residual > 0:
-            self.amount_authorized = 0
-
+        self.amount_authorized = 0
 
 
 class PurchaseOrder(models.Model):
