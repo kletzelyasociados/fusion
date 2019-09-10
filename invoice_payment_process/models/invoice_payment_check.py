@@ -310,7 +310,7 @@ class AccountInvoice(models.Model):
             if Error:
                 raise ValidationError(Error)
 
-    @api.depends('outstanding_credits_debits_widget')
+    @api.depends('residual')
     def _compute_authorized_amount(self):
         self.ensure_one()
         self.amount_authorized = 0
