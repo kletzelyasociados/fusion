@@ -63,8 +63,7 @@ class AccountInvoice(models.Model):
     @api.onchange('residual')
     def _onchange_residual(self):
         if self.amount_authorized > 0:
-            self.amount_authorized = 0
-        return
+            raise ValidationError('Monto autorizado ' +  self.amount_authorized)
 
     @api.depends('residual')
     def _compute_paid_by_line(self):
