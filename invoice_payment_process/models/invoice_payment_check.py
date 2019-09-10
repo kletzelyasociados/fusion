@@ -51,6 +51,7 @@ class AccountInvoice(models.Model):
                                         store=True)
 
     amount_authorized = fields.Monetary(string='Monto Autorizado de Pago',
+                                        compute='_compute_authorized_amount',
                                         track_visibility='onchange',
                                         store=True)
 
@@ -61,11 +62,18 @@ class AccountInvoice(models.Model):
                                        compute='_compute_paid_by_line')
 
     @api.depends('residual')
+    def _compute_amount_authorized(self):
+        for invoice in self:
+            if invoice.state == 'open' and invoice.amount_authorized > 0:
+                invoice.amount_authorized = 0
+            else:
+                invoice.amount_authorized = invoice.amount_authorized
+
+    @api.depends('residual')
     def _compute_paid_by_line(self):
         for invoice in self:
             if invoice.state == 'open':
                 invoice.amount_paid_by_line = (invoice.amount_total - invoice.residual) / len(invoice.invoice_line_ids)
-                invoice.amount_authorized = 0
             else:
                 invoice.amount_paid_by_line = 0
 
