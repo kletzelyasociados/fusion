@@ -60,16 +60,12 @@ class AccountInvoice(models.Model):
                                        digits=(16, 2),
                                        compute='_compute_paid_by_line')
 
-    @api.onchange('residual')
-    def _onchange_residual(self):
-        if self.amount_authorized > 0:
-            raise ValidationError('Monto autorizado ' +  str(self.amount_authorized))
-
     @api.depends('residual')
     def _compute_paid_by_line(self):
         for invoice in self:
             if invoice.state == 'open':
                 invoice.amount_paid_by_line = (invoice.amount_total - invoice.residual) / len(invoice.invoice_line_ids)
+                self.amount_authorized = 0
             else:
                 invoice.amount_paid_by_line = 0
 
