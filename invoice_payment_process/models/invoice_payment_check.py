@@ -60,7 +60,7 @@ class AccountInvoice(models.Model):
                                        digits=(16, 2),
                                        compute='_compute_paid_by_line')
 
-    @api.onchange('residual')
+    @api.onchange('reconciled')
     def _compute_paid_by_line(self):
         if (self.state == 'open' or self.state == 'paid') and self.amount_authorized > 0:
             self.amount_authorized = 0
