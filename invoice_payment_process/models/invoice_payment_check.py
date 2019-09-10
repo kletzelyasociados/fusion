@@ -310,7 +310,7 @@ class AccountInvoice(models.Model):
             if Error:
                 raise ValidationError(Error)
 
-    @api.depends('residual')
+    @api.depends('state', 'residual')
     def _compute_authorized_amount(self):
         self.ensure_one()
         if self.amount_authorized > 0 and (self.state == 'open' and self.residual > 0) or (self.state == 'paid' and self.residual == 0):
