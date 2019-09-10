@@ -313,9 +313,10 @@ class AccountInvoice(models.Model):
     @api.depends('amount_paid_by_line')
     def _compute_authorized_amount(self):
         self.ensure_one()
-
         if self.state == 'open':
             self.amount_authorized = 0
+        else:
+            self.amount_authorized = self.amount_authorized
 
 
 class PurchaseOrder(models.Model):
