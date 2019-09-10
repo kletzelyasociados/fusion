@@ -51,7 +51,7 @@ class AccountInvoice(models.Model):
                                         store=True)
 
     amount_authorized = fields.Monetary(string='Monto Autorizado de Pago',
-                                        compute='_compute_authorized_amount',
+                                        compute='_compute_amount_authorized',
                                         track_visibility='onchange',
                                         store=True)
 
@@ -60,6 +60,11 @@ class AccountInvoice(models.Model):
                                        readonly=True,
                                        digits=(16, 2),
                                        compute='_compute_paid_by_line')
+
+    @api.depends('payments_widget')
+    def _compute_amount_authorized(self):
+        for invoice in self:
+            invoice.amount_authorized = 0
 
     @api.depends('residual')
     def _compute_paid_by_line(self):
@@ -307,12 +312,6 @@ class AccountInvoice(models.Model):
 
             if Error:
                 raise ValidationError(Error)
-
-    @api.depends('residual')
-    def _compute_authorized_amount(self):
-        self.ensure_one()
-        if self.amount_authorized > 0:
-            self.amount_authorized = 0
 
 
 class PurchaseOrder(models.Model):
