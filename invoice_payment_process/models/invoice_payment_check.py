@@ -310,11 +310,13 @@ class AccountInvoice(models.Model):
             if Error:
                 raise ValidationError(Error)
 
-    @api.depends('state', 'residual')
+    @api.depends('residual')
     def _compute_authorized_amount(self):
         self.ensure_one()
-        if self.amount_authorized > 0 and (self.state == 'open' and self.residual > 0) or (self.state == 'paid' and self.residual == 0):
+        if (self.state == 'open' and self.amount_authorized > 0) or (self.state == 'paid' and self.residual == 0):
             self.amount_authorized = 0
+        else:
+            self.amount_authorized = self.amount_authorized
 
 
 class PurchaseOrder(models.Model):
