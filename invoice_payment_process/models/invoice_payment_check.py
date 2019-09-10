@@ -51,7 +51,7 @@ class AccountInvoice(models.Model):
                                         store=True)
 
     amount_authorized = fields.Monetary(string='Monto Autorizado de Pago',
-                                        compute='_compute_authorized_amount',
+                                        compute='_compute_amount_authorized',
                                         track_visibility='onchange',
                                         store=True)
 
