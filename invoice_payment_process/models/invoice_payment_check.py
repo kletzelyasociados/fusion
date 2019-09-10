@@ -132,7 +132,7 @@ class AccountInvoice(models.Model):
             if approver[0].job_id.name == 'Gerente de Urbanización' and approver[0].department_id == self.department_id:
                 self.write({'state': 'approved_by_leader'})
             elif self.department_id.manager_id == approver[0]:
-                self.write({'state': 'approved_by_manager'})
+                self.write({'state': 'approved_by_manager', 'amount_authorized': self.amount_total})
             else:
                 raise ValidationError('No estás autorizado a aprobar solicitudes del departamento: ' + self.department_id.name)
         else:
