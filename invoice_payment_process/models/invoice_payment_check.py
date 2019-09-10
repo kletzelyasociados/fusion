@@ -62,7 +62,8 @@ class AccountInvoice(models.Model):
 
     @api.onchange('residual')
     def _compute_amount_authorized(self):
-        self.amount_authorized = 0
+        for invoice in self:
+            invoice.amount_authorized = 0
 
     @api.depends('residual')
     def _compute_paid_by_line(self):
