@@ -313,7 +313,8 @@ class AccountInvoice(models.Model):
     @api.depends('residual')
     def _compute_authorized_amount(self):
         self.ensure_one()
-        self.amount_authorized = 0
+        if self.residual > 0:
+            self.amount_authorized = 0
 
 
 

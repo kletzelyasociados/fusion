@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5e740d12-c6a8-4055-be66-c3be411eebfa" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice_payment_process/models/invoice_payment_check.py" beforeDir="false" afterPath="$PROJECT_DIR$/invoice_payment_process/models/invoice_payment_check.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/invoice_payment_process/models/invoice_payment_check.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="315" column="119" selection-start-line="315" selection-start-column="119" selection-end-line="315" selection-end-column="119" />
+            <state relative-caret-position="382">
+              <caret line="316" column="12" selection-start-line="316" selection-start-column="12" selection-end-line="316" selection-end-column="12" />
               <folding>
                 <element signature="e#25#61#0" expanded="true" />
               </folding>
@@ -341,7 +342,21 @@
       <option name="project" value="LOCAL" />
       <updated>1568087021027</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Trying to solve approved_amount when the field is calculating">
+      <created>1568124787451</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1568124787451</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Trying to solve approved_amount when the field is calculating">
+      <created>1568125064302</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1568125064302</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -405,8 +420,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/invoice_payment_process/models/invoice_payment_check.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="315" column="119" selection-start-line="315" selection-start-column="119" selection-end-line="315" selection-end-column="119" />
+        <state relative-caret-position="382">
+          <caret line="316" column="12" selection-start-line="316" selection-start-column="12" selection-end-line="316" selection-end-column="12" />
           <folding>
             <element signature="e#25#61#0" expanded="true" />
           </folding>
