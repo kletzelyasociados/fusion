@@ -313,7 +313,7 @@ class AccountInvoice(models.Model):
     @api.depends('amount_authorized')
     def _compute_authorized_amount(self):
         self.ensure_one()
-        if self.amount_authorized > 0 and self.state == open:
+        if (self.amount_authorized > 0 and self.state == 'open') or (self.amount_authorized > 0 and self.state == 'paid'):
             self.amount_authorized = 0
         else:
             self.amount_authorized = self.amount_authorized
