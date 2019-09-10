@@ -61,13 +61,10 @@ class AccountInvoice(models.Model):
                                        digits=(16, 2),
                                        compute='_compute_paid_by_line')
 
-    @api.depends('residual')
+    @api.depends('payments_widget')
     def _compute_amount_authorized(self):
         for invoice in self:
-            if invoice.state == 'open' and invoice.amount_authorized > 0:
-                invoice.amount_authorized = 0
-            else:
-                invoice.amount_authorized = invoice.amount_authorized
+            invoice.amount_authorized = 0
 
     @api.depends('residual')
     def _compute_paid_by_line(self):
