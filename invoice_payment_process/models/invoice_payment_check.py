@@ -51,7 +51,6 @@ class AccountInvoice(models.Model):
                                         store=True)
 
     amount_authorized = fields.Monetary(string='Monto Autorizado de Pago',
-                                        compute='_compute_authorized_amount',
                                         track_visibility='onchange',
                                         store=True)
 
@@ -60,6 +59,12 @@ class AccountInvoice(models.Model):
                                        readonly=True,
                                        digits=(16, 2),
                                        compute='_compute_paid_by_line')
+
+    @api.onchange('residual')
+    def _compute_paid_by_line(self):
+        for invoice in self:
+            if (invoice.state == 'open' or invoice.state == 'paid') and invoice.amount_authorized > 0:
+                invoice.amount_authorized = 0
 
     @api.depends('residual')
     def _compute_paid_by_line(self):
@@ -91,6 +96,12 @@ class AccountInvoice(models.Model):
             if invoice.invoice_line_ids:
                 if invoice.invoice_line_ids[0].analytic_tag_ids:
                     invoice.analytic_tag_ids = [(4, invoice.invoice_line_ids[0].analytic_tag_ids[0].id)]
+
+    @api.depends('amount_paid_by_line')
+    def _compute_authorized_amount(self):
+        self.ensure_one()
+        if (self.state == 'open' or self.state == 'paid') and self.amount_authorized > 0:
+            self.amount_authorized = 0
 
     @api.multi
     def action_invoice_payment_request(self):
@@ -309,14 +320,6 @@ class AccountInvoice(models.Model):
 
             if Error:
                 raise ValidationError(Error)
-
-    @api.depends('amount_paid_by_line')
-    def _compute_authorized_amount(self):
-        self.ensure_one()
-        if self.state == 'open':
-            self.amount_authorized = 0
-        else:
-            self.amount_authorized = self.amount_authorized
 
 
 class PurchaseOrder(models.Model):
