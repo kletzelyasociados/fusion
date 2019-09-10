@@ -313,8 +313,6 @@ class AccountInvoice(models.Model):
     @api.depends('residual')
     def _compute_authorized_amount(self):
         self.ensure_one()
-        if self.residual > 0 and self.state == 'open':
-            self.amount_authorized = 0
 
 
 class PurchaseOrder(models.Model):
