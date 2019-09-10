@@ -16,10 +16,19 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/invoice_payment_process/models/invoice_payment_check.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="60" column="71" selection-start-line="60" selection-start-column="71" selection-end-line="60" selection-end-column="71" />
+            <state relative-caret-position="161">
+              <caret line="52" column="36" selection-start-line="52" selection-start-column="36" selection-end-line="52" selection-end-column="36" />
               <folding>
                 <element signature="e#25#61#0" expanded="true" />
+                <element signature="e#5024#6144#0" />
+                <element signature="e#6208#7011#0" />
+                <element signature="e#7073#7792#0" />
+                <element signature="e#8020#10288#0" />
+                <element signature="e#9902#10897#0" />
+                <element signature="e#10958#11345#0" />
+                <element signature="e#11424#11793#0" />
+                <element signature="e#13291#17083#0" />
+                <element signature="e#17301#20114#0" />
               </folding>
             </state>
           </provider>
@@ -97,20 +106,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1566424814039</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Trying to change the amount authorized when you apply a payment">
-      <created>1566834299056</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1566834299056</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Trying to solve ValueError: too many values to unpack (expected 1)">
-      <created>1566845521261</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1566845521262</updated>
     </task>
     <task id="LOCAL-00007" summary="Trying to solve ValueError: too many values to unpack (expected 1)">
       <created>1566846160740</created>
@@ -441,7 +436,21 @@
       <option name="project" value="LOCAL" />
       <updated>1568131392450</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="Trying to solve approved_amount when the field is calculating">
+      <created>1568131567106</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1568131567106</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Trying to solve approved_amount when the field is calculating">
+      <created>1568131850427</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1568131850427</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -505,10 +514,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/invoice_payment_process/models/invoice_payment_check.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="60" column="71" selection-start-line="60" selection-start-column="71" selection-end-line="60" selection-end-column="71" />
+        <state relative-caret-position="161">
+          <caret line="52" column="36" selection-start-line="52" selection-start-column="36" selection-end-line="52" selection-end-column="36" />
           <folding>
             <element signature="e#25#61#0" expanded="true" />
+            <element signature="e#5024#6144#0" />
+            <element signature="e#6208#7011#0" />
+            <element signature="e#7073#7792#0" />
+            <element signature="e#8020#10288#0" />
+            <element signature="e#9902#10897#0" />
+            <element signature="e#10958#11345#0" />
+            <element signature="e#11424#11793#0" />
+            <element signature="e#13291#17083#0" />
+            <element signature="e#17301#20114#0" />
           </folding>
         </state>
       </provider>

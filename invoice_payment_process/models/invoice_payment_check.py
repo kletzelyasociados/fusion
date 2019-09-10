@@ -50,7 +50,7 @@ class AccountInvoice(models.Model):
                                         compute='_compute_analytic_tag',
                                         store=True)
 
-    amount_authorized = fields.Monetary(string='Monto Autorizado de Pago',
+    amount_authorized = fields.Float(string='Monto Autorizado de Pago',
                                         track_visibility='onchange',
                                         store=True)
 
@@ -92,12 +92,6 @@ class AccountInvoice(models.Model):
                 if invoice.invoice_line_ids[0].analytic_tag_ids:
                     invoice.analytic_tag_ids = [(4, invoice.invoice_line_ids[0].analytic_tag_ids[0].id)]
 
-    @api.depends('amount_paid_by_line')
-    def _compute_authorized_amount(self):
-        self.ensure_one()
-        if (self.state == 'open' or self.state == 'paid') and self.amount_authorized > 0:
-            self.amount_authorized = 0
-
     @api.multi
     def action_invoice_payment_request(self):
 
@@ -124,7 +118,6 @@ class AccountInvoice(models.Model):
                 self.write({'department_id': employee[0].department_id.id})
             else:
                 raise ValidationError('El empleado no se encuentra dado de alta, o el correo electrónico en el empleado no es el mismo que el del usuario')
-
 
     @api.multi
     def action_invoice_approve(self):
@@ -221,35 +214,6 @@ class AccountInvoice(models.Model):
                 return 'no hay contrato'
         else:
             return 'no esta relacionada a algún contrato'
-
-    '''
-    @api.multi
-    def verify_invoice_match_brute_force(self):
-        purchase_order = self.get_purchase_orders()
-
-        if purchase_order.id:
-
-            inv_total_amount = 0
-            inv_paid_amount = 0
-            inv_residual_amount = 0
-
-            for invoice in purchase_order.invoice_ids:
-                if invoice.filtered(lambda inv: inv.state not in ('draft', 'cancel', 'payment_rejected')):
-                    inv_total_amount = inv_total_amount + invoice.amount_total
-                    inv_residual_amount = inv_residual_amount + invoice.residual
-                inv_paid_amount = inv_total_amount - inv_residual_amount
-
-            if inv_total_amount + self.amount_total > purchase_order.amount_total:
-                raise ValidationError('Monto mayor al de la Orden de Compra!!!' +
-                                      '\nTotal de Orden de Compra: ' + '${:,.2f}'.format(purchase_order.amount_total) +
-                                      '\nTotal de Facturas: ' + '${:,.2f}'.format(inv_total_amount) +
-                                      '\nTotal Pagado: ' + '${:,.2f}'.format(inv_paid_amount) +
-                                      '\nExcedente con esta Factura: ' + '${:,.2f}'.format((purchase_order.amount_total - inv_total_amount - self.amount_total)*-1)
-                                      )
-
-            # contract = self.get_purchase_contract(purchase_order)
-    '''
-
 
     @api.multi
     def verify_invoice_line_match_brute_force(self):
