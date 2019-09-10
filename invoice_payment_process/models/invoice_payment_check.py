@@ -62,9 +62,8 @@ class AccountInvoice(models.Model):
 
     @api.onchange('residual')
     def _compute_paid_by_line(self):
-        for invoice in self:
-            if (invoice.state == 'open' or invoice.state == 'paid') and invoice.amount_authorized > 0:
-                invoice.amount_authorized = 0
+        if (self.state == 'open' or self.state == 'paid') and self.amount_authorized > 0:
+            self.amount_authorized = 0
 
     @api.depends('residual')
     def _compute_paid_by_line(self):
