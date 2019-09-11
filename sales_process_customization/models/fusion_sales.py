@@ -387,27 +387,6 @@ class SaleOrder(models.Model):
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    @api.model_create_multi
-    def create(self, vals_list):
-        lines = super(SaleOrderLine, self).create(vals_list)
-        lines.filtered(lambda line: line.state == 'draft')._action_launch_stock_rule()
-        return lines
-
-    @api.multi
-    def write(self, values):
-        lines = self.env['sale.order.line']
-        if 'product_uom_qty' in values:
-            precision = self.env['decimal.precision'].precision_get('Product Unit of Measure')
-            lines = self.filtered(
-                lambda r: r.state == 'draft' and not r.is_expense and float_compare(r.product_uom_qty,
-                                                                                   values['product_uom_qty'],
-                                                                                   precision_digits=precision) == -1)
-        previous_product_uom_qty = {line.id: line.product_uom_qty for line in lines}
-        res = super(SaleOrderLine, self).write(values)
-        if lines:
-            lines.with_context(previous_product_uom_qty=previous_product_uom_qty)._action_launch_stock_rule()
-        return res
-
     @api.multi
     def _action_launch_stock_rule(self):
         """
@@ -462,6 +441,7 @@ class SaleOrderLine(models.Model):
         if errors:
             raise UserError('\n'.join(errors))
         return True
+
 
 class PaymentPlan(models.Model):
     _name = "payment.plan"
