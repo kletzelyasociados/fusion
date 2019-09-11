@@ -309,6 +309,8 @@ class SaleOrder(models.Model):
             'state': 'sale',
             'confirmation_date': fields.Datetime.now()
         })
+        self._action_confirm()
+        return True
 
     @api.multi
     def action_authorize(self):
