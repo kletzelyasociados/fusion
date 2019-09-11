@@ -309,8 +309,13 @@ class SaleOrder(models.Model):
             'state': 'sale',
             'confirmation_date': fields.Datetime.now()
         })
-        self._action_confirm()
+
         return True
+
+    @api.multi
+    @api.onchange('order_line.product_id')
+    def product_id_change(self):
+        self.order_line._action_launch_stock_rule()
 
     @api.multi
     def action_authorize(self):
