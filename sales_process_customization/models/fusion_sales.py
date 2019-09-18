@@ -108,97 +108,179 @@ class SaleOrder(models.Model):
                             copy=False,
                             track_visibility='onchange')
 
+    general_data_filename = fields.Char(string='Nombre del Archivo')
+
     credit_request = fields.Binary(string='Solicitud de crédito',
                             copy=False,
                             track_visibility='onchange')
+
+    credit_request_expiration_date = fields.Date(string='Fecha de Expiración de Solicitud',
+                                     copy=False,
+                                     track_visibility='onchange')
+
+    credit_request_filename = fields.Char(string='Nombre del Archivo')
 
     identification_id = fields.Binary(string='Identificación',
                             copy=False,
                             track_visibility='onchange')
 
+    identification_id_filename = fields.Char(string='Nombre del Archivo')
+
     id_expiration_date = fields.Date(string='Fecha de Expiración',
                             copy=False,
                             track_visibility='onchange')
 
-    fiscal_id = fields.Binary(string='Fiscal',
+    fiscal_id = fields.Binary(string='Constancia de Situación Fiscal',
                             copy=False,
                             track_visibility='onchange')
+
+    fiscal_id_expiration_date = fields.Date(string='Fecha de Expiración de Constancia',
+                                                 copy=False,
+                                                 track_visibility='onchange')
+
+    fiscal_id_filename = fields.Char(string='Nombre del Archivo')
 
     curp = fields.Binary(string='CURP',
                             copy=False,
                             track_visibility='onchange')
 
+    curp_filename = fields.Char(string='Nombre del Archivo')
+
     proof_of_address = fields.Binary(string='Comprobante de domicilio',
                             copy=False,
                             track_visibility='onchange')
+
+    proof_of_address_expiration_date = fields.Date(string='Fecha de Expiración de Comprobante',
+                                  copy=False,
+                                  track_visibility='onchange')
+
+    proof_of_address_filename = fields.Char(string='Nombre del Archivo')
 
     birth_certificate = fields.Binary(string='Acta de nacimiento',
                             copy=False,
                             track_visibility='onchange')
 
+    birth_certificate_filename = fields.Char(string='Nombre del Archivo')
+
     marriage_certificate = fields.Binary(string='Acta de matrimonio',
                             copy=False,
                             track_visibility='onchange')
+
+    marriage_certificate_filename = fields.Char(string='Nombre del Archivo')
 
     birth_certificate_2 = fields.Binary(string='Acta de nacimiento de conyugue',
                             copy=False,
                             track_visibility='onchange')
 
-    sic = fields.Binary(string='Sociedad de información crediticia',
+    birth_certificate_2_filename = fields.Char(string='Nombre del Archivo')
+
+    sic = fields.Binary(string='Sociedad de Información Crediticia',
                             copy=False,
                             track_visibility='onchange')
+
+    sic_filename = fields.Char(string='Nombre del Archivo')
 
     infonavit_conference = fields.Binary(string='Taller saber para decidir',
                             copy=False,
                             track_visibility='onchange')
 
-    inst_certificate = fields.Binary(string='Carta de instrucción irrevocable',
+    infonavit_conference_expiration_date = fields.Date(string='Fecha de Expiración de Taller',
+                                                   copy=False,
+                                                   track_visibility='onchange')
+
+    infonavit_conference_filename = fields.Char(string='Nombre del Archivo')
+
+    inst_certificate = fields.Binary(string='Carta de Instrucción Irrevocable',
                             copy=False,
                             track_visibility='onchange')
+
+    inst_certificate_filename = fields.Char(string='Nombre del Archivo')
 
     pre_qualification_infonavit = fields.Binary(string='Precalificación de INFONAVIT',
                             copy=False,
                             track_visibility='onchange')
 
+    pre_qualification_infonavit_filename = fields.Char(string='Nombre del Archivo')
+
     ecotechnics = fields.Binary(string='Ecotecnias',
                             copy=False,
                             track_visibility='onchange')
+
+    ecotechnics_filename = fields.Char(string='Nombre del Archivo')
 
     infonavit_account = fields.Binary(string='Hoja mi cuenta INFONAVIT',
                             copy=False,
                             track_visibility='onchange')
 
+    infonavit_account_filename = fields.Char(string='Nombre del Archivo')
+
     salary_receipt = fields.Binary(string='Último recibo de nómina',
                             copy=False,
                             track_visibility='onchange')
+
+    salary_receipt_filename = fields.Char(string='Nombre del Archivo')
 
     afore_account = fields.Binary(string='Estado de cuenta AFORE',
                             copy=False,
                             track_visibility='onchange')
 
+    afore_account_filename = fields.Char(string='Nombre del Archivo')
+
     credit_bureau_report = fields.Binary(string='Reporte buró de crédito',
                             copy=False,
                             track_visibility='onchange')
+
+    credit_bureau_report_filename = fields.Char(string='Nombre del Archivo')
 
     appraisal = fields.Binary(string='Avalúo',
                             copy=False,
                             track_visibility='onchange')
 
+    appraisal_expiration_date = fields.Date(string='Fecha de Expiración del Avalúo',
+                                  copy=False,
+                                  track_visibility='onchange')
+
+    appraisal_filename = fields.Char(string='Nombre del Archivo')
+
     salary_receipts = fields.Binary(string='Recibos de nómina',
                             copy=False,
                             track_visibility='onchange')
+
+    salary_receipts_expiration_date = fields.Date(string='Fecha de Recibos',
+                                  copy=False,
+                                  track_visibility='onchange')
+
+    salary_receipts_filename = fields.Char(string='Nombre del Archivo')
 
     bank_acount_receipts = fields.Binary(string='Estados de cuenta bancarios',
                             copy=False,
                             track_visibility='onchange')
 
+    bank_acount_receipts_expiration_date = fields.Date(string='Fecha de Expiración de Estados de Cuenta',
+                                  copy=False,
+                                  track_visibility='onchange')
+
+    bank_acount_receipts_filename = fields.Char(string='Nombre del Archivo')
+
     tax_declaration = fields.Binary(string='Declaraciones de Impuestos',
                             copy=False,
                             track_visibility='onchange')
 
+    tax_declaration_expiration_date = fields.Date(string='Fecha de Expiración de Declaraciones',
+                                  copy=False,
+                                  track_visibility='onchange')
+
+    tax_declaration_filename = fields.Char(string='Nombre del Archivo')
+
     labor_voucher = fields.Binary(string='Carta Laboral',
                             copy=False,
                             track_visibility='onchange')
+
+    labor_voucher_expiration_date = fields.Date(string='Fecha de Carta Laboral',
+                                  copy=False,
+                                  track_visibility='onchange')
+
+    labor_voucher_filename = fields.Char(string='Nombre del Archivo')
 
     @api.one
     @api.depends('payment_plan_id.payment_amount')

@@ -166,32 +166,41 @@
                 <page string="Titulación">
                     <group>
                         <group>
-                            <field name="general_data" widget="binary"/>
-                            <field name="credit_request" widget="binary"/>
-                            <field name="identification_id" widget="binary"/>
+                            <field name="general_data" filename="general_data_filename" help="Adjuntar Hoja de Datos Generales en Formato PDF" widget="binary"/>
+                            <field name="credit_request" filename="credit_request_filename" help="Adjuntar Solicitud de Crédito en Formato PDF" widget="binary"/>
+                            <field name="credit_request_expiration_date"/>
+                            <field name="identification_id" filename="credit_request_filename" help="Adjuntar INE en Formato PDF" widget="binary"/>
                             <field name="id_expiration_date"/>
-                            <field name="fiscal_id" widget="binary"/>
-                            <field name="curp" widget="binary"/>
-                            <field name="proof_of_address" widget="binary"/>
-                            <field name="birth_certificate" widget="binary"/>
-                            <field name="marriage_certificate" widget="binary"/>
-                            <field name="birth_certificate_2" widget="binary"/>
-                            <field name="sic" widget="binary"/>
-                            <field name="infonavit_conference" widget="binary"/>
+                            <field name="fiscal_id" filename="fiscal_id_filename" help="Adjuntar Constancia de Situación Fiscal en Formato PDF" widget="binary"/>
+                            <field name="fiscal_id_expiration_date"/>
+                            <field name="curp" filename="curp_filename" help="Adjuntar CURP en Formato PDF" widget="binary"/>
+                            <field name="proof_of_address" filename="credit_request_filename" help="Adjuntar Solicitud de Crédito en Formato PDF" widget="binary"/>
+                            <field name="proof_of_address_expiration_date"/>
+                            <field name="birth_certificate" filename="birth_certificate_filename" help="Adjuntar Acta de Nacimiento en Formato PDF" widget="binary"/>
+                            <field name="marriage_certificate" filename="marriage_certificate_filename" help="Adjuntar Acta de Matrimonio en Formato PDF" widget="binary"/>
+                            <field name="birth_certificate_2" filename="birth_certificate_2_filename" help="Adjuntar Acta de Nacimiento de Conyuge en Formato PDF" widget="binary"/>
+                            <field name="sic" filename="sic_filename" help="Adjuntar Reporte de Sociedad de Información Crediticia en Formato PDF" widget="binary"/>
+                            <field name="infonavit_conference" filename="infonavit_conference_filename" help="Adjuntar COmprobante en Formato PDF" widget="binary"/>
+                            <field name="infonavit_conference_expiration_date"/>
                         </group>
                         <group>
-                            <field name="inst_certificate" widget="binary"/>
-                            <field name="pre_qualification_infonavit" widget="binary"/>
-                            <field name="ecotechnics" widget="binary"/>
-                            <field name="infonavit_account" widget="binary"/>
-                            <field name="salary_receipt" widget="binary"/>
-                            <field name="afore_account" widget="binary"/>
-                            <field name="credit_bureau_report" widget="binary"/>
-                            <field name="appraisal" widget="binary"/>
-                            <field name="salary_receipts" widget="binary"/>
-                            <field name="bank_acount_receipts" widget="binary"/>
-                            <field name="tax_declaration" widget="binary"/>
-                            <field name="labor_voucher" widget="binary"/>
+                            <field name="inst_certificate" filename="inst_certificate_filename" help="Adjuntar Carta de Instrucción Irrevocable en Formato PDF" widget="binary"/>
+                            <field name="pre_qualification_infonavit" filename="credit_request_filename" help="Adjuntar Pre-calificación de Infonavit en Formato PDF" widget="binary"/>
+                            <field name="ecotechnics" filename="ecotechnics_filename" help="Adjuntar Ecotecnias en Formato PDF" widget="binary"/>
+                            <field name="infonavit_account" filename="infonavit_account_filename" help="Adjuntar Hoja de Cuenta INFONAVIT en Formato PDF" widget="binary"/>
+                            <field name="salary_receipt" filename="salary_receipt_filename" help="Adjuntar Último Recibo de Nómina en Formato PDF" widget="binary"/>
+                            <field name="afore_account" filename="afore_account_filename" help="Adjuntar Estado de Cuenta del Afore en Formato PDF" widget="binary"/>
+                            <field name="credit_bureau_report" filename="credit_bureau_report_filename" help="Adjuntar Reporte de Buró de Crédito en Formato PDF" widget="binary"/>
+                            <field name="appraisal" filename="appraisal_filename" help="Adjuntar Avalúo en Formato PDF" widget="binary"/>
+                            <field name="appraisal_expiration_date"/>
+                            <field name="salary_receipts" filename="salary_receipts_filename" help="Adjuntar Recibos de Nómina en Formato PDF" widget="binary"/>
+                            <field name="salary_receipt_expiration_date"/>
+                            <field name="bank_acount_receipts" filename="bank_acount_receipts_filename" help="Adjuntar Estados de Cuenta Bancarios en Formato PDF" widget="binary"/>
+                            <field name="bank_acount_receipts_expiration_date"/>
+                            <field name="tax_declaration" filename="tax_declaration_filename" help="Adjuntar Declaraciones Fiscales en Formato PDF" widget="binary"/>
+                            <field name="tax_declaration_expiration_date"/>
+                            <field name="labor_voucher" filename="labor_voucher_filename" help="Adjuntar Carta Laboral en Formato PDF" widget="binary"/>
+                            <field name="labor_voucher_expiration_date"/>
                         </group>
                     </group>
                 </page>
