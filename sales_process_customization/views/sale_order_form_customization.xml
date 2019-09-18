@@ -194,7 +194,7 @@
                             <field name="appraisal" filename="appraisal_filename" help="Adjuntar Avalúo en Formato PDF" widget="binary"/>
                             <field name="appraisal_expiration_date"/>
                             <field name="salary_receipts" filename="salary_receipts_filename" help="Adjuntar Recibos de Nómina en Formato PDF" widget="binary"/>
-                            <field name="salary_receipt_expiration_date"/>
+                            <field name="salary_receipts_expiration_date"/>
                             <field name="bank_acount_receipts" filename="bank_acount_receipts_filename" help="Adjuntar Estados de Cuenta Bancarios en Formato PDF" widget="binary"/>
                             <field name="bank_acount_receipts_expiration_date"/>
                             <field name="tax_declaration" filename="tax_declaration_filename" help="Adjuntar Declaraciones Fiscales en Formato PDF" widget="binary"/>
