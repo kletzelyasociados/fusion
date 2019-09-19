@@ -167,7 +167,7 @@
                         <field name="comm_to_pay" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary"/>
                     </group>
                 </page>
-                <page string="Titulación">
+                <page string="Integración">
                     <group>
                         <group>
                             <field name="general_data" filename="general_data_filename" help="Adjuntar Hoja de Datos Generales en Formato PDF" widget="binary"/>
@@ -233,7 +233,7 @@
                 </page>
             </xpath>
 
-            <xpath expr="//field[@name='commitment_date']" position="after">
+            <xpath expr="//field[@name='requested_date']" position="after">
                 <field name="sale_date"/>
                 <field name="integration_date"/>
                 <field name="entitlement_date"/>
