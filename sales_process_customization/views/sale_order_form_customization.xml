@@ -240,10 +240,10 @@
     </record>
 
 
-    <record model="ir.ui.view" id="sale_order_customization">
+    <record model="ir.ui.view" id="sale_order_stock_customization">
         <field name="name">sale.order.sale.stock.custom.form</field>
         <field name="model">sale.order</field>
-        <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock "/>
+        <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='commitment_date']" position="after">
                 <field name="sale_date"/>
