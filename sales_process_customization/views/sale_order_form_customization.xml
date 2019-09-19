@@ -179,7 +179,7 @@
                             <field name="birth_certificate" filename="birth_certificate_filename" help="Adjuntar Acta de Nacimiento en Formato PDF" widget="binary"/>
                             <field name="marriage_certificate" filename="marriage_certificate_filename" help="Adjuntar Acta de Matrimonio en Formato PDF" widget="binary"/>
                             <field name="birth_certificate_2" filename="birth_certificate_2_filename" help="Adjuntar Acta de Nacimiento de Conyuge en Formato PDF" widget="binary"/>
-                            <field name="sic" filename="sic_filename" help="Adjuntar Reporte de Sociedad de Información Crediticia en Formato PDF" widget="binary" attrs="{'invisible': [('pricelist_id', 'like', 'BANCARIO'),('pricelist_id', 'like', 'FOVISSTE')]}"/>
+                            <field name="sic" filename="sic_filename" help="Adjuntar Reporte de Sociedad de Información Crediticia en Formato PDF" widget="binary" attrs="{'invisible': [('pricelist_id', 'like', 'BANCARIO')]}"/>
                             <field name="infonavit_conference" filename="infonavit_conference_filename" help="Adjuntar COmprobante en Formato PDF" widget="binary"/>
                             <field name="infonavit_conference_expiration_date"/>
                         </group>
