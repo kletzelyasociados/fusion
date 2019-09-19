@@ -205,6 +205,10 @@
                     </group>
                 </page>
             </xpath>
+
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="hr_employee_id"/>
+            </xpath>
         </field>
     </record>
 
