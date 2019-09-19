@@ -51,6 +51,8 @@ class SaleOrder(models.Model):
     payment_plan_id = fields.One2many('payment.plan', 'sale_order_id', string='Plan de Pagos',
         readonly=True, states={'draft': [('readonly', False)]})
 
+    deed_id = fields.Char(string='No. de Escritura')
+
     payments_ids = fields.One2many('account.payment', 'sale_order_id', readonly=True, string='Pagos Recibidos')
 
     plan_total = fields.Float(string='Total Plan',
@@ -284,6 +286,36 @@ class SaleOrder(models.Model):
                                   track_visibility='onchange')
 
     labor_voucher_filename = fields.Char(string='Nombre del Archivo')
+
+    # Other Information Page
+
+    sale_date = fields.Date(string='Fecha de Confirmación de Venta',
+                                     copy=False,
+                                     track_visibility='onchange')
+
+    integration_date = fields.Date(string='Fecha de Comienzo de Integración',
+                            copy=False,
+                            track_visibility='onchange')
+
+    entitlement_date = fields.Date(string='Fecha de Comienzo de Titulación',
+                            copy=False,
+                            track_visibility='onchange')
+
+    house_finished_date = fields.Date(string='Fecha de Terminación de la Casa',
+                            copy=False,
+                            track_visibility='onchange')
+
+    quality_check_date = fields.Date(string='Fecha de Recepción Postventa',
+                            copy=False,
+                            track_visibility='onchange')
+
+    paid_date = fields.Date(string='Fecha de Pago Total',
+                            copy=False,
+                            track_visibility='onchange')
+
+    deed_date = fields.Date(string='Fecha de Escrituración',
+                            copy=False,
+                            track_visibility='onchange')
 
     @api.one
     @api.depends('payment_plan_id.payment_amount')
