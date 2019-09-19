@@ -207,7 +207,7 @@
             </xpath>
 
             <xpath expr="//field[@name='user_id']" position="after">
-                <field name="hr_employee_id"/>
+                <field name="hr_employee_id" domain="[('department_id.name','=','Ventas')]"/>
             </xpath>
         </field>
     </record>
