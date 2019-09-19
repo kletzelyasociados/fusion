@@ -44,6 +44,9 @@ class SaleOrder(models.Model):
         track_sequence=3,
         default='draft')
 
+    hr_employee_id = fields.Many2one('hr.employee',
+                                     string='Vendedor')
+
     # Payments Page
     payment_plan_id = fields.One2many('payment.plan', 'sale_order_id', string='Plan de Pagos',
         readonly=True, states={'draft': [('readonly', False)]})
