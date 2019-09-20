@@ -175,16 +175,16 @@
                             <field name="credit_request" filename="credit_request_filename" help="Adjuntar Solicitud de Crédito en Formato PDF" widget="binary"/>
                             <field name="credit_request_filename" invisible="1"/>
                             <field name="credit_request_expiration_date"/>
-                            <field name="identification_id" filename="credit_request_filename" help="Adjuntar INE en Formato PDF" widget="binary"/>
-                            <field name="credit_request_filename" invisible="1"/>
+                            <field name="identification_id" filename="identification_id_filename" help="Adjuntar INE en Formato PDF" widget="binary"/>
+                            <field name="identification_id_filename" invisible="1"/>
                             <field name="id_expiration_date"/>
                             <field name="fiscal_id" filename="fiscal_id_filename" help="Adjuntar Constancia de Situación Fiscal en Formato PDF" widget="binary"/>
                             <field name="fiscal_id_filename" invisible="1"/>
                             <field name="fiscal_id_expiration_date"/>
                             <field name="curp" filename="curp_filename" help="Adjuntar CURP en Formato PDF" widget="binary"/>
                             <field name="curp_filename" invisible="1"/>
-                            <field name="proof_of_address" filename="credit_request_filename" help="Adjuntar Solicitud de Crédito en Formato PDF" widget="binary"/>
-                            <field name="credit_request_filename" invisible="1"/>
+                            <field name="proof_of_address" filename="proof_of_address_filename" help="Adjuntar Solicitud de Crédito en Formato PDF" widget="binary"/>
+                            <field name="proof_of_address_filename" invisible="1"/>
                             <field name="proof_of_address_expiration_date"/>
                             <field name="birth_certificate" filename="birth_certificate_filename" help="Adjuntar Acta de Nacimiento en Formato PDF" widget="binary"/>
                             <field name="birth_certificate_filename" invisible="1"/>
@@ -201,8 +201,8 @@
                         <group>
                             <field name="inst_certificate" filename="inst_certificate_filename" help="Adjuntar Carta de Instrucción Irrevocable en Formato PDF" widget="binary"/>
                             <field name="inst_certificate_filename" invisible="1"/>
-                            <field name="pre_qualification_infonavit" filename="credit_request_filename" help="Adjuntar Pre-calificación de Infonavit en Formato PDF" widget="binary"/>
-                            <field name="credit_request_filename" invisible="1"/>
+                            <field name="pre_qualification_infonavit" filename="pre_qualification_infonavit_filename" help="Adjuntar Pre-calificación de Infonavit en Formato PDF" widget="binary"/>
+                            <field name="pre_qualification_infonavit_filename" invisible="1"/>
                             <field name="ecotechnics" filename="ecotechnics_filename" help="Adjuntar Ecotecnias en Formato PDF" widget="binary"/>
                             <field name="ecotechnics_filename" invisible="1"/>
                             <field name="infonavit_account" filename="infonavit_account_filename" help="Adjuntar Hoja de Cuenta INFONAVIT en Formato PDF" widget="binary"/>
