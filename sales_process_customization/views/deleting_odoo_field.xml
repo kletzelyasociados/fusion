@@ -1,5 +1,0 @@
-<odoo>
-    <data noupdate="1">
-        <function model="clean.field" name="init_remove_field"/>
-    </data>
-</odoo>
