@@ -289,10 +289,6 @@ class SaleOrder(models.Model):
 
     # Other Information Page
 
-    sale_date = fields.Date(string='Fecha de Confirmación de Venta',
-                                     copy=False,
-                                     track_visibility='onchange')
-
     integration_date = fields.Date(string='Fecha de Comienzo de Integración',
                             copy=False,
                             track_visibility='onchange')
