@@ -235,7 +235,7 @@
                     <h4>Plan de Pagos</h4>
                     <field name="credit_payment_plan_id" mode="tree" attrs="{'readonly': [('state', 'in', ('done','cancel'))]}">
                         <tree string="Plan de Pagos del Crédito" editable="bottom" >
-                            <field name="partner_id" domain="[('name','like','IGS'),('name','like','BANCO')]"/>
+                            <field name="partner_id" domain="[('supplier','=',True)]"/>
                             <field name="payment_date"/>
                             <field name="payment_amount" widget="monetary"/>
                             <field name="payment_type"/>
