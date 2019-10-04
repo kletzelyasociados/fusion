@@ -646,6 +646,22 @@ class Commissions(models.Model):
 
     voucher_filename = fields.Char(string='Nombre del Archivo del Comprobante')
 
+    @api.multi
+    def action_draft(self):
+        return True
+
+    @api.multi
+    def action_paid(self):
+        return True
+
+    @api.multi
+    def action_cancel(self):
+        return True
+
+    @api.multi
+    def action_view_invoice_line(self):
+        return True
+
 
 class CreditPaymentPlan(models.Model):
     _name = "credit.payment.plan"

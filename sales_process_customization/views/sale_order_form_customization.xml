@@ -323,16 +323,44 @@
             <field name="name">sale.commissions.form</field>
             <field name="model">sale.commissions</field>
             <field name="arch" type="xml">
-                <form string="Comision de Venta" version="7.0">
-                    <!-- Add All Fields You Want In The Form Here -->
-                    <field name="sale_order_id"/>
-                    <field name="employee_id"/>
-                    <field name="payment_date"/>
-                    <field name="payment_amount"/>
-                    <field name="state"/>
-                    <field name="note"/>
-                    <field name="voucher_filename" invisible="1"/>
-                    <field name="voucher" filename="voucher_filename" widget="binary"/>
+                <form string="Comision de Venta">
+                    <header>
+                        <button name="action_draft" string="Cambiar a Borrador" type="object" states="cancel"/>
+                        <button name="action_paid" string="Registrar como Pagada" type="object"  states="draft"/>
+                        <button name="action_cancel" string="Cancelar" type="object"  states="paid,draft"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,paid,cancel"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_invoice_line"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-pencil-square-o"
+                                attrs="{'invisible': [('invoice_count', '=', 0)]}">
+                                <field name="invoice_count" widget="statinfo" string="Invoices"/>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="sale_order_id"/>
+                                <field name="employee_id" widget="res_partner_many2one" domain="[('department_id.name','=','Ventas')]"/>
+                            </group>
+                            <group>
+                                <field name="payment_date"/>
+                                <field name="payment_amount"/>
+                                <field name="note"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="voucher_filename" invisible="1"/>
+                            <field name="voucher" filename="voucher_filename" widget="preview_binary"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
                 </form>
             </field>
         </record>
