@@ -350,7 +350,7 @@
                 name="Comisiones"
                 action="action_commissions"
                 id="action_menu_commissions"
-                parent="sale_order_menu"
+                parent="sale.sale_order_menu"
                 sequence="5"/>
     </data>
 
