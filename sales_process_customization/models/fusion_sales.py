@@ -35,7 +35,7 @@ class SaleOrder(models.Model):
         ('deed', 'Escrituración'), # Autorización de Liliana
         ('done', 'Entregada'), # Verificación de Pablo Guerrero
         ('cancel_request', 'Solicitud de Cancelación'), # Autorización de Alejandro
-        ('cancel', 'Cancelled'), # Autorización de Alejandro
+        ('cancel', 'Cancelada'), # Autorización de Alejandro
     ], string='Estado',
         readonly=True,
         copy=False,
@@ -643,6 +643,8 @@ class Commissions(models.Model):
     voucher = fields.Binary(string='Comprobante',
                             copy=False,
                             track_visibility='onchange')
+
+    voucher_filename = fields.Char(string='Nombre del Archivo del Comprobante')
 
 
 class CreditPaymentPlan(models.Model):
