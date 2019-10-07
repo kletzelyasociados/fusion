@@ -6,7 +6,7 @@ from odoo.tools import float_compare
 
 
 class AccountMove(models.Model):
-    _inherit = ["account.move", 'mail.thread', 'mail.activity.mixin', 'portal.mixin']
+    _inherit = ['account.move', 'mail.thread', 'mail.activity.mixin', 'portal.mixin']
 
     state = fields.Selection([('draft', 'Borrador'),
                               ('post_request','Solicitud de Posteo'),
