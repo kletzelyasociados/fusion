@@ -25,9 +25,6 @@
           <button name="%(account.action_view_account_move_reversal)d" position="replace">
             <button name="%(account.action_view_account_move_reversal)d" states="posted" string="Asiento de reversión" type="action" groups="account.group_warning_account"/>
           </button>
-          <xpath expr="//button[@name='action_duplicate']" position="replace">
-            <button name="action_duplicate" string="Duplicate" type="object" groups="account.group_warning_account"/>
-          </xpath>
 
           <header>
               <button name="action_approve" type="object" states="post_request, cancel_request" string="Autorizar" class="oe_highlight" options="{}"/>
