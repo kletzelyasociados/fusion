@@ -90,6 +90,6 @@ class AccountMove(models.Model):
                     self.write({'state': 'posted'})
 
             else:
-                raise ValidationError('No tienes permisos para autorizar movimientos de pólizas manuales')
+                raise ValidationError('No tienes permisos para rechazar movimientos de pólizas manuales')
         else:
             raise ValidationError('El empleado no se encuentra dado de alta, o el correo electrónico en el empleado no es el mismo que el del usuario')
