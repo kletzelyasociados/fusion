@@ -2,11 +2,10 @@
 
 from odoo import models, fields, api
 from odoo.exceptions import UserError, ValidationError
-from odoo.tools import float_compare
 
 
 class AccountMove(models.Model):
-    _inherit = ['account.move', 'mail.thread', 'mail.activity.mixin', 'portal.mixin']
+    _inherit = 'account.move'
 
     state = fields.Selection([('draft', 'Borrador'),
                               ('post_request','Solicitud de Posteo'),
