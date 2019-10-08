@@ -1,35 +1,35 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "my_module",
+    'name': "Account Payment History",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        Registration of payment history.""",
 
     'description': """
-        Long description of module's purpose
+        
     """,
 
-    'author': "My Company",
-    'website': "http://www.yourcompany.com",
+    'author': "Manuel Fabela",
+    'website': "https://www.linkedin.com/in/josemanuelvilchis/",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
     # for the full list
-    'category': 'Uncategorized',
-    'version': '0.1',
+    'category': 'Accounting',
+    'version': '0.0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base', 'account', 'account_payment'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/views.xml',
-        'views/templates.xml',
+        'views/account_payment_history.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
     ],
+    'installable': True,
+    'auto_install': True,
 }
