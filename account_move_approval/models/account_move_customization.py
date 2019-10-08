@@ -9,7 +9,7 @@ class AccountMove(models.Model):
 
     state = fields.Selection([('draft', 'Borrador'),
                               ('post_request','Solicitud de Posteo'),
-                              ('cancel_request', 'Solicitud de Posteo'),
+                              ('cancel_request', 'Solicitud de Cancelación'),
                               ('posted', 'Validado'),
                               ('rejected', 'Rechazado')],
                              string='Estado',
