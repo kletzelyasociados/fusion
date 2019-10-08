@@ -23,7 +23,7 @@
             <button name="action_post_request" states="draft" string="Solicitar Contabilización" type="object" class="oe_highlight" groups="account.group_account_invoice"/>
           </xpath>
           <button name="%(account.action_view_account_move_reversal)d" position="replace">
-            <button name="%(action_view_account_move_reversal)d" states="posted" string="Asiento de reversión" type="action" groups="account.group_warning_account"/>
+            <button name="%(account.action_view_account_move_reversal)d" states="posted" string="Asiento de reversión" type="action" groups="account.group_warning_account"/>
           </button>
           <xpath expr="//button[@name='action_duplicate']" position="replace">
             <button name="action_duplicate" string="Duplicate" type="object" groups="account.group_warning_account"/>
