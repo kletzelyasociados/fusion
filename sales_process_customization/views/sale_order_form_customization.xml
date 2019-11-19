@@ -149,6 +149,7 @@
                             <field name="payment_amount" widget="monetary"/>
                             <field name="note"/>
                             <field name="state"/>
+                            <field name="voucher_filename" invisible="1"/>
                             <field name="voucher" widget="binary"/>
                         </tree>
                     </field>
@@ -229,49 +230,6 @@
                             <field name="labor_voucher_filename" invisible="1"/>
                             <field name="labor_voucher_expiration_date"/>
                         </group>
-                    </group>
-                </page>
-                <page string="Control del Crédito">
-                    <h4>Plan de Pagos</h4>
-                    <field name="credit_payment_plan_id" mode="tree" attrs="{'readonly': [('state', 'in', ('done','cancel'))]}">
-                        <tree string="Plan de Pagos del Crédito" editable="bottom" >
-                            <field name="partner_id" domain="['|',('name','ilike','BANCO'),('name','ilike','IGS')]"/>
-                            <field name="payment_date"/>
-                            <field name="payment_amount" widget="monetary"/>
-                            <field name="payment_type"/>
-                        </tree>
-                    </field>
-                    <group class="oe_subtotal_footer oe_right" colspan="2" name="credit_plan_total">
-                        <div class="oe_subtotal_footer_separator oe_inline o_td_label">
-                            <label for="credit_plan_total"/>
-                        </div>
-                        <field name="credit_plan_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary"/>
-                    </group>
-                    <br>
-
-                    </br>
-                    <br>
-
-                    </br>
-                    <h4>Pagos Realizados</h4>
-                    <field name="credit_payments_ids" mode="tree">
-                        <tree string="Pagos Realizados" editable="bottom">
-                            <field name="partner_id"/>
-                            <field name="payment_date"/>
-                            <field name="amount" widget="monetary"/>
-                            <field name="communication"/>
-                            <field name="state"/>
-                        </tree>
-                    </field>
-                    <group class="oe_subtotal_footer oe_right" colspan="2" name="credit_paid_total">
-                        <div class="oe_subtotal_footer_separator oe_inline o_td_label">
-                            <label for="credit_paid_total"/>
-                        </div>
-                        <field name="credit_paid_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary"/>
-                        <div class="oe_subtotal_footer_separator oe_inline o_td_label">
-                            <label for="credit_open_total"/>
-                        </div>
-                        <field name="credit_open_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary"/>
                     </group>
                 </page>
             </xpath>

@@ -13,6 +13,7 @@
                             <field name="payment_amount" widget="monetary"/>
                             <field name="note"/>
                             <field name="state"/>
+                            <field name="voucher_filename" invisible="1"/>
                             <field name="voucher" widget="binary"/>
                         </tree>
                     </field>
