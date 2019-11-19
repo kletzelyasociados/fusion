@@ -593,7 +593,7 @@ class Commissions(models.Model):
 
     voucher_filename = fields.Char(string='Nombre del Archivo del Comprobante')
 
-    invoice_line_count = fields.Integer(string='No. de Líneas de Factura', compute='_get_invoiced', readonly=True)
+    # invoice_line_count = fields.Integer(string='No. de Líneas de Factura', compute='_get_invoiced', readonly=True)
 
     # @api.depends('state', 'order_line.invoice_status', 'order_line.invoice_lines')
     def _get_invoiced(self):
