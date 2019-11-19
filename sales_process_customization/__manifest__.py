@@ -20,7 +20,7 @@
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
     # for the full list
     'category': 'Sale',
-    'version': '2.3.0',
+    'version': '3.0.0',
 
     # any module necessary for this one to work correctly
     'depends': ['base', 'sale', 'sale_management', 'hr', 'sale_order_dates', 'sale_stock'],
