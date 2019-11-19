@@ -6,7 +6,6 @@
         <field name="arch" type="xml">
             <field name="communication" position="after">
                 <field name="sale_order_id" attrs="{'invisible': [('payment_type', '!=', 'inbound')]}" domain="[('partner_id','=',partner_id)]"/>
-                <field name="credit_sale_order_id" attrs="{'invisible': [('payment_type', '!=', 'outbound')]}"/>
             </field>
         </field>
     </record>
