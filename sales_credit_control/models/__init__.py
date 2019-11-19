@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-from . import invoice_payment_check
+from . import fusion_sales

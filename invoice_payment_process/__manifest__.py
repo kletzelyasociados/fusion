@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Credit Control",
+    'name': "Payment check process",
 
     'summary': """
-        In this module we will control the payments that we do for the requested financial credits""",
+        This module helps to determine if the requested payment proceeds.""",
 
     'description': """
-        In this module we will control the payments that we do for the requested financial credits
+        This module adds a functionality to request invoice payments.
+        It does an extra validation to check if the requested payment is approved by the corresponding manager and if 
+        it's amount is lower than the Purchase Order to which it is related.
     """,
 
     'author': "Manuel Fabela",
@@ -15,17 +17,19 @@
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
     # for the full list
-    'category': 'Sale',
-    'version': '0.0.1',
+    'category': 'Purchase',
+    'version': '2.0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'sale', 'sale_management', 'sale_stock'],
+    'depends': ['base', 'purchase', 'account'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/sale_order_credit_form_customization.xml',
-        'views/account_payment_credit_form_customization.xml',
+        'views/account_invoice_form_view.xml',
+        'views/purchase_order_form_view.xml',
+        'views/views.xml',
+        'views/templates.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
