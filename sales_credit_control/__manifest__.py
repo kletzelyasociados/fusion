@@ -16,16 +16,17 @@
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
     # for the full list
     'category': 'Sale',
-    'version': '1.0.0',
+    'version': '3.0.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'sale', 'sale_management', 'sale_stock'],
+    'depends': ['base', 'sale', 'sale_management', 'hr', 'sale_order_dates', 'sale_stock'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/sale_order_credit_form_customization.xml',
-        'views/account_payment_credit_form_customization.xml',
+        'views/sale_order_form_customization.xml',
+        'views/account_payment_form_customization.xml',
+        'views/hr_employee_form_customization.xml'
     ],
     # only loaded in demonstration mode
     'demo': [
