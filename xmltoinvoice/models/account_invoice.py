@@ -4,7 +4,7 @@ import base64
 from odoo.exceptions import AccessError, UserError, RedirectWarning, ValidationError, Warning
 import re
 from odoo import models, fields, api
-from datetime import datetime
+import datetime
 
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
