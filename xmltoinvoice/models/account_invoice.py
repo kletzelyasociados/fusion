@@ -4,7 +4,7 @@ import base64
 from odoo.exceptions import AccessError, UserError, RedirectWarning, ValidationError, Warning
 import re
 from odoo import models, fields, api
-from datetime import datetime
+import datetime
 
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
@@ -88,6 +88,17 @@ class AccountInvoice(models.Model):
             reference = Serie + " " + Folio
 
             x_invoice_date_sat = invoice_items[0].attributes['Fecha'].value
+
+            x_invoice_date_sat_year = datetime.datetime.strptime(x_invoice_date_sat, '%Y-%m-%dT%H:%M:%S')
+
+            current_year = datetime.datetime.now().year
+
+            if x_invoice_date_sat_year.year < current_year:
+
+                raise ValidationError('La factura no corresponde al presente año fiscal ' + str(current_year)
+                                  + "\nLa factura fue timbrada en : " + str(x_invoice_date_sat_year)
+                                  + " y no se encuentra provisionada, favor de solicitar refacturación.")
+
             amount_untaxed = invoice_items[0].attributes['SubTotal'].value
 
             try:
@@ -386,7 +397,7 @@ class MappedXml:
 
     def __init__(self, reference, x_invoice_date_sat, amount_untaxed, discount, taxes, amount_total, invoice_line_ids, partner):
         self.reference = reference
-        self.x_invoice_date_sat = str(datetime.strptime(x_invoice_date_sat, '%Y-%m-%dT%H:%M:%S').date())
+        self.x_invoice_date_sat = str(datetime.datetime.strptime(x_invoice_date_sat, '%Y-%m-%dT%H:%M:%S').date())
         self.amount_untaxed = float(amount_untaxed)
         self.discount = float(discount)
         self.taxes = float(taxes)
