@@ -95,8 +95,8 @@ class AccountInvoice(models.Model):
 
             if x_invoice_date_sat_year.year < current_year:
 
-                raise ValidationError('La factura no corresponde al presente año fiscal ' + current_year
-                                  + "\nLa factura fue timbrada en : " + x_invoice_date_sat_year
+                raise ValidationError('La factura no corresponde al presente año fiscal ' + str(current_year)
+                                  + "\nLa factura fue timbrada en : " + str(x_invoice_date_sat_year)
                                   + " y no se encuentra provisionada, favor de solicitar refacturación.")
 
             amount_untaxed = invoice_items[0].attributes['SubTotal'].value
