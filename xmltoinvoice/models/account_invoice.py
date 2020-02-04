@@ -89,11 +89,11 @@ class AccountInvoice(models.Model):
 
             x_invoice_date_sat = invoice_items[0].attributes['Fecha'].value
 
-            x_invoice_date_sat_year = datetime.datetime.strptime(x_invoice_date_sat, '%Y-%m-%dT%H:%M:%S').year
+            x_invoice_date_sat_year = datetime.datetime.strptime(x_invoice_date_sat, '%Y-%m-%dT%H:%M:%S')
 
             current_year = datetime.datetime.now().year
 
-            if x_invoice_date_sat_year < current_year:
+            if x_invoice_date_sat_year.year < current_year:
 
                 raise ValidationError('La factura no corresponde al presente año fiscal ' + current_year
                                   + "\nLa factura fue timbrada en : " + x_invoice_date_sat_year
