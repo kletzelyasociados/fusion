@@ -89,7 +89,7 @@ class AccountInvoice(models.Model):
 
             x_invoice_date_sat = invoice_items[0].attributes['Fecha'].value
 
-            x_invoice_date_sat_year = datetime.datetime.strptime(x_invoice_date_sat, '%Y-%m-%dT%H:%M:%S')
+            x_invoice_date_sat_year = datetime.datetime.strptime(x_invoice_date_sat, '%Y-%m-%dT%H:%M:%S').year
 
             current_year = datetime.datetime.now().year
 
