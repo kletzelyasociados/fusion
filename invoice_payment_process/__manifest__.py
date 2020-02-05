@@ -18,7 +18,7 @@
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
     # for the full list
     'category': 'Purchase',
-    'version': '2.0.1',
+    'version': '2.0.2',
 
     # any module necessary for this one to work correctly
     'depends': ['base', 'purchase', 'account'],
