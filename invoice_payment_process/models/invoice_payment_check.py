@@ -133,8 +133,6 @@ class AccountInvoice(models.Model):
                 self.write({'state': 'approved_by_leader'})
             elif self.department_id.manager_id == approver[0]:
                 self.write({'state': 'approved_by_manager', 'amount_authorized': self.amount_total})
-            elif self.parent_id == approver[0]:
-                self.write({'state': 'approved_by_manager', 'amount_authorized': self.amount_total})
             else:
                 raise ValidationError('No estás autorizado a aprobar solicitudes del departamento: ' + self.department_id.name)
         else:
@@ -147,8 +145,6 @@ class AccountInvoice(models.Model):
             if employee[0].job_id.name == 'Gerente de Urbanización' and employee[0].department_id == self.department_id:
                 self.write({'state': 'payment_rejected'})
             elif self.department_id.manager_id == employee[0]:
-                self.write({'state': 'payment_rejected'})
-            elif self.parent_id == employee[0]:
                 self.write({'state': 'payment_rejected'})
             else:
                 raise ValidationError('No estás autorizado a rechazar solicitudes del departamento: ' + self.department_id.name)
