@@ -3,7 +3,7 @@
 from odoo import models, fields, api
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import float_compare
-
+import datetime
 
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
@@ -168,6 +168,17 @@ class AccountInvoice(models.Model):
                 if to_open_invoices.filtered(lambda inv: not inv.account_id):
                     raise UserError('No account was found to create the invoice, be sure you have installed a chart of account.')
                 self.verify_invoice_line_match_brute_force()
+
+                x_invoice_date_sat_year = datetime.datetime.strptime(self.x_invoice_date_sat, '%Y-%m-%dT%H:%M:%S')
+
+                current_year = datetime.datetime.now().year
+
+                if x_invoice_date_sat_year.year < current_year:
+                    raise ValidationError('La factura no corresponde al presente año fiscal ' + str(current_year)
+                                          + "\nLa factura fue timbrada en : " + str(x_invoice_date_sat_year)
+                                          + " para poder ser validada (provisionada) tiene que tener el campo 'fecha factura' una fecha válida en "
+                                          + str(x_invoice_date_sat_year))
+
                 to_open_invoices.action_date_assign()
                 to_open_invoices.action_move_create()
                 return to_open_invoices.invoice_validate()
