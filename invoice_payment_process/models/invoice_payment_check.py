@@ -169,7 +169,7 @@ class AccountInvoice(models.Model):
                     raise UserError('No account was found to create the invoice, be sure you have installed a chart of account.')
                 self.verify_invoice_line_match_brute_force()
 
-                x_invoice_date_sat_year = datetime.datetime.strptime(self.x_invoice_date_sat, '%Y-%m-%dT%H:%M:%S')
+                x_invoice_date_sat_year = datetime.datetime.strptime(self.x_invoice_date_sat, '%Y-%m-%d')
 
                 current_year = datetime.datetime.now().year
 
