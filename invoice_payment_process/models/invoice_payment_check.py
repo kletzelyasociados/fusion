@@ -169,15 +169,14 @@ class AccountInvoice(models.Model):
                     raise UserError('No account was found to create the invoice, be sure you have installed a chart of account.')
                 self.verify_invoice_line_match_brute_force()
 
-                x_invoice_date_sat_year = datetime.datetime.strptime(self.x_invoice_date_sat, '%Y-%m-%d')
-
-                current_year = datetime.datetime.now().year
-
-                if x_invoice_date_sat_year.year < current_year:
-                    raise ValidationError('La factura no corresponde al presente año fiscal ' + str(current_year)
-                                          + "\nLa factura fue timbrada en : " + str(x_invoice_date_sat_year)
-                                          + " para poder ser validada (provisionada) tiene que tener el campo 'fecha factura' una fecha válida en "
-                                          + str(x_invoice_date_sat_year))
+                if self.x_invoice_date_sat:
+                    x_invoice_date_sat_year = datetime.datetime.strptime(self.x_invoice_date_sat, '%Y-%m-%d')
+                    current_year = datetime.datetime.now().year
+                    if x_invoice_date_sat_year.year < current_year:
+                        raise ValidationError('La factura no corresponde al presente año fiscal ' + str(current_year)
+                                              + "\nLa factura fue timbrada en : " + str(x_invoice_date_sat_year.year)
+                                              + " para poder ser validada (provisionada) tiene que tener el campo 'fecha factura' una fecha válida en "
+                                              + str(current_year-1))
 
                 to_open_invoices.action_date_assign()
                 to_open_invoices.action_move_create()
