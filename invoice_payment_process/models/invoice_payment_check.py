@@ -171,10 +171,11 @@ class AccountInvoice(models.Model):
 
                 if self.x_invoice_date_sat:
                     x_invoice_date_sat_year = datetime.datetime.strptime(self.x_invoice_date_sat, '%Y-%m-%d')
+                    invoice_date = datetime.datetime.strptime(self.date_invoice, '%Y-%m-%d')
                     current_year = datetime.datetime.now().year
-                    if x_invoice_date_sat_year.year < current_year:
+                    if x_invoice_date_sat_year.year < current_year and invoice_date.year >= current_year:
                         raise ValidationError('La factura no corresponde al presente año fiscal ' + str(current_year)
-                                              + "\nLa factura fue timbrada en : " + str(x_invoice_date_sat_year.year)
+                                              + "\nLa factura fue timbrada en : " + str(x_invoice_date_sat_year)
                                               + " para poder ser validada (provisionada) tiene que tener el campo 'fecha factura' una fecha válida en "
                                               + str(current_year-1))
 
